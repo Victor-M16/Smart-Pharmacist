@@ -79,6 +79,8 @@ body {
   box-sizing: border-box;
   flex: 0 0 300px;
   padding: 16px;
+  border-right: solid;
+  border-color: #eee;
 }
 
 .sidebar ul,
