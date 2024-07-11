@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartPharmacist|Home</title>
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">Smart Pharmacist</div>
+
+      <ul class="header-links">
+        <li>
+          <a href="#">[user-name]</a>
+        </li>
+        <li>
+          <a href="#">[dark-mode]</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="content-container">
+      <div class="sidebar">
+        <ul>
+          <li><a href="./doc-home.html"> Home</a></li>
+          <li><a href="./doc-presc.html"> Prescriptions</a></li>
+        </ul>
+      </div>
+
+      <div class="card-container">
+        <div class="card">
+          <div class="quick-presc-form">
+            <p class="heading">Create prescription</p>
+            <form action="" method="post">
+              <form action="/my-handling-form-page" method="post">
+                <ul>
+                  <li>
+                    <label for="diagnosis">Diagnosis:</label>
+                    <input type="text" id="diagnosis" name="diagonsis_name" />
+                  </li>
+                  <li>
+                    <label for="patient-select">Select a patient:</label>
+                    <select name="patients" id="patient-select">
+                      <option value="">--please choose a patient</option>
+                      <option value="khumbo">Khumbo</option>
+                      <option value="victor">Victor</option>
+                    </select>
+                  </li>
+
+                  <li>
+                    <label for="dosage-select">Select a dosage:</label>
+                    <select name="dosages" id="dosage-select">
+                      <option value="">--please choose a dosage</option>
+                      <option value="panado">panado 20T</option>
+                      <option value="aspirin">aspirin 20T</option>
+                    </select>
+                  </li>
+                  <li>[dosages populate here in a list as they are created]</li>
+                  <li>
+                    <label for="directions"> Directions: </label>
+                    <input type="text" id="directions" name="directions" />
+                  </li>
+                  <li>
+                    <label for="information"> Further information: </label>
+                    <input type="text" id="information" name="information" />
+                  </li>
+                </ul>
+                <button>
+                  <a href="#">Create</a>
+                </button>
+              </form>
+            </form>
+          </div>
+        </div>
+        <div class="card">
+          <div class="prev-presc">
+            <p class="heading">Previous prescriptions</p>
+            <p>[list of previously given prescriptions will populate here]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
