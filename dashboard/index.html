@@ -6,41 +6,57 @@
     <title>Login|SmartPharmacist</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="stylesheet" href="/dist/output.css" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
   </head>
-  <body>
-    <section id="login-container">
-      <div class="login-left">
-        <h1>Smart Pharmacist</h1>
+  <body class="min-h-screen flex">
+    <section class="flex flex-1 items-center justify-center">
+      <div
+        class="w-full h-full flex flex-col items-center justify-center bg-zinc-950"
+      >
+        <h1 class="text-white text-[48px] font-extrabold">Smart Pharmacist</h1>
       </div>
-      <div class="login-right">
-        <div class="login-form">
-          <p class="heading">Login</p>
-          <form action="" method="post">
-            <form action="/my-handling-form-page" method="post">
-              <ul>
-                <li>
-                  <label for="name">Username:</label>
-                  <input type="text" id="name" name="user_name" />
-                </li>
-                <li>
-                  <label for="mail">Email:</label>
-                  <input type="email" id="mail" name="user_email" />
-                </li>
-              </ul>
-              <button>
-                <a href="./main-app/doctor-view/doc-home.html">Sign In</a>
-              </button>
-              <p>
-                Not a member? Click
-                <span style="font-weight: bold">
-                  <a href="./main-app/register.html">here</a>
-                </span>
-                to sign up.
-              </p>
-            </form>
-          </form>
-        </div>
+      <div class="w-full h-full flex flex-col items-center justify-center">
+        <form action="/my-handling-form-page" method="post">
+          <p class="text-xl font-bold py-3">Login</p>
+          <label for="name" class="text-sm leading-6 text-gray-900"
+            >Username</label
+          >
+          <div class="my-3">
+            <input
+              type="text"
+              id="name"
+              name="user_name"
+              class="rounded-md shadow-sm ring-1 ring-inset ring-gray-200 focus-within:ring-2 focus-within:ring-inset pl-1"
+            />
+          </div>
+
+          <div>
+            <label for="name" class="text-sm leading-6 text-gray-900" for="mail"
+              >Email</label
+            >
+            <div class="my-3">
+              <input
+                type="email"
+                id="mail"
+                name="user_email"
+                class="rounded-md shadow-sm ring-1 ring-inset ring-gray-200 focus-within:ring-2 focus-within:ring-inset pl-1"
+              />
+            </div>
+          </div>
+          <span
+            class="block w-fit my-5 text-white text-sm bg-zinc-700 rounded-md p-2 font-bold hover:bg-zinc-950"
+          >
+            <a href="./main-app/doctor-view/doc-home.html">Sign In</a>
+          </span>
+          <p class="text-sm">
+            Not a member? Click
+            <span>
+              <a href="./app/register.html" class="font-bold">here</a>
+            </span>
+            to sign up.
+          </p>
+        </form>
       </div>
     </section>
 
