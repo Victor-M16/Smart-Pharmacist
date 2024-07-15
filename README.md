@@ -24,7 +24,7 @@ The Smart Pharmacist Vending Machine is an automated system designed to dispense
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/smart-pharmacist-vending-machine.git
+   git clone https://github.com/your-username/Smart-Pharmacist.git
    cd smart-pharmacist-vending-machine
 
 2. **Install dependencies**:
