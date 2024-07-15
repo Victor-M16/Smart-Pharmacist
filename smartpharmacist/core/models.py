@@ -1,9 +1,13 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+class User(AbstractUser):
+    is_patient = models.BooleanField(default=False)
+    is_doctor = models.BooleanField(default=False)
+    is_pharmacist = models.BooleanField(default=False)
+
 class Patient(models.Model):
-    id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     dob = models.DateField()
     gender = models.CharField(max_length=10)
     contact_info = models.CharField(max_length=255)
@@ -12,10 +16,14 @@ class Patient(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Doctor(models.Model):
-    id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     specialty = models.CharField(max_length=100)
+    contact_info = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Pharmacist(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     contact_info = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
