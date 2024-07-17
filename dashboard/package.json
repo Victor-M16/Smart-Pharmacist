@@ -8,6 +8,7 @@
   "version": "1.0.0",
   "main": "tailwind.config.js",
   "dependencies": {
+    "flowbite": "^2.4.1"
   },
   "plugins": [
     "prettier-plugin-tailwindcss"
