@@ -37,7 +37,7 @@
               <li>
                 <a
                   href="#"
-                  class="block py-2 px-3 text-white bg-zinc-700 rounded hover:font-semibold md:bg-transparent md:text-zinc-700 md:p-0 md:dark:text-zinc-500"
+                  class="block py-2 px-3 text-white bg-zinc-700 rounded hover:text-zinc-600 md:bg-transparent md:text-zinc-700 md:p-0 md:dark:text-zinc-500"
                   aria-current="page"
                   >Home</a
                 >
@@ -45,7 +45,7 @@
               <li>
                 <a
                   href="#"
-                  class="block py-2 px-3 text-zinc-900 rounded hover:font-semibold hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 dark:text-white md:dark:hover:text-zinc-500 dark:hover:bg-zinc-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700"
+                  class="block py-2 px-3 text-zinc-900 rounded hover:text-zinc-600 hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 dark:text-white md:dark:hover:text-zinc-500 dark:hover:bg-zinc-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700"
                   >Prescriptions</a
                 >
               </li>
@@ -66,7 +66,7 @@
             data-dropdown-placement="bottom"
           >
             <span class="sr-only">Open user menu</span>
-            <span class="w-10 h-10 rounded-full bg-slate-800"> </span>
+            <span class="bg-white text-lg"><p>[doctor name]</p> </span>
           </button>
           <!-- Dropdown menu -->
           <div
@@ -135,12 +135,12 @@
         <p class="text-xl font-bold py-3">Quick actions</p>
         <ul>
           <li>
-            <a href="#" class="hover:font-bold transition"
+            <a href="#" class="hover:text-zinc-600 transition"
               >Create New Prescription</a
             >
           </li>
           <li>
-            <a href="#" class="hover:font-bold transition"
+            <a href="./new-patient.html" class="hover:text-zinc-600 transition"
               >Create New Patient</a
             >
           </li>
@@ -202,7 +202,7 @@
       </div>
       <!-- quick prescription view -->
       <!-- placeholder data -->
-      <div class="flex-initial">
+      <div class="flex-initial relative overflow-x-auto">
         <p class="text-xl font-bold py-3">Prescriptions overview</p>
         <p class="mb-3">Recently created prescriptions will appear here.</p>
         <table class="table-auto">
