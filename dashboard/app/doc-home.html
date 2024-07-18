@@ -12,13 +12,11 @@
     <!-- header section -->
 
     <nav class="bg-white border-zinc-200 dark:bg-zinc-900">
-      <div
-        class="max-w-full flex flex-wrap items-center justify-between mx-[80px] p-4"
-      >
+      <div class="max-w-full flex flex-wrap items-center justify-around p-4">
         <div class="flex gap-16">
           <!-- logo -->
           <a
-            href="./doc-home.html"
+            href="../index.html"
             class="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <span
@@ -32,7 +30,7 @@
             id="navbar-user"
           >
             <ul
-              class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-zinc-100 rounded-lg bg-zinc-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-zinc-800 md:dark:bg-zinc-900 dark:border-zinc-700"
+              class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
             >
               <li>
                 <a
@@ -59,7 +57,7 @@
         >
           <button
             type="button"
-            class="flex text-sm bg-zinc-800 rounded-full md:me-0 focus:ring-4 focus:ring-zinc-300 dark:focus:ring-zinc-600"
+            class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
             id="user-menu-button"
             aria-expanded="false"
             data-dropdown-toggle="user-dropdown"
@@ -74,11 +72,11 @@
             id="user-dropdown"
           >
             <div class="px-4 py-3">
-              <span class="block text-sm text-zinc-900 dark:text-white"
+              <span class="block text-sm text-gray-900 dark:text-white"
                 >Doctor Name</span
               >
               <span
-                class="block text-sm text-zinc-500 truncate dark:text-zinc-400"
+                class="block text-sm text-gray-500 truncate dark:text-gray-400"
                 >doc@sp.com</span
               >
             </div>
@@ -86,7 +84,7 @@
               <li>
                 <a
                   href="#"
-                  class="block px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:text-zinc-200 dark:hover:text-white"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >Home</a
                 >
               </li>
@@ -94,7 +92,7 @@
               <li>
                 <a
                   href="#"
-                  class="block px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:text-zinc-200 dark:hover:text-white"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >Sign out</a
                 >
               </li>
@@ -103,7 +101,7 @@
           <button
             data-collapse-toggle="navbar-user"
             type="button"
-            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-zinc-500 rounded-lg md:hidden hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-200 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600"
+            class="inline-flex items-center p-2 w-10 h-10 mt-5 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-user"
             aria-expanded="false"
           >
@@ -127,9 +125,10 @@
         </div>
       </div>
     </nav>
-
     <!-- main content area-->
-    <div class="flex flex-1 min-h-full mt-16 mx-20 justify-evenly flex-wrap">
+    <div
+      class="flex flex-1 min-h-full mt-16 mx-20 md:mx-auto gap-16 justify-evenly flex-wrap"
+    >
       <!-- quick navigation links -->
       <div class="h-full flex-initial">
         <p class="text-xl font-bold py-3">Quick actions</p>

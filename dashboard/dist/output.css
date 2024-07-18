@@ -1288,6 +1288,10 @@ input:checked + .toggle-bg {
   margin-top: 0.75rem;
 }
 
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -1473,6 +1477,14 @@ input:checked + .toggle-bg {
 
 .w-\[200px\] {
   width: 200px;
+}
+
+.w-80 {
+  width: 20rem;
+}
+
+.w-\[30rem\] {
+  width: 30rem;
 }
 
 .min-w-full {
@@ -2078,6 +2090,10 @@ input:checked + .toggle-bg {
 
 .gap-60 {
   gap: 15rem;
+}
+
+.gap-20 {
+  gap: 5rem;
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
@@ -3876,6 +3892,11 @@ input:checked + .toggle-bg {
     order: 2;
   }
 
+  .md\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .md\:me-0 {
     margin-inline-end: 0px;
   }
@@ -3894,6 +3915,10 @@ input:checked + .toggle-bg {
 
   .md\:w-auto {
     width: auto;
+  }
+
+  .md\:w-80 {
+    width: 20rem;
   }
 
   .md\:flex-row {
@@ -3969,6 +3994,11 @@ input:checked + .toggle-bg {
 }
 
 @media (min-width: 1024px) {
+  .lg\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .dark\:lg\:hover\:\[paint-order\:markers\]:hover:is(.dark *) {
     paint-order: markers;
   }
