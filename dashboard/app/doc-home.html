@@ -18,7 +18,7 @@
         <div class="flex gap-16">
           <!-- logo -->
           <a
-            href="../index.html"
+            href="./doc-home.html"
             class="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <span
@@ -36,7 +36,7 @@
             >
               <li>
                 <a
-                  href="#"
+                  href="./doc-home.html"
                   class="block py-2 px-3 text-white bg-zinc-700 rounded hover:text-zinc-600 md:bg-transparent md:text-zinc-700 md:p-0 md:dark:text-zinc-500"
                   aria-current="page"
                   >Home</a
@@ -44,7 +44,7 @@
               </li>
               <li>
                 <a
-                  href="#"
+                  href="./doc-presc.html"
                   class="block py-2 px-3 text-zinc-900 rounded hover:text-zinc-600 hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 dark:text-white md:dark:hover:text-zinc-500 dark:hover:bg-zinc-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700"
                   >Prescriptions</a
                 >
@@ -103,7 +103,7 @@
           <button
             data-collapse-toggle="navbar-user"
             type="button"
-            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-zinc-500 rounded-lg md:hidden hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-zinc-500 rounded-lg md:hidden hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-200 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600"
             aria-controls="navbar-user"
             aria-expanded="false"
           >
@@ -152,7 +152,7 @@
       <div class="h-full flex flex-col flex-initial">
         <form action="/my-handling-form-page" method="post">
           <p class="text-xl font-bold py-3">Quick prescription</p>
-          <label for="diagnosis" class="text-sm leading-6 text-gray-900"
+          <label for="diagnosis" class="text-sm leading-6 text-zinc-900"
             >Diagnosis</label
           >
           <div class="my-3">
@@ -160,7 +160,7 @@
               type="text"
               id="diagnosis"
               name="diagnosis_name"
-              class="rounded-md shadow-sm ring-1 ring-inset ring-gray-200 focus-within:ring-2 focus-within:ring-inset pl-3 h-16"
+              class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
             />
           </div>
 
@@ -172,7 +172,11 @@
               >Select a patient</label
             >
             <div class="my-3">
-              <select class="w-full" name="patients" id="patient-menu">
+              <select
+                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+                name="patients"
+                id="patient-menu"
+              >
                 <option value="generic">--choose a patient</option>
                 <option value="Khumbo">Khumbo</option>
                 <option value="Victor">Victor</option>
@@ -187,7 +191,11 @@
               >Select a dosage</label
             >
             <div class="my-3">
-              <select class="w-full" name="dosages" id="dosage-menu">
+              <select
+                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+                name="dosages"
+                id="dosage-menu"
+              >
                 <option value="">--choose a dosage</option>
                 <option value="panado">Panado 20T</option>
                 <option value="aspirin">Aspirin 20T</option>
@@ -196,7 +204,7 @@
           </div>
           <button
             type="button"
-            class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:focus:ring-zinc-700 dark:border-zinc-700"
+            class="mt-3 text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:focus:ring-zinc-700 dark:border-zinc-700"
           >
             Submit
           </button>

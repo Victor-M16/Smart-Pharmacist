@@ -130,29 +130,30 @@
 
     <!-- main content area-->
     <div
-      class="flex flex-1 min-h-full mt-16 mx-20 justify-center flex-wrap gap-60"
+      class="flex flex-1 min-h-full mt-16 mx-auto gap-60 justify-center flex-wrap"
     >
       <!-- quick navigation links -->
-      <div class="h-full flex-initial">
+      <div class="flex-1">
         <p class="text-xl font-bold py-3">Quick actions</p>
         <ul>
           <li>
-            <a href="#" class="hover:text-zinc-600 transition"
+            <a
+              href="./new-prescription.html"
+              class="hover:text-zinc-600 transition"
               >Create New Prescription</a
             >
           </li>
           <li>
-            <a href="#" class="hover:text-zinc-600 transition"
+            <a href="./new-patient.html" class="hover:text-zinc-600 transition"
               >Create New Patient</a
             >
           </li>
         </ul>
       </div>
       <!-- new patient form -->
-      <div>
-        <p class="text-xl font-bold py-3">New prescription</p>
-
+      <div class="flex-1 min-w-fit">
         <form class="max-w-sm mx-auto">
+          <p class="text-xl font-bold py-3">New prescription</p>
           <!-- enter patient id -->
           <div class="mb-5">
             <label
@@ -190,7 +191,11 @@
               >Select a dosage</label
             >
             <div class="mb-3">
-              <select class="w-full" name="dosages" id="dosage-menu">
+              <select
+                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+                name="dosages"
+                id="dosage-menu"
+              >
                 <option value="">--choose a dosage</option>
                 <option value="panado">Panado 20T</option>
                 <option value="aspirin">Aspirin 20T</option>
@@ -228,6 +233,6 @@
     >
       Smart Pharmacist 2024
     </div>
-    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
   </body>
 </html>
