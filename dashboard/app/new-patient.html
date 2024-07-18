@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartPharmacist|Home</title>
+    <link rel="stylesheet" href="../dist/output.css" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <!-- header section -->
+
+    <nav class="bg-white border-zinc-200 dark:bg-zinc-900">
+      <div class="max-w-full flex flex-wrap items-center justify-around p-4">
+        <div class="flex gap-16">
+          <!-- logo -->
+          <a
+            href="../index.html"
+            class="flex items-center space-x-3 rtl:space-x-reverse"
+          >
+            <span
+              class="self-center text-[32px] font-extrabold whitespace-nowrap hover:text-zinc-700 dark:text-white"
+              >Smart Pharmacist</span
+            >
+          </a>
+          <!-- nav items -->
+          <div
+            class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+            id="navbar-user"
+          >
+            <ul
+              class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+            >
+              <li>
+                <a
+                  href="./doc-home.html"
+                  class="block py-2 px-3 text-white bg-zinc-700 rounded hover:text-zinc-600 md:bg-transparent md:text-zinc-700 md:p-0 md:dark:text-zinc-500"
+                  aria-current="page"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./doc-presc.html"
+                  class="block py-2 px-3 text-zinc-900 rounded hover:text-zinc-600 hover:bg-zinc-100 md:hover:bg-transparent md:hover:text-zinc-700 md:p-0 dark:text-white md:dark:hover:text-zinc-500 dark:hover:bg-zinc-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-zinc-700"
+                  >Prescriptions</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- avatar button -->
+        <div
+          class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse"
+        >
+          <button
+            type="button"
+            class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            id="user-menu-button"
+            aria-expanded="false"
+            data-dropdown-toggle="user-dropdown"
+            data-dropdown-placement="bottom"
+          >
+            <span class="sr-only">Open user menu</span>
+            <span class="bg-white text-lg"><p>[doctor name]</p> </span>
+          </button>
+          <!-- Dropdown menu -->
+          <div
+            class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-zinc-100 rounded-lg shadow dark:bg-zinc-700 dark:divide-zinc-600"
+            id="user-dropdown"
+          >
+            <div class="px-4 py-3">
+              <span class="block text-sm text-gray-900 dark:text-white"
+                >Doctor Name</span
+              >
+              <span
+                class="block text-sm text-gray-500 truncate dark:text-gray-400"
+                >doc@sp.com</span
+              >
+            </div>
+            <ul class="py-2" aria-labelledby="user-menu-button">
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  >Home</a
+                >
+              </li>
+
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  >Sign out</a
+                >
+              </li>
+            </ul>
+          </div>
+          <button
+            data-collapse-toggle="navbar-user"
+            type="button"
+            class="inline-flex items-center p-2 w-10 h-10 mt-5 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-user"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Open main menu</span>
+            <svg
+              class="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 1h15M1 7h15M1 13h15"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- main content area-->
+    <div
+      class="flex flex-1 min-h-full mt-16 mx-20 justify-center flex-wrap gap-60"
+    >
+      <!-- quick navigation links -->
+      <div class="h-full flex-initial">
+        <p class="text-xl font-bold py-3">Quick actions</p>
+        <ul>
+          <li>
+            <a
+              href="./new-prescription.html"
+              class="hover:text-zinc-600 transition"
+              >Create New Prescription</a
+            >
+          </li>
+          <li>
+            <a href="./new-patient.html" class="hover:text-zinc-600 transition"
+              >Create New Patient</a
+            >
+          </li>
+        </ul>
+      </div>
+      <!-- new patient form -->
+      <div>
+        <p class="text-xl font-bold py-3">New patient</p>
+
+        <form class="max-w-sm mx-auto">
+          <div class="mb-5">
+            <label
+              for="user_id"
+              class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+              >Enter patient user_id</label
+            >
+            <input
+              type="user_id"
+              id="user_id"
+              class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+              required
+            />
+          </div>
+          <div class="mb-5">
+            <label
+              for="dob"
+              class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+              >Enter patient date of birth</label
+            >
+            <!-- date picker -->
+
+            <div class="relative max-w-sm mb-5">
+              <div
+                class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+              >
+                <svg
+                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
+                  />
+                </svg>
+              </div>
+              <input
+                id="datepicker-autohide"
+                datepicker
+                datepicker-autohide
+                type="text"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+                placeholder="Select date"
+              />
+            </div>
+          </div>
+          <div class="mb-5">
+            <label
+              for="gender"
+              class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+              >Select a gender</label
+            >
+            <select
+              id="gender"
+              class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+            >
+              <option>--gender--</option>
+              <option>Female</option>
+              <option>Male</option>
+              <option>Other</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
+          <div class="mb-5">
+            <label
+              for="contact_info"
+              class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+              >Enter patient contact information</label
+            >
+            <input
+              type="contact_info"
+              id="contact_info"
+              class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+              required
+            />
+          </div>
+          <div class="mb-5">
+            <label
+              for="address"
+              class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+              >Enter patient address</label
+            >
+            <input
+              type="contact_info"
+              id="contact_info"
+              class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+              required
+            />
+          </div>
+
+          <button
+            type="button"
+            class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:focus:ring-zinc-700 dark:border-zinc-700"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- footer -->
+    <div
+      class="flex items-center justify-center h-14 text-zinc-400 font-semibold"
+    >
+      Smart Pharmacist 2024
+    </div>
+    <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
+  </body>
+</html>
