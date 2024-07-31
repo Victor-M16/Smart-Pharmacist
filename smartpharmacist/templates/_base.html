@@ -1,0 +1,75 @@
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Login|SmartPharmacist</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% comment %} <link rel="stylesheet" href="./dist/output.css" /> {% endcomment %}
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link href="{% static 'src/styles.css' %}" rel="stylesheet">
+  </head>
+  {% block body %}
+  
+  <body class="min-h-screen flex">
+    <section class="flex flex-1 items-center justify-center">
+      <div
+        class="w-full h-full flex flex-col items-center justify-center bg-zinc-950"
+      >
+        <h1 class="text-white text-[48px] font-extrabold">Smart Pharmacist</h1>
+      </div>
+      <div class="w-full h-full flex flex-col items-center justify-center">
+        <form action="/my-handling-form-page" method="post">
+          <p class="text-xl font-bold py-3">Login</p>
+          <label for="name" class="text-sm leading-6 text-gray-900"
+            >Username</label
+          >
+          <div class="my-3">
+            <input
+              type="text"
+              id="name"
+              name="user_name"
+              class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+            />
+          </div>
+
+          <div>
+            <label for="name" class="text-sm leading-6 text-gray-900" for="mail"
+              >Email</label
+            >
+            <div class="my-4">
+              <input
+                type="email"
+                id="mail"
+                placeholder="example@email.com"
+                name="user_email"
+                class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            class="w-full text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:focus:ring-zinc-700 dark:border-zinc-700"
+          >
+            <a href="./app/doc-home.html">Sign In</a>
+          </button>
+          <p class="text-sm">
+            Not a member? Click
+            <span class="hover:cursor-default">
+              <a href="./app/register.html" class="font-bold">here</a>
+            </span>
+            to sign up.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <script src="" async defer></script>
+    <script src="./node_modules/flowbite/dist/flowbite.min.js"></script>
+  </body>
+
+  {% endblock body %}
+
+</html>

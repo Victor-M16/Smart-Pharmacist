@@ -62,7 +62,7 @@ ROOT_URLCONF = 'smartpharmacist.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], # new
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'smartpharmacist', 
         'USER':'root',      
-        'PASSWORD': '',  
+        'PASSWORD': 'mjima',  
         'HOST': '127.0.0.1',
         'PORT': '3306',     
     }
