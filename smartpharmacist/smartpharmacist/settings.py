@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,11 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+TAILWIND_APP_NAME = 'dashboard'
 
 # Application definition
 
 INSTALLED_APPS = [
     'rest_framework',
+    'tailwind',
+    # 'theme',
+    'django_browser_reload',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -75,10 +81,21 @@ WSGI_APPLICATION = 'smartpharmacist.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default":{
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'smartpharmacist', 
+        'USER':'root',      
+        'PASSWORD': '',  
+        'HOST': '127.0.0.1',
+        'PORT': '3306',     
     }
 }
 
@@ -117,9 +134,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'users-login'
+LOGOUT_URL =  'user-logout'
+LOGOUT_REDIRECT_URL = 'users-landing'
+AUTH_USER_MODEL = 'core.User'
+

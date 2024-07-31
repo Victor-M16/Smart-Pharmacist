@@ -41,6 +41,7 @@ class Prescription(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     code = models.CharField(max_length=50, unique=True)
+    instructions = models.TextField(max_length=200, null=True)
     sickness = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
