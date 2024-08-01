@@ -15,6 +15,9 @@ class Patient(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
+
 class Doctor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     specialty = models.CharField(max_length=100)
@@ -22,11 +25,17 @@ class Doctor(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
+
 class Pharmacist(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     contact_info = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 
 class Medication(models.Model):
     id = models.AutoField(primary_key=True)
@@ -36,15 +45,23 @@ class Medication(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
 class Prescription(models.Model):
     id = models.AutoField(primary_key=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    code = models.CharField(max_length=50, unique=True)
+    code = models.CharField(max_length=4, unique=True)
     instructions = models.TextField(max_length=200, null=True)
     sickness = models.CharField(max_length=100)
+    is_dispensed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.code} for {self.patient}"
+   
 
 class PrescriptionMedication(models.Model):
     id = models.AutoField(primary_key=True)
@@ -56,12 +73,35 @@ class PrescriptionMedication(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
+    def __str__(self):
+        return f"{self.medication} for {self.prescription.code}"
+    
+
 class VendingMachine(models.Model):
     id = models.AutoField(primary_key=True)
     location = models.CharField(max_length=255)
     status = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return self.location
+    
+
+class VendingSlot(models.Model):
+    id = models.AutoField(primary_key=True)
+    vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
+    medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
+    slot_number = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.vending_machine} - {self.slot_number} - {self.medication}"
+
+
 
 class Dispensation(models.Model):
     id = models.AutoField(primary_key=True)
@@ -75,13 +115,5 @@ class Inventory(models.Model):
     vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
     medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-class VendingSlot(models.Model):
-    id = models.AutoField(primary_key=True)
-    vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
-    medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
-    slot_number = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

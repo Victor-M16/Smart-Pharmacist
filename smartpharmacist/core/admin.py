@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Patient, Doctor, Medication, Prescription, PrescriptionMedication, Pharmacist
+from .models import Patient, Doctor, Medication, Prescription, PrescriptionMedication, Pharmacist,User
 from .models import VendingMachine, Dispensation, Inventory, VendingSlot
 
 # Register your models here.
@@ -14,3 +14,6 @@ admin.site.register(Dispensation)
 admin.site.register(Inventory)
 admin.site.register(VendingSlot)
 admin.site.register(Pharmacist)
+
+
+admin.site.register(User)
