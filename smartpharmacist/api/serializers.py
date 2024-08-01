@@ -20,7 +20,7 @@ class PharmacistSerializer(serializers.ModelSerializer):
 class MedicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medication
-        fields = '__all__'
+        fields = ('id', 'name','description','package_size','created_at','updated_at')
 
 class PrescriptionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -48,6 +48,8 @@ class InventorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class VendingSlotSerializer(serializers.ModelSerializer):
+    medication = MedicationSerializer() 
+
     class Meta:
         model = VendingSlot
-        fields = '__all__'
+        fields = ('id', 'vending_machine', 'medication', 'slot_number', 'created_at', 'updated_at')

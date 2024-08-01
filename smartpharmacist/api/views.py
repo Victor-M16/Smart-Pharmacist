@@ -175,9 +175,17 @@ class PrescriptionUpdateView(generics.UpdateAPIView):
 
 #prescriptionmedication views
 class PrescriptionMedicationListView(generics.ListAPIView):
-    queryset = PrescriptionMedication.objects.all()
     serializer_class = PrescriptionMedicationSerializer
     permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        queryset = PrescriptionMedication.objects.all()
+        prescription_id = self.request.query_params.get('prescription')
+        
+        if prescription_id:
+            queryset = queryset.filter(prescription_id=prescription_id)
+        
+        return queryset
 
 class PrescriptionMedicationCreateView(generics.CreateAPIView):
     queryset = PrescriptionMedication.objects.all()

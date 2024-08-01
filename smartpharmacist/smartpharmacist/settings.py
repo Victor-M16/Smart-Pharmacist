@@ -156,5 +156,6 @@ LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'users-login'
 LOGOUT_URL =  'user-logout'
 LOGOUT_REDIRECT_URL = 'users-landing'
+
 AUTH_USER_MODEL = 'core.User'
 

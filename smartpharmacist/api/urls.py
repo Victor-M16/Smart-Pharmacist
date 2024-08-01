@@ -4,7 +4,17 @@ from .views import (
     PatientListView, PatientCreateView, PatientRetrieveView, PatientDestroyView, PatientUpdateView,
     MedicationListView, MedicationCreateView, MedicationRetrieveView, MedicationDestroyView, MedicationUpdateView,
     VendingMachineListView, VendingMachineCreateView, VendingMachineRetrieveView, VendingMachineDestroyView, VendingMachineUpdateView,
-    VendingSlotListView, VendingSlotCreateView, VendingSlotRetrieveView, VendingSlotDestroyView, VendingSlotUpdateView, test_api
+    VendingSlotListView, VendingSlotCreateView, VendingSlotRetrieveView, VendingSlotDestroyView, VendingSlotUpdateView, test_api,
+    PrescriptionListView,
+    PrescriptionCreateView,
+    PrescriptionRetrieveView,
+    PrescriptionDestroyView,
+    PrescriptionUpdateView,
+    PrescriptionMedicationListView,
+    PrescriptionMedicationCreateView,
+    PrescriptionMedicationRetrieveView,
+    PrescriptionMedicationDestroyView,
+    PrescriptionMedicationUpdateView,
 )
 
 urlpatterns = [
@@ -37,6 +47,22 @@ urlpatterns = [
     path('vending-slots/<int:pk>/', VendingSlotRetrieveView.as_view(), name='vendingslot-retrieve'),
     path('vending-slots/<int:pk>/delete/', VendingSlotDestroyView.as_view(), name='vendingslot-destroy'),
     path('vending-slots/<int:pk>/update/', VendingSlotUpdateView.as_view(), name='vendingslot'),
+
+
+
+    # Prescription URLs
+    path('prescriptions/', PrescriptionListView.as_view(), name='prescription-list'),
+    path('prescriptions/create/', PrescriptionCreateView.as_view(), name='prescription-create'),
+    path('prescriptions/<int:pk>/', PrescriptionRetrieveView.as_view(), name='prescription-retrieve'),
+    path('prescriptions/<int:pk>/delete/', PrescriptionDestroyView.as_view(), name='prescription-destroy'),
+    path('prescriptions/<int:pk>/update/', PrescriptionUpdateView.as_view(), name='prescription-update'),
+
+    # PrescriptionMedication URLs
+    path('prescription-medications/', PrescriptionMedicationListView.as_view(), name='prescriptionmedication-list'),
+    path('prescription-medications/create/', PrescriptionMedicationCreateView.as_view(), name='prescriptionmedication-create'),
+    path('prescription-medications/<int:pk>/', PrescriptionMedicationRetrieveView.as_view(), name='prescriptionmedication-retrieve'),
+    path('prescription-medications/<int:pk>/delete/', PrescriptionMedicationDestroyView.as_view(), name='prescriptionmedication-destroy'),
+    path('prescription-medications/<int:pk>/update/', PrescriptionMedicationUpdateView.as_view(), name='prescriptionmedication-update'),
 
 
     path('api/test/', test_api, name='test_api'),
