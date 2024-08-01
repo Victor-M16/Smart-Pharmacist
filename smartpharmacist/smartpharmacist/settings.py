@@ -35,7 +35,7 @@ TAILWIND_APP_NAME = 'dashboard'
 INSTALLED_APPS = [
     'rest_framework',
     'tailwind',
-    # 'theme',
+    'compressor',
     'django_browser_reload',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -81,23 +81,23 @@ WSGI_APPLICATION = 'smartpharmacist.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    "default":{
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'smartpharmacist', 
-        'USER':'root',      
-        'PASSWORD': 'mjima',  
-        'HOST': '127.0.0.1',
-        'PORT': '3306',     
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     "default":{
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'smartpharmacist', 
+#         'USER':'root',      
+#         'PASSWORD': 'mjima',  
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',     
+#     }
+# }
 
 
 # Password validation
@@ -157,4 +157,10 @@ LOGIN_URL = 'users-login'
 LOGOUT_URL =  'user-logout'
 LOGOUT_REDIRECT_URL = 'users-landing'
 AUTH_USER_MODEL = 'core.User'
+
+COMPRESS_ROOT = BASE_DIR / 'static'
+
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
