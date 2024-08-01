@@ -1,55 +1,49 @@
-{% extends "core/base.html" %} {% block content %}
-<!-- new patient form -->
+{% extends "core/pharm-base.html" %} {% block content %}
+<!-- new medication form -->
 <div class="flex-1 min-w-fit">
   <form class="max-w-sm mx-auto">
-    <p class="text-xl font-bold py-3">New prescription</p>
-    <!-- enter patient id -->
+    <p class="text-xl font-bold py-3">New medication</p>
+    <!-- enter medication id -->
     <div class="mb-5">
       <label
-        for="patient-id"
+        for="medication"
         class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
-        >Enter patient ID</label
+        >Enter medication ID</label
       >
       <input
-        type="patient-id"
-        id="patient-id"
+        type="text"
+        id="medication_id"
         class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
         required
       />
     </div>
-    <!-- enter doctor ID -->
+    <!-- enter medication name -->
     <div class="mb-5">
       <label
-        for="doctor-id"
+        for="medication_name"
         class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
-        >Enter doctor ID</label
+        >Enter medication name</label
       >
       <input
-        type="doctor-id"
-        id="doctor-id"
+        type="text"
+        id="medication_name"
         class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
         required
       />
     </div>
-    <!-- dosage selection -->
+    <!-- enter medication package size -->
     <div class="mb-5">
       <label
-        for="dosage-select"
-        class="text-sm leading-6 text-zinc-900"
-        for="dosage-select"
-        >Select a dosage</label
+        for="package"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        >Enter package size</label
       >
-      <div class="mb-3">
-        <select
-          class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-          name="dosages"
-          id="dosage-menu"
-        >
-          <option value="">--choose a dosage</option>
-          <option value="panado">Panado 20T</option>
-          <option value="aspirin">Aspirin 20T</option>
-        </select>
-      </div>
+      <input
+        type="number"
+        id="packge-id"
+        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+        required
+      />
     </div>
 
     <!-- enter description -->
@@ -60,8 +54,8 @@
         >Enter description</label
       >
       <textarea
-        id="message"
-        rows="10"
+        id="medication_desc"
+        rows="2"
         class="block p-2.5 w-full md:w-80 text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
         placeholder="Leave a description..."
       ></textarea>
