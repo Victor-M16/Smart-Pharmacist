@@ -1,42 +1,6 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SmartPharmacist|Patient</title>
-    <link rel="stylesheet" href="../styles/styles.css" />
-  </head>
-  <body>
-    <div class="header">
-      <div class="logo">Smart Pharmacist</div>
-
-      <ul class="header-links">
-        <li>
-          <a href="#">[user-name]</a>
-        </li>
-        <li>
-          <a href="#">[dark-mode]</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="content-container">
-      <div class="sidebar">
-        <ul>
-          <li><a href="./doc-home.html"> Home</a></li>
-        </ul>
-      </div>
-
-      <div class="card-container">
-        <div class="card">
-          <div class="prev-presc">
-            <p class="heading">Your prescriptions</p>
-            <p>[list of previously given prescriptions will populate here]</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="./node_modules/flowbite/dist/flowbite.min.js"></script>
-  </body>
-</html>
+{% extends "core/pat-base.html"%} {% block content %}
+<div>
+  <p class="text-xl font-bold py-3">Your prescriptions</p>
+  <p>[list of previously given prescriptions will populate here]</p>
+</div>
+{% endblock content%}
