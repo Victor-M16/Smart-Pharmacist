@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    {% if title %}
+    <title>Smart Pharmacist | {{ title }}</title>
+    {% else %}
+    <title>Smart Pharmacist</title>
+    {% endif %}
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link href="{% static 'src/styles.css' %}" rel="stylesheet" />
+  </head>
+  {% block body %}
+
+  <body class="min-h-screen flex">
+    <!-- main contaiiner -->
+    <section class="flex flex-1 items-center justify-center">
+      <!-- black background with logo -->
+      <div
+        class="w-full h-full flex flex-col items-center justify-center bg-zinc-950"
+      >
+        <h1 class="text-white text-[48px] font-extrabold">Smart Pharmacist</h1>
+      </div>
+      <!-- forms go here -->
+      {% block content%} {% endblock content %}
+    </section>
+
+    <script src="" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+  </body>
+
+  {% endblock body %}
+</html>

@@ -2,11 +2,15 @@
 module.exports = {
   content: [
     './core/templates/core/**/*.html',
+    './templates/**/*.hmtl',
+    './node_modules/flowbite/**/*.js'
     // Add paths to other apps if necessary
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 };
 

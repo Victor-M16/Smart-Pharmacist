@@ -24,3 +24,4 @@ tzdata==2024.1
 urllib3==2.2.1
 django-browser-reload==1.13.0 
 django-tailwind==3.8.0
+django-compressor==4.5.1
