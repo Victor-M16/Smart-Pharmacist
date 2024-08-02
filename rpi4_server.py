@@ -14,7 +14,6 @@ def get_prescription(vending_code):
     try:
         url = f"{django_backend_url}/api/prescriptions/"
         response = requests.get(url)
-        # print(response.json())
         response.raise_for_status()
         prescriptions = response.json()
 
@@ -31,7 +30,6 @@ def get_prescription_medications(prescription_id):
     try:
         url = f"{django_backend_url}/api/prescription-medications/?prescription={prescription_id}"
         response = requests.get(url)
-        print(response.json())
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -44,28 +42,63 @@ def get_vending_slots(medication_ids):
         response = requests.get(url)
         response.raise_for_status()
         vending_slots = response.json()
-       
 
         slots = []
         for slot in vending_slots:
             if slot['medication']['id'] in medication_ids:
                 slots.append(slot)
-                print(slots)
         return slots
     except requests.exceptions.RequestException as e:
         logging.error(f"Error fetching vending slots: {e}")
         return []
 
-def send_positions_to_esp32(positions):
+def send_position_to_esp32(slot):
     try:
-        url = f"{esp32_url}/rotate"
-        data = {"positions": positions}
+        # Ensure the slot value is within the valid range
+        if slot < 0 or slot > 5:
+            raise ValueError("Invalid slot position. Must be between 0 and 5.")
+
+        # Construct the URL for the specific slot
+        url = f"{esp32_url}/rotate-slot-{slot}"
         headers = {'Content-Type': 'application/json'}
-        response = requests.post(url, json=data, headers=headers)
+        
+        # Send the POST request with no body since the ESP32 doesn't require one
+        response = requests.post(url, headers=headers)
+        
+        # Print the response code and text for debugging
+        print(f"Response Code: {response.status_code}")
+        print(f"Response Text: {response.text}")
+        
         return response.status_code, response.text
+    
     except requests.exceptions.RequestException as e:
-        logging.error(f"Error sending positions to ESP32: {e}")
+        logging.error(f"Error sending position to ESP32: {e}")
         return None, str(e)
+    except ValueError as ve:
+        logging.error(f"Value Error: {ve}")
+        return None, str(ve)
+
+def lock():
+    try:
+        url = f"{esp32_url}/lock"
+        response = requests.post(url)
+        if response.status_code == 200:
+            print("Lock command sent successfully")
+        else:
+            print("Failed to send lock command")
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Error sending lock request: {e}")
+
+def unlock():
+    try:
+        url = f"{esp32_url}/unlock"
+        response = requests.post(url)
+        if response.status_code == 200:
+            print("Unlock command sent successfully")
+        else:
+            print("Failed to send unlock command")
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Error sending unlock request: {e}")
 
 def main():
     while True:
@@ -86,22 +119,19 @@ def main():
             # Get the prescription medications
             prescription_medications = get_prescription_medications(prescription['id'])
             medication_ids = [med['medication'] for med in prescription_medications]
-            print(medication_ids)
 
             # Get the vending slots corresponding to the medications
             vending_slots = get_vending_slots(medication_ids)
             slot_numbers = [slot['slot_number'] for slot in vending_slots]
 
-            # Prepare JSON array for ESP32
-            json_data = {"positions": slot_numbers}
-            print(f"Sending positions to ESP32: {json_data}")
+            # Send rotation commands to ESP32 for each slot
+            for s in slot_numbers:
+                status_code, response_text = send_position_to_esp32(s)
+                if status_code == 200:
+                    print(f"Rotation command for slot {s} sent successfully!")
+                else:
+                    print(f"Failed to send command to slot {s}: {response_text}")
 
-            # Send positions to ESP32
-            status_code, response_text = send_positions_to_esp32(slot_numbers)
-            if status_code == 200:
-                print("Rotation command sent successfully!")
-            else:
-                print(f"Failed to send command to ESP32: {response_text}")
         except Exception as e:
             logging.error(f"An error occurred: {e}")
             print("An unexpected error occurred. Please check the log file for details.")
