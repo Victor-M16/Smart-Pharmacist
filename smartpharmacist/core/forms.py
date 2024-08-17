@@ -1,9 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
-                                       UserCreationForm)
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm, AuthenticationForm
 
 from .models import User
-
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -93,6 +91,7 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+    
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(

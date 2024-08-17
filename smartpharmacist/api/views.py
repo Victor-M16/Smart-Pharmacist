@@ -1,128 +1,210 @@
-
-import requests
+from rest_framework import generics
 from core.models import *
-from django.http import JsonResponse
-from rest_framework.views import APIView
-from rest_framework import viewsets
-from rest_framework.permissions import AllowAny
-
-from .custom_permissions import *
-from .custom_permissions import (IsAdminUser, IsDoctorOnly, IsOwnerOrAdmin,
-                                 IsPharmacistOnly)
 from .serializers import *
-from .serializers import (MedicationSerializer,
-                          PrescriptionMedicationSerializer,
-                          PrescriptionSerializer, UserSerializer,
-                          VendingMachineSerializer, VendingSlotSerializer)
+from .custom_permissions import *
+from rest_framework import permissions
+import requests
+from django.http import JsonResponse
 
 
-# User ViewSet
-class UserViewSet(viewsets.ModelViewSet):
+
+class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsDoctorOnly] 
 
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
-            return [IsDoctorOnly()]
-        if self.action in ['create']:
-            return [IsDoctorOnly(), IsAdminUser()]
-        if self.action in ['update', 'partial_update', 'destroy']:
-            return [IsDoctorOnly(), IsOwnerOrAdmin()]
-        return super().get_permissions()
+class UserCreateView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsDoctorOnly, IsAdminUser] 
 
-# Medication ViewSet
-class MedicationViewSet(viewsets.ModelViewSet):
+class UserRetrieveView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsDoctorOnly, IsOwnerOrAdmin]  
+
+class UserUpdateView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsDoctorOnly, IsOwnerOrAdmin]  
+
+class UserDestroyView(generics.DestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsDoctorOnly, IsOwnerOrAdmin]  
+
+
+
+# Medication views
+class MedicationListView(generics.ListAPIView):
     queryset = Medication.objects.all()
     serializer_class = MedicationSerializer
+    permission_classes = [permissions.AllowAny]  
 
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
-            return [AllowAny()]
-        if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [IsDoctorOnly()]
-        return super().get_permissions()
+class MedicationCreateView(generics.CreateAPIView):
+    queryset = Medication.objects.all()
+    serializer_class = MedicationSerializer
+    permission_classes = [IsDoctorOnly]  
 
-# Vending Machine ViewSet
-class VendingMachineViewSet(viewsets.ModelViewSet):
+class MedicationRetrieveView(generics.RetrieveAPIView):
+    queryset = Medication.objects.all()
+    serializer_class = MedicationSerializer
+    permission_classes = [permissions.AllowAny]
+
+class MedicationDestroyView(generics.DestroyAPIView):
+    queryset = Medication.objects.all()
+    serializer_class = MedicationSerializer
+    permission_classes = [IsDoctorOnly]
+
+class MedicationUpdateView(generics.UpdateAPIView):
+    queryset = Medication.objects.all()
+    serializer_class = MedicationSerializer
+    permission_classes = [IsDoctorOnly]
+
+
+
+# Vending Machine views
+class VendingMachineListView(generics.ListAPIView):
     queryset = VendingMachine.objects.all()
     serializer_class = VendingMachineSerializer
+    permission_classes = [permissions.AllowAny]  
 
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
-            return [AllowAny()]
-        if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [IsPharmacistOnly()]
-        return super().get_permissions()
+class VendingMachineCreateView(generics.CreateAPIView):
+    queryset = VendingMachine.objects.all()
+    serializer_class = VendingMachineSerializer
+    permission_classes = [IsPharmacistOnly]  
 
-# Vending Slot ViewSet
-class VendingSlotViewSet(viewsets.ModelViewSet):
+
+class VendingMachineRetrieveView(generics.RetrieveAPIView):
+    queryset = VendingMachine.objects.all()
+    serializer_class = VendingMachineSerializer
+    permission_classes = [permissions.AllowAny]
+
+class VendingMachineDestroyView(generics.DestroyAPIView):
+    queryset = VendingMachine.objects.all()
+    serializer_class = VendingMachineSerializer
+    permission_classes = [IsPharmacistOnly]
+
+class VendingMachineUpdateView(generics.UpdateAPIView):
+    queryset = VendingMachine.objects.all()
+    serializer_class = VendingMachineSerializer
+    permission_classes = [IsPharmacistOnly]
+
+
+# Vending Slot views
+class VendingSlotListView(generics.ListAPIView):
     queryset = VendingSlot.objects.all()
     serializer_class = VendingSlotSerializer
+    permission_classes = [permissions.AllowAny]  
 
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
-            return [AllowAny()]
-        if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [IsPharmacistOnly()]
-        return super().get_permissions()
+class VendingSlotCreateView(generics.CreateAPIView):
+    queryset = VendingSlot.objects.all()
+    serializer_class = VendingSlotSerializer
+    permission_classes = [IsPharmacistOnly]  
 
-# Prescription ViewSet
-class PrescriptionViewSet(viewsets.ModelViewSet):
+class VendingSlotRetrieveView(generics.RetrieveAPIView):
+    queryset = VendingSlot.objects.all()
+    serializer_class = VendingSlotSerializer
+    permission_classes = [permissions.AllowAny]
+
+class VendingSlotDestroyView(generics.DestroyAPIView):
+    queryset = VendingSlot.objects.all()
+    serializer_class = VendingSlotSerializer
+    permission_classes = [IsPharmacistOnly]
+
+class VendingSlotUpdateView(generics.UpdateAPIView):
+    queryset = VendingSlot.objects.all()
+    serializer_class = VendingSlotSerializer
+    permission_classes = [IsPharmacistOnly]
+
+
+
+#prescription views
+class PrescriptionListView(generics.ListAPIView):
     queryset = Prescription.objects.all()
     serializer_class = PrescriptionSerializer
+    permission_classes = [permissions.AllowAny]
 
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
-            return [AllowAny()]
-        if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [IsPharmacistOnly()]
-        return super().get_permissions()
+class PrescriptionCreateView(generics.CreateAPIView):
+    queryset = Prescription.objects.all()
+    serializer_class = PrescriptionSerializer
+    permission_classes = [IsPharmacistOnly]
 
-# Prescription Medication ViewSet
-class PrescriptionMedicationViewSet(viewsets.ModelViewSet):
+class PrescriptionRetrieveView(generics.RetrieveAPIView):
+    queryset = Prescription.objects.all()
+    serializer_class = PrescriptionSerializer
+    permission_classes = [permissions.AllowAny]
+
+class PrescriptionDestroyView(generics.DestroyAPIView):
+    queryset = Prescription.objects.all()
+    serializer_class = PrescriptionSerializer
+    permission_classes = [IsPharmacistOnly]
+
+class PrescriptionUpdateView(generics.UpdateAPIView):
+    queryset = Prescription.objects.all()
+    serializer_class = PrescriptionSerializer
+    permission_classes = [IsPharmacistOnly]
+
+
+
+#prescriptionmedication views
+class PrescriptionMedicationListView(generics.ListAPIView):
     serializer_class = PrescriptionMedicationSerializer
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         queryset = PrescriptionMedication.objects.all()
         prescription_id = self.request.query_params.get('prescription')
+        
         if prescription_id:
             queryset = queryset.filter(prescription_id=prescription_id)
+        
         return queryset
 
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
-            return [AllowAny()]
-        if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [IsPharmacistOnly()]
-        return super().get_permissions()
+class PrescriptionMedicationCreateView(generics.CreateAPIView):
+    queryset = PrescriptionMedication.objects.all()
+    serializer_class = PrescriptionMedicationSerializer
+    permission_classes = [IsPharmacistOnly]
+
+class PrescriptionMedicationRetrieveView(generics.RetrieveAPIView):
+    queryset = PrescriptionMedication.objects.all()
+    serializer_class = PrescriptionMedicationSerializer
+    permission_classes = [permissions.AllowAny]
+
+class PrescriptionMedicationDestroyView(generics.DestroyAPIView):
+    queryset = PrescriptionMedication.objects.all()
+    serializer_class = PrescriptionMedicationSerializer
+    permission_classes = [IsPharmacistOnly]
+
+class PrescriptionMedicationUpdateView(generics.UpdateAPIView):
+    queryset = PrescriptionMedication.objects.all()
+    serializer_class = PrescriptionMedicationSerializer
+    permission_classes = [IsPharmacistOnly]
 
 
-class ESP32_API(APIView):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.ESP32_IP = "192.168.8.124" 
 
-    def test_api(self,request):
-        if request.method == 'GET':
-            status = self.test_link()
-            if status is not None:
-                return JsonResponse({'message': 'Request received from ESP32', 'status': status})
-            else:
-                return JsonResponse({'message': 'Failed to get status from ESP32'}, status=500)
+
+
+
+ESP32_IP = "192.168.8.124"  
+def test_link():
+    url = f"http://{ESP32_IP}:80/status" 
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            print("Successfully linked ESP32")
+            return data["status"]
         else:
-            return JsonResponse({'error': 'Invalid request method'}, status=400)
-
-    def test_link(self):
-        url = f"http://{self.ESP32_IP}:80/status"
-        try:
-            response = requests.get(url)
-            if response.status_code == 200:
-                data = response.json()
-                print("Successfully linked ESP32")
-                return data.get("status")  # Using .get() to avoid KeyError
-            else:
-                print("Failed to get status")
-                return None
-        except requests.RequestException as e:
-            print(f"An error occurred: {e}")
+            print("Failed to get status")
             return None
+    except:
+        pass
+
+
+def test_api(request):
+    if request.method == 'GET':
+        test_link()
+        return JsonResponse({'message': 'Request received from ESP32'})
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
