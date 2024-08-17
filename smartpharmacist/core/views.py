@@ -1,47 +1,42 @@
-from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import (CreateView, DetailView, ListView, UpdateView, DeleteView)
-from django.contrib import messages
-from django.views import View
-from django.urls import reverse_lazy
-
-from .models import *
-from .forms import *
-
-from django.contrib import messages
 from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
+
+from .forms import *
 from .forms import CustomAuthenticationForm
+from .models import *
 
 
-
-@login_required
-def create_user(request):
-    if request.method == 'POST':
+class CustomRegisterView(View):
+    def get(self, request, *args, **kwargs):
+        form = CustomUserCreationForm()
+        context = {
+            'form': form,
+            'title': 'register',
+        }
+        return render(request, 'auth/register.html', context)
+    
+    def post(self, request, *args, **kwargs):
         form = CustomUserCreationForm(request.POST)
-        
-
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f"Account created for {username} !")
-            
-            
+            messages.success(request, f"Account created for {username} !")    
             return redirect('login')
-
         else:
-            username = form.cleaned_data.get('username')
-
-            messages.warning(request, f"{username} has not been registered")
-    else:
-        form = CustomUserCreationForm()
-
-    context = {
-        'form': form,
-        'title': 'register',
-    }
-    return render(request, 'auth/register.html', context)
-
+            messages.warning(request, "Registration failed. Please correct the errors below.")
+            
+        context = {
+            'form': form,
+            'title': 'register',
+        }
+        return render(request, 'auth/register.html', context)
 
 class CustomLoginView(LoginView):
     form_class = CustomAuthenticationForm
@@ -55,8 +50,6 @@ class CustomLoginView(LoginView):
     def form_invalid(self, form):
         messages.error(self.request, "Invalid username or password.")
         return self.render_to_response(self.get_context_data(form=form))
-
-
 
 class HomeView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
@@ -78,7 +71,6 @@ class UserListView(LoginRequiredMixin, ListView):
     template_name = "users/users_list.html"
     context_object_name = 'users'
 
-
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     template_name = "users/user_detail.html"
@@ -88,8 +80,6 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "users/user_form.html"
     success_url = reverse_lazy('user_list')
     form_class = CustomUserChangeForm
-
-
         
     def form_valid(self, form):
         if form.instance.username == self.request.user.username:
@@ -118,11 +108,7 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'users/user_confirm_delete.html'
     success_url = reverse_lazy('user_list')
 
-def login(request):
-    return render(request, "auth/login.html", {'title': 'login'})
 
-def register(request):
-    return render(request, "auth/register.html", {'title': 'register'})
 
 def doc_prescription(request):
     return render(request, "core/doc-presc.html", {'title': 'prescriptions'})
