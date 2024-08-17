@@ -12,7 +12,8 @@ router.register(r'medications', MedicationViewSet)
 router.register(r'vending-machines', VendingMachineViewSet)
 router.register(r'vending-slots', VendingSlotViewSet)
 router.register(r'prescriptions', PrescriptionViewSet)
-router.register(r'prescription-medications', PrescriptionMedicationViewSet)
+router.register(r'prescription-nmedications', PrescriptionMedicationViewSet, basename='prescriptionmedication')
+
 
 urlpatterns = [
     path('', include(router.urls)),

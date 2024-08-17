@@ -37,6 +37,8 @@ class CustomRegisterView(View):
             'title': 'register',
         }
         return render(request, 'auth/register.html', context)
+    
+
 
 class CustomLoginView(LoginView):
     form_class = CustomAuthenticationForm
