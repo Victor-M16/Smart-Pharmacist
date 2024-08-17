@@ -1,7 +1,5 @@
-from django.contrib.auth.models import AbstractUser
-from django.db import models
-from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
-                                        PermissionsMixin)
+from django.contrib.auth.models import (AbstractBaseUser, AbstractUser,
+                                        BaseUserManager, PermissionsMixin)
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -127,7 +125,6 @@ class Prescription(models.Model):
     def __str__(self):
         return f"{self.code} for {self.patient}"
    
-
 class PrescriptionMedication(models.Model):
     id = models.AutoField(primary_key=True)
     prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
@@ -142,7 +139,6 @@ class PrescriptionMedication(models.Model):
     def __str__(self):
         return f"{self.medication} for {self.prescription.code}"
     
-
 class VendingMachine(models.Model):
     id = models.AutoField(primary_key=True)
     location = models.CharField(max_length=255)
@@ -154,7 +150,6 @@ class VendingMachine(models.Model):
     def __str__(self):
         return self.location
     
-
 class VendingSlot(models.Model):
     id = models.AutoField(primary_key=True)
     vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
@@ -166,14 +161,6 @@ class VendingSlot(models.Model):
     def __str__(self):
         return f"{self.vending_machine} - {self.slot_number} - {self.medication}"
 
-
-class Dispensation(models.Model):
-    id = models.AutoField(primary_key=True)
-    vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
-    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
 class Inventory(models.Model):
     id = models.AutoField(primary_key=True)
     vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
@@ -182,5 +169,13 @@ class Inventory(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
+#deprecate
+class Dispensation(models.Model):
+    id = models.AutoField(primary_key=True)
+    vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
+    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
