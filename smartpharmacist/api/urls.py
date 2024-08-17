@@ -1,35 +1,13 @@
 from django.urls import path
-from .views import (
-    DoctorListView, DoctorCreateView, DoctorRetrieveView, DoctorDestroyView, DoctorUpdateView,
-    PatientListView, PatientCreateView, PatientRetrieveView, PatientDestroyView, PatientUpdateView,
-    MedicationListView, MedicationCreateView, MedicationRetrieveView, MedicationDestroyView, MedicationUpdateView,
-    VendingMachineListView, VendingMachineCreateView, VendingMachineRetrieveView, VendingMachineDestroyView, VendingMachineUpdateView,
-    VendingSlotListView, VendingSlotCreateView, VendingSlotRetrieveView, VendingSlotDestroyView, VendingSlotUpdateView, test_api,
-    PrescriptionListView,
-    PrescriptionCreateView,
-    PrescriptionRetrieveView,
-    PrescriptionDestroyView,
-    PrescriptionUpdateView,
-    PrescriptionMedicationListView,
-    PrescriptionMedicationCreateView,
-    PrescriptionMedicationRetrieveView,
-    PrescriptionMedicationDestroyView,
-    PrescriptionMedicationUpdateView,
-)
+from .views import *
 
 urlpatterns = [
-    path('doctors/', DoctorListView.as_view(), name='doctor-list'),
-    path('doctors/create/', DoctorCreateView.as_view(), name='doctor-create'),
-    path('doctors/<int:pk>/', DoctorRetrieveView.as_view(), name='doctor-retrieve'),
-    path('doctors/<int:pk>/delete/', DoctorDestroyView.as_view(), name='doctor-destroy'),
-    path('doctors/<int:pk>/update/', DoctorUpdateView.as_view(), name='doctor-update'),
-
-    path('patients/', PatientListView.as_view(), name='patient-list'),
-    path('patients/create/', PatientCreateView.as_view(), name='patient-create'),
-    path('patients/<int:pk>/', PatientRetrieveView.as_view(), name='patient-retrieve'),
-    path('patients/<int:pk>/delete/', PatientDestroyView.as_view(), name='patient-destroy'),
-    path('patients/<int:pk>/update/', PatientUpdateView.as_view(), name='patient-update'),
-
+    path('users/', UserListView.as_view(), name='user-list'),
+    path('users/create/', UserCreateView.as_view(), name='user-create'),
+    path('users/<int:pk>/', UserRetrieveView.as_view(), name='user-retrieve'),
+    path('users/<int:pk>/update/', UserUpdateView.as_view(), name='user-update'),
+    path('users/<int:pk>/delete/', UserDestroyView.as_view(), name='user-delete'),
+    
     path('medications/', MedicationListView.as_view(), name='medication-list'),
     path('medications/create/', MedicationCreateView.as_view(), name='medication-create'),
     path('medications/<int:pk>/', MedicationRetrieveView.as_view(), name='medication-retrieve'),

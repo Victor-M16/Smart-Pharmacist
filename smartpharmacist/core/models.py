@@ -8,7 +8,6 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
-
 class CustomAccountManager(BaseUserManager):
     def create_superuser(self, username, password, **other_fields):
         other_fields.setdefault('is_staff', True)
@@ -39,18 +38,47 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('Pharmacist', 'Pharmacist'),
     )
 
+    SPECIALTY_CHOICES = (
+        ('General', 'General'),
+        ('Cardiology', 'Cardiology'),
+        ('Dermatology', 'Dermatology'),
+        ('Endocrinology', 'Endocrinology'),
+        ('Gastroenterology', 'Gastroenterology'),
+        ('General Surgery', 'General Surgery'),
+        ('Hematology', 'Hematology'),
+        ('Infectious Disease', 'Infectious Disease'),
+        ('Nephrology', 'Nephrology'),
+        ('Neurology', 'Neurology'),
+        ('Obstetrics & Gynecology', 'Obstetrics & Gynecology'),
+        ('Oncology', 'Oncology'),
+        ('Ophthalmology', 'Ophthalmology'),
+        ('Orthopedic Surgery', 'Orthopedic Surgery'),
+        ('Otolaryngology', 'Otolaryngology'),
+        ('Pediatrics', 'Pediatrics'),
+        ('Psychiatry', 'Psychiatry'),
+        ('Pulmonology', 'Pulmonology'),
+        ('Radiology', 'Radiology'),
+        ('Rheumatology', 'Rheumatology'),
+        ('Urology', 'Urology'),
+    )
+
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=255, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     account_type = models.CharField(max_length=150, null=True, choices=ACCOUNT_TYPE_CHOICES)
+    specialty = models.CharField(max_length=100, null=True, blank=True, choices=SPECIALTY_CHOICES)
     email = models.EmailField(_('email address'), unique=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
-    start_date = models.DateTimeField(default=timezone.now)
     national_id = models.CharField(max_length=20, null=True, blank=True, unique=True)
-    dob = models.DateField(_('dob'), null=True)
+    dob = models.DateField(_('dob'), null=True, blank=True)
     gender = models.CharField(max_length=255, null= True)
-    id_data = models.TextField()
+    id_data = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_patient = models.BooleanField(default=False)
+    is_doctor = models.BooleanField(default=False)
+    is_pharmacist = models.BooleanField(default=False)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -72,41 +100,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_absolute_url(self):
         return reverse("user-detail", kwargs={"pk": self.pk})
 
-class User(AbstractUser):
-    is_patient = models.BooleanField(default=False)
-    is_doctor = models.BooleanField(default=False)
-    is_pharmacist = models.BooleanField(default=False)
 
-class Patient(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    dob = models.DateField()
-    gender = models.CharField(max_length=10)
-    contact_info = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"
-
-class Doctor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    specialty = models.CharField(max_length=100)
-    contact_info = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"
-
-class Pharmacist(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    contact_info = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"
 
 class Medication(models.Model):
     id = models.AutoField(primary_key=True)
@@ -121,10 +115,10 @@ class Medication(models.Model):
 
 class Prescription(models.Model):
     id = models.AutoField(primary_key=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    patient = models.ForeignKey(User, on_delete=models.CASCADE,related_name = "Patient")
+    doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "Doctor")
     code = models.CharField(max_length=4, unique=True)
-    instructions = models.TextField(max_length=200, null=True)
+    instructions = models.TextField(max_length=200, null=True, blank=True)
     sickness = models.CharField(max_length=100)
     is_dispensed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -173,7 +167,6 @@ class VendingSlot(models.Model):
         return f"{self.vending_machine} - {self.slot_number} - {self.medication}"
 
 
-
 class Dispensation(models.Model):
     id = models.AutoField(primary_key=True)
     vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
@@ -188,3 +181,6 @@ class Inventory(models.Model):
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+

@@ -1,21 +1,15 @@
 from rest_framework import serializers
-from core.models import Patient, Doctor, Pharmacist, Medication, Prescription, PrescriptionMedication, VendingMachine, Dispensation, Inventory, VendingSlot
+from core.models import *
 
 
-class PatientSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Patient
-        fields = '__all__'
-
-class DoctorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Doctor
-        fields = '__all__'
- 
-class PharmacistSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Pharmacist
-        fields = '__all__'
+        model = User
+        fields = [
+            'id', 'username', 'first_name', 'last_name', 'account_type', 'specialty', 
+            'email', 'phone', 'start_date', 'national_id', 'dob', 'gender', 
+            'id_data', 'created_at', 'updated_at', 'is_patient', 'is_doctor', 'is_pharmacist'
+        ]
 
 class MedicationSerializer(serializers.ModelSerializer):
     class Meta:

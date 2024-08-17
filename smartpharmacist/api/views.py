@@ -1,64 +1,38 @@
 from rest_framework import generics
-from core.models import Patient, Doctor, Medication, Prescription, PrescriptionMedication, VendingMachine, Dispensation, Inventory, VendingSlot
-from .serializers import PatientSerializer, DoctorSerializer, MedicationSerializer, PrescriptionSerializer, PrescriptionMedicationSerializer, VendingMachineSerializer, DispensationSerializer, InventorySerializer, VendingSlotSerializer
-from .custom_permissions import IsDoctorOnly, IsPatientOnly, IsPharmacistOnly
+from core.models import *
+from .serializers import *
+from .custom_permissions import *
 from rest_framework import permissions
 import requests
 from django.http import JsonResponse
 
-# Doctor views
-class DoctorListView(generics.ListAPIView):
-    queryset = Doctor.objects.all()
-    serializer_class = DoctorSerializer
-    permission_classes = [IsDoctorOnly]
-
-class DoctorCreateView(generics.CreateAPIView):
-    queryset = Doctor.objects.all()
-    serializer_class = DoctorSerializer
-    permission_classes = [IsDoctorOnly]
-
-class DoctorRetrieveView(generics.RetrieveAPIView):
-    queryset = Doctor.objects.all()
-    serializer_class = DoctorSerializer
-    permission_classes = [IsDoctorOnly]
-
-class DoctorDestroyView(generics.DestroyAPIView):
-    queryset = Doctor.objects.all()
-    serializer_class = DoctorSerializer
-    permission_classes = [IsDoctorOnly]
-
-class DoctorUpdateView(generics.UpdateAPIView):
-    queryset = Doctor.objects.all()
-    serializer_class = DoctorSerializer
-    permission_classes = [IsDoctorOnly]
 
 
-# Patient views
-class PatientListView(generics.ListAPIView):
-    queryset = Patient.objects.all()
-    serializer_class = PatientSerializer
-    permission_classes = [IsPatientOnly]
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsDoctorOnly] 
 
-class PatientCreateView(generics.CreateAPIView):
-    queryset = Patient.objects.all()
-    serializer_class = PatientSerializer
-    permission_classes = [IsDoctorOnly]  
+class UserCreateView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsDoctorOnly, IsAdminUser] 
 
+class UserRetrieveView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsDoctorOnly, IsOwnerOrAdmin]  
 
-class PatientRetrieveView(generics.RetrieveAPIView):
-    queryset = Patient.objects.all()
-    serializer_class = PatientSerializer
-    permission_classes = [IsPatientOnly]
+class UserUpdateView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsDoctorOnly, IsOwnerOrAdmin]  
 
-class PatientDestroyView(generics.DestroyAPIView):
-    queryset = Patient.objects.all()
-    serializer_class = PatientSerializer
-    permission_classes = [IsDoctorOnly]
+class UserDestroyView(generics.DestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsDoctorOnly, IsOwnerOrAdmin]  
 
-class PatientUpdateView(generics.UpdateAPIView):
-    queryset = Patient.objects.all()
-    serializer_class = PatientSerializer
-    permission_classes = [IsDoctorOnly]
 
 
 # Medication views

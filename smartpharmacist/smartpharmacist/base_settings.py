@@ -30,12 +30,48 @@ ALLOWED_HOSTS = ['*']
 
 TAILWIND_APP_NAME = 'dashboard'
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        # Define a console handler to output log messages to the console
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'formatters': {
+        'simple': {
+            'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        },
+    },
+    'loggers': {
+        # Configure logging for your application
+        'allocations': {
+            'handlers': ['console'],
+            'level': 'DEBUG',  # Adjust the logging level as needed
+        },
+    },
+}
+
+
 # Application definition
 
 INSTALLED_APPS = [
+    #third party
     'rest_framework',
     'tailwind',
     'compressor',
+    'crispy_forms',
+    'crispy_bootstrap5',
+
+    #django
     'django_browser_reload',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,9 +79,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #local
     'core',
     'api',
 ]
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        # 'BACKEND': 'channels.layers.InMemoryChannelLayer', 
+        
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('localhost', 6379)],
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,9 +194,9 @@ STATICFILES_DIRS = [
 
 
 LOGIN_REDIRECT_URL = 'home'
-LOGIN_URL = 'users-login'
-LOGOUT_URL =  'user-logout'
-LOGOUT_REDIRECT_URL = 'users-landing'
+LOGIN_URL = 'login'
+# LOGOUT_URL =  'logout'
+# LOGOUT_REDIRECT_URL = 'landing'
 
 AUTH_USER_MODEL = 'core.User'
 
