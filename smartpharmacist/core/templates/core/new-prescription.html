@@ -1,13 +1,13 @@
 {% extends "core/base.html" %} {% block content %}
 <!-- new patient form -->
-<div class="flex-1 min-w-fit">
-  <form class="max-w-sm mx-auto">
-    <p class="text-xl font-bold py-3">New prescription</p>
+<div>
+  <form>
+    <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">New prescription</p>
     <!-- enter patient id -->
     <div class="mb-5">
       <label
         for="patient-id"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         >Enter patient ID</label
       >
       <input
@@ -21,7 +21,7 @@
     <div class="mb-5">
       <label
         for="doctor-id"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         >Enter doctor ID</label
       >
       <input
@@ -35,7 +35,7 @@
     <div class="mb-5">
       <label
         for="dosage-select"
-        class="text-sm leading-6 text-zinc-900"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         for="dosage-select"
         >Select a dosage</label
       >
@@ -56,20 +56,20 @@
     <div class="mb-3">
       <label
         for="message"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
-        >Enter description</label
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+        >Enter directions</label
       >
       <textarea
         id="message"
         rows="10"
-        class="block p-2.5 w-full md:w-80 text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-        placeholder="Leave a description..."
+        class="block p-2.5 w-full text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+        placeholder="Leave directions..."
       ></textarea>
     </div>
 
     <button
       type="button"
-      class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:focus:ring-zinc-700 dark:border-zinc-700"
+      class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700"
     >
       Submit
     </button>
