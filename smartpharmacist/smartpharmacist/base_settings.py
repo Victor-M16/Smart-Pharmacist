@@ -26,53 +26,19 @@ SECRET_KEY = 'django-insecure-j+s)=1u%wo2yj&p06vg!wtgu!hju=108(xpwd688=2k#ic_rr^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
-TAILWIND_APP_NAME = 'dashboard'
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
-CRISPY_TEMPLATE_PACK = "bootstrap5"
-
-
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        # Define a console handler to output log messages to the console
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-        },
-    },
-    'formatters': {
-        'simple': {
-            'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        },
-    },
-    'loggers': {
-        # Configure logging for your application
-        'allocations': {
-            'handlers': ['console'],
-            'level': 'DEBUG',  # Adjust the logging level as needed
-        },
-    },
-}
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    #third party
-    'rest_framework',
-    'tailwind',
-    'compressor',
-    'crispy_forms',
-    'crispy_bootstrap5',
+    #local
+    'core',
+    'api',
 
-    #django
-    'django_browser_reload',
+    #django.contrib
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -80,10 +46,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #local
-    'core',
-    'api',
+    #tailwind
+    'tailwind',
+    'django_browser_reload',
+    'theme',
+
+    #third party
+    'rest_framework',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
+
+TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 
 
 CHANNEL_LAYERS = {
@@ -105,6 +85,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    #tailwind middleware
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'smartpharmacist.urls'
@@ -112,7 +95,7 @@ ROOT_URLCONF = 'smartpharmacist.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], # new
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,6 +107,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'smartpharmacist.wsgi.application'
 
@@ -175,7 +159,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -184,13 +168,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 
 
 LOGIN_REDIRECT_URL = 'home'
@@ -200,9 +178,30 @@ LOGIN_URL = 'login'
 
 AUTH_USER_MODEL = 'core.User'
 
-COMPRESS_ROOT = BASE_DIR / 'static'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
-COMPRESS_ENABLED = True
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
-
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        # Define a console handler to output log messages to the console
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'formatters': {
+        'simple': {
+            'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        },
+    },
+    'loggers': {
+        # Configure logging for your application
+        'allocations': {
+            'handlers': ['console'],
+            'level': 'DEBUG',  # Adjust the logging level as needed
+        },
+    },
+}
