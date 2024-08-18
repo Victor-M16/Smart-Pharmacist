@@ -1244,6 +1244,11 @@ select {
   color: rgb(63 63 70 / var(--tw-text-opacity));
 }
 
+.hover\:text-zinc-900:hover {
+  --tw-text-opacity: 1;
+  color: rgb(24 24 27 / var(--tw-text-opacity));
+}
+
 .focus\:border-zinc-500:focus {
   --tw-border-opacity: 1;
   border-color: rgb(113 113 122 / var(--tw-border-opacity));
@@ -1444,6 +1449,11 @@ select {
   .dark\:hover\:text-white:hover {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+
+  .dark\:hover\:text-zinc-900:hover {
+    --tw-text-opacity: 1;
+    color: rgb(24 24 27 / var(--tw-text-opacity));
   }
 
   .dark\:focus\:border-zinc-500:focus {
