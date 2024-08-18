@@ -56,7 +56,7 @@ class CustomLoginView(LoginView):
 class HomeView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         form = CustomUserCreationForm()
-        user = request.user
+        user = self.request.user
         context = {'title': 'home', 'form': form}
 
         if user.account_type == 'Doctor':

@@ -34,6 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('Doctor', 'Doctor'),
         ('Patient', 'Patient'),
         ('Pharmacist', 'Pharmacist'),
+        ('Admin', 'Admin'),
     )
 
     SPECIALTY_CHOICES = (

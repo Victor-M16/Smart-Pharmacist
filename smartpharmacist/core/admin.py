@@ -1,22 +1,20 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import *
-from .models import VendingMachine, Dispensation, Inventory, VendingSlot
-
 # Register your models here.
 
 class UserAdminConfig(UserAdmin):
     model = User
     search_fields = ('email', 'username', )
     list_filter = ('username','email', 'account_type',  'is_active', 'is_staff')
-    ordering = ('-start_date',)
+    ordering = ('-created_at',)
     list_display = ('email', 'username','account_type',
                     'is_active', 'is_staff')
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        ('Personal Info', {'fields': ('first_name', 'last_name', 'email','phone', 'national_id','account_type', 'entity_id')}),
+        ('Personal Info', {'fields': ('first_name', 'last_name', 'email','phone', 'national_id','account_type')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
-        ('Important dates', {'fields': ('start_date',)}),  # Add important dates if needed
+        ('Important dates', {'fields': ('created_at',)}),  # Add important dates if needed
     )
 
     add_fieldsets = (
@@ -29,10 +27,10 @@ class UserAdminConfig(UserAdmin):
     def formfield_for_choice_field(self, db_field, request, **kwargs):
         if db_field.name == 'account_type':
             kwargs['choices'] = (
-            ('Agent', 'Agent'),
-            ('Citizen', 'Citizen'),
-            ('Entity Admin', 'Entity Admin'),
-            ('Admin', 'Admin'),
+        ('Doctor', 'Doctor'),
+        ('Patient', 'Patient'),
+        ('Pharmacist', 'Pharmacist'),
+        ('Admin', 'Admin'),
             )
         return super().formfield_for_choice_field(db_field, request, **kwargs)
     
@@ -44,6 +42,4 @@ admin.site.register(Dispensation)
 admin.site.register(Inventory)
 admin.site.register(VendingSlot)
 
-
-
-admin.site.register(User)
+admin.site.register(User, UserAdminConfig)

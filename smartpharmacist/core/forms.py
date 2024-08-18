@@ -3,6 +3,7 @@ from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
                                        UserCreationForm)
 
 from .models import User
+from django.contrib.auth import authenticate
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -105,6 +106,26 @@ class CustomAuthenticationForm(AuthenticationForm):
             'class': 'bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500'
         })
     )
+
+    def confirm_login_allowed(self, user):
+        # This method is inherited from AuthenticationForm and can be used to add extra
+        # checks for login permission. Make sure it's not preventing non-superusers.
+        pass
+
+    def clean(self):
+        # Call the parent class's clean method to get the username and password
+        cleaned_data = super().clean()
+        username = cleaned_data.get('username')
+        password = cleaned_data.get('password')
+
+        # Authenticate the user using Django's built-in authentication system
+        user = authenticate(self.request, username=username, password=password)
+        if user is None:
+            raise forms.ValidationError("Invalid username or password.")
+        
+        # Optionally, you can add additional checks here (e.g., if the user is active)
+
+        return cleaned_data
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
