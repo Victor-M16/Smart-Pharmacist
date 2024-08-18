@@ -14,11 +14,10 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
   </head>
   {% block body %}
 
-  <body class="min-h-screen flex">
+  <body class="min-h-screen flex dark:bg-zinc-700">
     <!-- main contaiiner -->
     <section class="flex flex-1 items-center justify-center">
       <!-- black background with logo -->
@@ -30,9 +29,6 @@
       <!-- forms go here -->
       {% block content%} {% endblock content %}
     </section>
-
-    <script src="" async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
   </body>
 
   {% endblock body %}
