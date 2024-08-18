@@ -851,6 +851,14 @@ select {
   margin-top: 1rem;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.ms-1 {
+  margin-inline-start: 0.25rem;
+}
+
 .block {
   display: block;
 }
@@ -1104,6 +1112,7 @@ select {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
+
 
 .font-serif {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
