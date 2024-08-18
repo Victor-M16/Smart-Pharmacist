@@ -17,28 +17,28 @@
   </head>
   {% block body %}
 
-  <body class="flex flex-col min-h-screen max-w-5xl mx-auto p-6 md:p-0 dark:bg-zinc-700">
+  <body class="flex flex-col min-h-screen max-w-5xl mx-auto p-6 sm:p-3 dark:bg-zinc-700">
     <!-- header section -->
 
     <nav class="bg-white border-zinc-200 dark:bg-zinc-700">
-        <ul class="flex items-center justify-between">
+        <ul class="flex flex-wrap items-center justify-between">
           <li>
             <a
               href="{% url 'home' %}"
-              class="self-center text-[32px] font-extrabold whitespace-nowrap hover:text-zinc-700 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              class="self-center text-lg sm:text-[32px] font-extrabold whitespace-nowrap hover:text-zinc-700 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
             >
               Smart Pharmacist
             </a>
           </li>
           <li>
-            <a href="#" class="text-xl text-zinc-800 hover:text-zinc-900 dark:text-zinc-50 dark:hover:text-zinc-400 transition">logout</a>
+            <a href="#" class="text-lg sm:text-xl text-zinc-800 hover:text-zinc-900 dark:text-zinc-50 dark:hover:text-zinc-400 transition">logout</a>
           </li>
         </ul>
     </nav>
 
     <!-- body -->
     <div
-      class="min-h-screen"
+      class="flex flex-1 flex-col"
     >
       <!-- quick navigation links -->
       <div>
