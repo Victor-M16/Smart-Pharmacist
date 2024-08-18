@@ -14,31 +14,31 @@
   {% endif %}
   <form method="post">
     {% csrf_token %}
-    <p class="text-xl font-bold py-3">Login</p>
+    <p class="text-xl font-bold py-3 dark:text-zinc-50">Login</p>
     
     <!-- Username Field -->
-    <div class="my-3">
+    <div class="my-3 dark:text-zinc-50">
       {{ form.username.label_tag }}
       {{ form.username }}
     </div>
 
     <!-- Password Field -->
-    <div class="my-3">
+    <div class="my-3 dark:text-zinc-50">
       {{ form.password.label_tag }}
       {{ form.password }}
     </div>
 
     <button
       type="submit"
-      class="w-full text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:focus:ring-zinc-700 dark:border-zinc-700"
+      class="w-full text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700"
     >
       Sign In
     </button>
 
-    <p class="text-sm">
+    <p class="text-sm dark:text-zinc-50">
       Not a member? Click
       <span class="hover:cursor-default">
-        <a href="#" class="font-bold">here</a>
+        <a href="{% url 'register' %}" class="font-bold dark:hover:text-zinc-900">here</a>
       </span>
       to sign up.
     </p>

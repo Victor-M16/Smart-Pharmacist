@@ -1,17 +1,18 @@
 {% extends "core/base.html" %} {% block content %}
 <!-- new patient form -->
 <div>
-  <p class="text-xl font-bold py-3">New patient</p>
-
-  <form class="max-w-sm mx-auto">
+  <form>
+    <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">
+      New patient
+    </p>
     <div class="mb-5">
       <label
         for="user_id"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         >Enter patient user_id</label
       >
       <input
-        type="user_id"
+        type="text"
         id="user_id"
         class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
         required
@@ -20,41 +21,22 @@
     <div class="mb-5">
       <label
         for="dob"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         >Enter patient date of birth</label
       >
       <!-- date picker -->
 
-      <div class="relative max-w-sm mb-5">
-        <div
-          class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-        >
-          <svg
-            class="w-4 h-4 text-gray-500 dark:text-gray-400"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-            />
-          </svg>
-        </div>
-        <input
-          id="datepicker-autohide"
-          datepicker
-          datepicker-autohide
-          type="text"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-          placeholder="Select date"
-        />
-      </div>
+      <input
+        type="date"
+        id="dob"
+        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+        required
+      />
     </div>
     <div class="mb-5">
       <label
         for="gender"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         >Select a gender</label
       >
       <select
@@ -71,11 +53,11 @@
     <div class="mb-5">
       <label
         for="contact_info"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         >Enter patient contact information</label
       >
       <input
-        type="contact_info"
+        type="text"
         id="contact_info"
         class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
         required
@@ -84,12 +66,12 @@
     <div class="mb-5">
       <label
         for="address"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         >Enter patient address</label
       >
       <input
-        type="contact_info"
-        id="contact_info"
+        type="text"
+        id="address"
         class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
         required
       />
@@ -97,7 +79,7 @@
 
     <button
       type="button"
-      class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:focus:ring-zinc-700 dark:border-zinc-700"
+      class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"
     >
       Submit
     </button>

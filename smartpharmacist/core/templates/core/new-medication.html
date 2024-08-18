@@ -1,18 +1,18 @@
 {% extends "core/pharm-base.html" %} {% block content %}
 <!-- new medication form -->
-<div class="flex-1 min-w-fit">
-  <form class="max-w-sm mx-auto">
-    <p class="text-xl font-bold py-3">New medication</p>
+<div>
+  <form >
+    <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">New medication</p>
     <!-- enter medication id -->
     <div class="mb-5">
       <label
         for="medication"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         >Enter medication ID</label
       >
       <input
         type="text"
-        id="medication_id"
+        id="medication"
         class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
         required
       />
@@ -21,7 +21,7 @@
     <div class="mb-5">
       <label
         for="medication_name"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         >Enter medication name</label
       >
       <input
@@ -35,12 +35,12 @@
     <div class="mb-5">
       <label
         for="package"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         >Enter package size</label
       >
       <input
         type="number"
-        id="packge-id"
+        id="package"
         class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
         required
       />
@@ -49,21 +49,21 @@
     <!-- enter description -->
     <div class="mb-3">
       <label
-        for="message"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+        for="description"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
         >Enter description</label
       >
       <textarea
-        id="medication_desc"
-        rows="2"
-        class="block p-2.5 w-full md:w-80 text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-        placeholder="Leave a description..."
+        id="description"
+        rows="1"
+        class="block p-2.5 w-full text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+        placeholder="Leave description.."
       ></textarea>
     </div>
 
     <button
       type="button"
-      class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:focus:ring-zinc-700 dark:border-zinc-700"
+      class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"
     >
       Submit
     </button>
