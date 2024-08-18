@@ -803,6 +803,22 @@ select {
   position: relative;
 }
 
+.bottom-0 {
+  bottom: 0px;
+}
+
+.end-0 {
+  inset-inline-end: 0px;
+}
+
+.start-0 {
+  inset-inline-start: 0px;
+}
+
+.m-auto {
+  margin: auto;
+}
+
 .mx-20 {
   margin-left: 5rem;
   margin-right: 5rem;
@@ -1033,6 +1049,11 @@ select {
   border-color: rgb(212 212 216 / var(--tw-border-opacity));
 }
 
+.border-zinc-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(161 161 170 / var(--tw-border-opacity));
+}
+
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -1113,6 +1134,26 @@ select {
   padding-bottom: 0.75rem;
 }
 
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.pb-0 {
+  padding-bottom: 0px;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
 
 .font-serif {
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
