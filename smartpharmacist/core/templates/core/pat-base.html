@@ -31,7 +31,15 @@
             </a>
           </li>
           <li>
-            <a href="#" class="text-lg sm:text-xl text-zinc-800 hover:text-zinc-900 dark:text-zinc-50 dark:hover:text-zinc-400 transition">logout</a>
+            <form id="logoutForm" method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="text-lg sm:text-xl text-zinc-800 hover:text-zinc-900 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >
+                logout
+              </button>
+            </form>
           </li>
         </ul>
     </nav>
