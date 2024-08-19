@@ -17,32 +17,42 @@
   </head>
   {% block body %}
 
-  <body class="flex flex-col min-h-screen max-w-5xl mx-auto p-6 sm:p-5 md:p-4 dark:bg-zinc-700">
+  <body
+    class="flex flex-col min-h-screen max-w-5xl mx-auto p-6 sm:p-5 md:p-4 dark:bg-zinc-700"
+  >
     <!-- header section -->
 
     <nav class="bg-white border-zinc-200 dark:bg-zinc-700">
-        <ul class="flex flex-wrap items-center justify-between">
-          <li>
-            <a
-              href="{% url 'home' %}"
-              class="self-center text-lg sm:text-[32px] font-extrabold whitespace-nowrap hover:text-zinc-700 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+      <ul class="flex flex-wrap items-center justify-between">
+        <li>
+          <a
+            href="{% url 'home' %}"
+            class="self-center text-lg sm:text-[32px] font-extrabold whitespace-nowrap hover:text-zinc-700 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+          >
+            Smart Pharmacist
+          </a>
+        </li>
+        <li>
+          <form id="logoutForm" method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button
+              type="submit"
+              class="text-lg sm:text-xl text-zinc-800 hover:text-zinc-900 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
             >
-              Smart Pharmacist
-            </a>
-          </li>
-          <li>
-            <a href="#" class="text-lg sm:text-xl text-zinc-800 hover:text-zinc-900 dark:text-zinc-50 dark:hover:text-zinc-400 transition">logout</a>
-          </li>
-        </ul>
+              logout
+            </button>
+          </form>
+        </li>
+      </ul>
     </nav>
 
     <!-- body -->
-    <div
-      class="flex flex-1 flex-col"
-    >
+    <div class="flex flex-1 flex-col">
       <!-- quick navigation links -->
       <div>
-        <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">Quick actions</p>
+        <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">
+          Quick actions
+        </p>
         <ul>
           <li class="my-2">
             <a
