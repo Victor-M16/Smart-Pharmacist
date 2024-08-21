@@ -19,36 +19,36 @@ The software component is a built from the ground up hospital management system 
 
 1. Fork and clone this repository
 
-1. Setup your Django development environment. More instructions [here](https://www.djangoproject.com/start/)
+2. Setup your Django development environment. More instructions [here](https://www.djangoproject.com/start/)
 
-1. Make sure to also have node.js installed. Instructions [here](https://nodejs.org/)
+3. Make sure to also have node.js installed. Instructions [here](https://nodejs.org/)
 
-1. Create a python virtual environment in the `smartpharmacist` directory
+4. Create a python virtual environment in the `smartpharmacist` directory
 
-1. Install Django dependencies for the project using the `requirements.txt`
+5. Install Django dependencies for the project using the `requirements.txt`
 
 ```shell
 pip install requirements.txt
 ```
-1. Install django-tailwind dependencies by navigating to `theme\static_src\` in your terminal and typing 
+6. Install django-tailwind dependencies by navigating to `theme\static_src\` in your terminal and typing 
 
 ```shell
 npm install
 ```
-1. Create a `local_settings.py` file in the `smartpharmacist` directory and include the following Python code
+7. Create a `local_settings.py` file in the `smartpharmacist` directory and include the following Python code
 
 ```python
 from .base_settings import *
 ```
 Here you can specify any extra configuration specification to your environment, such as database connection.
 
-1. Start the Tailwind Development server by running the following command in your terminal
+8. Start the Tailwind Development server by running the following command in your terminal
 
 ```shell
 python manage.py tailwind start
 ```
 
-1. Start the Django development server by running the following command in your terminal
+9. Start the Django development server by running the following command in your terminal
 
 ```shell
 python manage.py runserver
