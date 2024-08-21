@@ -4,12 +4,24 @@ from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
 
 from .models import User
 from django.contrib.auth import authenticate
+from django.contrib.auth.password_validation import password_validators_help_texts
 
+class UserRegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'account_type', 'specialty', 'phone', 'national_id', 'dob', 'gender', 'password1', 'password2']
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name','last_name', 'username','email','phone','account_type', 'national_id','is_staff', 'is_superuser', 'password1', 'password2','is_doctor','is_patient','is_pharmacist',]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Get help texts from the password validators
+        password_help_texts = password_validators_help_texts()
+        # Set the help text for the password1 field as a list
+        self.fields['password1'].help_text = password_help_texts
 
     account_type = forms.ChoiceField(
         label='Account Type',
