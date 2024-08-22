@@ -14,29 +14,29 @@ from .models import *
 
 
 class CustomRegisterView(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, *args, **kwargs):
         form = CustomUserCreationForm()
         context = {
             'form': form,
             'title': 'register',
         }
-        return render(request, 'auth/register.html', context)
+        return render(self.request, 'auth/register.html', context)
     
-    def post(self, request, *args, **kwargs):
-        form = CustomUserCreationForm(request.POST)
+    def post(self, *args, **kwargs):
+        form = CustomUserCreationForm(self.request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f"Account created for {username} !")    
+            messages.success(self.request, f"Account created for {username} !")    
             return redirect('login')
         else:
-            messages.warning(request, "Registration failed. Please correct the errors below.")
+            messages.warning(self.request, "Registration failed. Please correct the errors below.")
             
         context = {
             'form': form,
             'title': 'register',
         }
-        return render(request, 'auth/register.html', context)
+        return render(self.request, 'auth/register.html', context)
     
 
 
