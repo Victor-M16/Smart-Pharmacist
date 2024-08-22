@@ -39,7 +39,6 @@ class CustomRegisterView(View):
         return render(self.request, 'auth/register.html', context)
     
 
-
 class CustomLoginView(LoginView):
     form_class = CustomAuthenticationForm
     template_name = 'auth/login.html'
@@ -119,6 +118,19 @@ def create_patient(request):
     return render(request, "core/new-patient.html", {'title': 'new patient'})
 
 def create_prescription(request):
+    if request.method == 'POST':
+        form = PrescriptionForm(request.POST)
+        if form.is_valid():
+            # Save the form data
+            prescription = form.save(commit=False)
+            prescription.doctor = request.user  # Automatically assign the logged-in doctor
+            prescription.save()
+            messages.success(request, 'Prescription created successfully!')
+            return redirect('prescription_list')  # Redirect to a list or detail view
+    else:
+        form = PrescriptionForm()
+    
+    return render(request, 'prescription_form.html', {'form': form})
     return render(request, "core/new-prescription.html", {'title': 'new prescription'})
 
 
