@@ -43,3 +43,5 @@ admin.site.register(Inventory)
 admin.site.register(VendingSlot)
 
 admin.site.register(User, UserAdminConfig)
+
+admin.site.register(Test)

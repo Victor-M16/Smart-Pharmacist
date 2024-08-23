@@ -14,7 +14,7 @@ class UserRegistrationForm(UserCreationForm):
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['first_name','last_name', 'username','email','phone','account_type', 'national_id','is_staff', 'is_superuser', 'password1', 'password2','is_doctor','is_patient','is_pharmacist',]
+        fields = ['first_name','last_name', 'username','email','phone','account_type', 'national_id','is_staff', 'is_superuser', 'password1', 'password2']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -13,12 +13,39 @@ from .serializers import *
 from .serializers import (MedicationSerializer,
                           PrescriptionMedicationSerializer,
                           PrescriptionSerializer, UserSerializer,
-                          VendingMachineSerializer, VendingSlotSerializer)
+                          VendingMachineSerializer, VendingSlotSerializer, TestSerializer)
 
 
 # User ViewSet
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [IsDoctorOnly(), IsAdminUser()]
+        if self.action in ['create']:
+            return [IsDoctorOnly(), IsAdminUser()]
+        if self.action in ['update', 'partial_update', 'destroy']:
+            return [IsDoctorOnly(), IsAdminUser()]
+        return super().get_permissions()
+    
+class PatientViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.filter(account_type="Patient")
+    serializer_class = UserSerializer
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [IsDoctorOnly(), IsAdminUser()]
+        if self.action in ['create']:
+            return [IsDoctorOnly(), IsAdminUser()]
+        if self.action in ['update', 'partial_update', 'destroy']:
+            return [IsDoctorOnly(), IsAdminUser()]
+        return super().get_permissions()
+    
+
+class DoctorViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.filter(account_type="Doctor")
     serializer_class = UserSerializer
 
     def get_permissions(self):
@@ -102,8 +129,6 @@ class PrescriptionMedicationViewSet(viewsets.ModelViewSet):
             return [IsDoctorOnly(), IsAdminUser()]
         return super().get_permissions()
     
-    def perform_create(self, serializer):
-        serializer.save(doctor=self.request.user)
 
 
 class ESP32_API(APIView):
@@ -135,3 +160,8 @@ class ESP32_API(APIView):
         except requests.RequestException as e:
             print(f"An error occurred: {e}")
             return None
+        
+
+class TestViewSet(viewsets.ModelViewSet):
+    serializer_class = TestSerializer
+    queryset = Test.objects.all()
