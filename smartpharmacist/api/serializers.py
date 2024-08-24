@@ -17,16 +17,16 @@ class MedicationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PrescriptionSerializer(serializers.ModelSerializer):
-    patient = UserSerializer()
-    doctor = UserSerializer()
+    # patient = UserSerializer()
+    # doctor = UserSerializer()
 
     class Meta:
         model = Prescription
         fields = '__all__'
 
 class PrescriptionMedicationSerializer(serializers.ModelSerializer):
-    prescription = PrescriptionSerializer()
-    medication = MedicationSerializer()
+    # prescription = PrescriptionSerializer()
+    # medication = MedicationSerializer()
 
     class Meta:
         model = PrescriptionMedication

@@ -1,5 +1,5 @@
 
-import requests
+import requests, random
 from core.models import *
 from django.http import JsonResponse
 from rest_framework.views import APIView
@@ -107,9 +107,22 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
             return [IsDoctorOnly(), IsAdminUser()]
         return super().get_permissions()
-    
+
     def perform_create(self, serializer):
-        serializer.save(doctor=self.request.user)
+        # Generate a unique 4-digit code
+        code = self.generate_unique_code()
+        # Save the prescription with the generated code
+        serializer.save(code=code)
+
+    def generate_unique_code(self):
+        # Loop until a unique code is found
+        while True:
+            # Generate a random 4-digit code
+            code = '{:04d}'.format(random.randint(0, 9999))
+            # Check if the code already exists
+            if not Prescription.objects.filter(code=code).exists():
+                return code  
+
 
 # Prescription Medication ViewSet
 class PrescriptionMedicationViewSet(viewsets.ModelViewSet):
