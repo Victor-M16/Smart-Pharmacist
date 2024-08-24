@@ -160,3 +160,7 @@ cython_debug/
 
 smartpharmacist/smartpharmacist/local_settings.py
 node_modules/
+
+# tailwindcss
+
+smartpharmacist/theme/static/
