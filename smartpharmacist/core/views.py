@@ -39,7 +39,6 @@ class CustomRegisterView(View):
         return render(self.request, 'auth/register.html', context)
     
 
-
 class CustomLoginView(LoginView):
     form_class = CustomAuthenticationForm
     template_name = 'auth/login.html'
@@ -119,7 +118,9 @@ def create_patient(request):
     return render(request, "core/new-patient.html", {'title': 'new patient'})
 
 def create_prescription(request):
-    return render(request, "core/new-prescription.html", {'title': 'new prescription'})
+    context = {'title': 'new prescription',
+               'user_id': request.user.id}
+    return render(request, "core/new-prescription.html", context)
 
 
 def create_medication(request):
