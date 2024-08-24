@@ -45,7 +45,7 @@
         </a>
       </div>
 
-      <div class="hidden sm:block">
+      <div class="hidden md:block">
         <ul class="flex items-center gap-3">
           <li class="my-2">
             <a
@@ -78,7 +78,7 @@
         </ul>
       </div>
 
-      <div class="hidden sm:block">
+      <div class="hidden md:block">
         <form id="logoutForm" method="post" action="{% url 'logout' %}">
           {% csrf_token %}
           <button
@@ -91,7 +91,7 @@
       </div>
 
       <!-- mobile link menu -->
-      <div class="sm:hidden">
+      <div class="md:hidden">
         <select
           name="link-menu"
           id="link-menu"
