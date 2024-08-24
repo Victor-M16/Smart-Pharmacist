@@ -75,9 +75,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     id_data = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
-    # is_patient = models.BooleanField(default=False)
-    # is_doctor = models.BooleanField(default=False)
-    # is_pharmacist = models.BooleanField(default=False)
+    is_patient = models.BooleanField(default=False)
+    is_doctor = models.BooleanField(default=False)
+    is_pharmacist = models.BooleanField(default=False)
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
