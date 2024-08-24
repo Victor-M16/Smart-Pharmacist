@@ -62,8 +62,10 @@ class HomeView(LoginRequiredMixin, View):
             return render(request, 'core/doc-home.html', context)
         elif user.account_type == 'Patient':
             return render(request, 'core/pat-home.html', context)
-        else:
+        elif user.account_type == 'Pharmacist':
             return render(request, 'core/pharm-home.html', context)
+        else:
+            return render(request, 'core/doc-home.html', context)
     
 
 #CRUD for Users
@@ -120,6 +122,9 @@ def create_patient(request):
 def create_prescription(request):
     context = {'title': 'new prescription',
                'user_id': request.user.id}
+    
+    if request.method == 'POST':
+        return redirect('home')
     return render(request, "core/new-prescription.html", context)
 
 

@@ -64,7 +64,6 @@
     .then(data => {
       console.log('Prescription created:', data);
       const prescriptionId = data.id; // Assuming the response contains the new prescription ID
-
       // Proceed to create the prescription medications
       createPrescriptionMedications(prescriptionId);
     })
