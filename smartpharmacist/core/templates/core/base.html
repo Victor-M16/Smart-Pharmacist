@@ -18,7 +18,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Include Select2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Tailwind CSS -->
     {% tailwind_css %}
@@ -30,68 +33,84 @@
   >
     <!-- header section -->
 
-    <nav class="bg-white border-zinc-200 dark:bg-zinc-700">
-      <ul class="flex flex-wrap items-center justify-between">
-        <li>
-          <a
-            href="{% url 'home' %}"
-            class="self-center text-lg sm:text-[32px] font-extrabold whitespace-nowrap hover:text-zinc-700 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
-          >
-            Smart Pharmacist
-          </a>
-        </li>
-        <li>
-          <form id="logoutForm" method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button
-              type="submit"
-              class="text-lg sm:text-xl text-zinc-800 hover:text-zinc-900 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
-            >
-              logout
-            </button>
-          </form>
-        </li>
-      </ul>
-    </nav>
-
-    <!-- body -->
-    <div class="flex flex-1 flex-col">
-      <!-- quick navigation links -->
+    <nav
+      class="bg-white border-zinc-200 flex flex-wrap items-center justify-between dark:bg-zinc-700"
+    >
       <div>
-        <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">
-          Quick actions
-        </p>
-        <ul>
+        <a
+          href="{% url 'home' %}"
+          class="self-center text-lg sm:text-[32px] font-extrabold whitespace-nowrap hover:text-zinc-700 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+        >
+          Smart Pharmacist
+        </a>
+      </div>
+
+      <div class="hidden sm:block">
+        <ul class="flex items-center gap-3">
           <li class="my-2">
             <a
               href="{% url 'home' %}"
-              class="text-zinc-900 hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
-              >Go Home</a
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >Home</a
             >
           </li>
           <li class="my-2">
             <a
               href="{% url 'doc-prescription' %}"
-              class="text-zinc-900 hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
-              >See Prescriptions</a
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >Prescriptions</a
             >
           </li>
           <li class="my-2">
             <a
               href="{% url 'new-prescription' %}"
-              class="text-zinc-900 hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
-              >Create New Prescription</a
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >New Prescription</a
             >
           </li>
           <li class="my-2">
             <a
               href="{% url 'new-patient' %}"
-              class="text-zinc-900 hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
-              >Create New Patient</a
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >New Patient</a
             >
           </li>
         </ul>
       </div>
+
+      <div class="hidden sm:block">
+        <form id="logoutForm" method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button
+            type="submit"
+            class="text-base sm:text-lg font-semibold text-zinc-800 hover:text-zinc-900 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+          >
+            Logout
+          </button>
+        </form>
+      </div>
+
+      <!-- mobile link menu -->
+      <div class="sm:hidden">
+        <select
+          name="link-menu"
+          id="link-menu"
+          class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg font-semibold focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-zinc-100 dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+        >
+          <option value="" disabled selected>Menu</option>
+          <option value="{% url 'home' %}">Home</option>
+          <option value="{% url 'doc-prescription' %}">Prescriptions</option>
+          <option value="{% url 'new-prescription' %}">New Prescription</option>
+          <option value="{% url 'new-patient' %}">New Patient</option>
+          <option value="{% url 'logout' %}">Logout</option>
+        </select>
+      </div>
+    </nav>
+
+    <!-- body -->
+    <div class="flex flex-1 flex-col">
+      <!-- quick navigation links -->
+
       <!-- main content area -->
       {% block content %} {% endblock content %}
     </div>
@@ -104,6 +123,19 @@
 
     <!-- Include Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- script to make the select navigation links work -->
+    <script>
+      document.getElementById('link-menu').addEventListener('change', function(){
+        if (this.value !== '') {
+          if (this.value === "{% url 'logout' %}") {
+            document.getElementById('logoutForm').submit();
+          } else {
+            window.location.href = this.value;
+          }
+        }
+      });
+    </script>
   </body>
 
   {% endblock body %}
