@@ -13,7 +13,7 @@ from .serializers import *
 from .serializers import (MedicationSerializer,
                           PrescriptionMedicationSerializer,
                           PrescriptionSerializer, UserSerializer,
-                          VendingMachineSerializer, VendingSlotSerializer)
+                          VendingMachineSerializer, VendingSlotSerializer, TestSerializer)
 
 
 # User ViewSet
@@ -23,11 +23,38 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
-            return [IsDoctorOnly()]
+            return [IsDoctorOnly(), IsAdminUser()]
         if self.action in ['create']:
             return [IsDoctorOnly(), IsAdminUser()]
         if self.action in ['update', 'partial_update', 'destroy']:
-            return [IsDoctorOnly(), IsOwnerOrAdmin()]
+            return [IsDoctorOnly(), IsAdminUser()]
+        return super().get_permissions()
+    
+class PatientViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.filter(account_type="Patient")
+    serializer_class = UserSerializer
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [IsDoctorOnly(), IsAdminUser()]
+        if self.action in ['create']:
+            return [IsDoctorOnly(), IsAdminUser()]
+        if self.action in ['update', 'partial_update', 'destroy']:
+            return [IsDoctorOnly(), IsAdminUser()]
+        return super().get_permissions()
+    
+
+class DoctorViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.filter(account_type="Doctor")
+    serializer_class = UserSerializer
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [IsDoctorOnly(), IsAdminUser()]
+        if self.action in ['create']:
+            return [IsDoctorOnly(), IsAdminUser()]
+        if self.action in ['update', 'partial_update', 'destroy']:
+            return [IsDoctorOnly(), IsAdminUser()]
         return super().get_permissions()
 
 # Medication ViewSet
@@ -39,8 +66,11 @@ class MedicationViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [IsDoctorOnly()]
+            return [IsPharmacistOnly(), IsAdminUser()]
         return super().get_permissions()
+    
+    def perform_create(self, serializer):
+        serializer.save(doctor=self.request.user)
 
 # Vending Machine ViewSet
 class VendingMachineViewSet(viewsets.ModelViewSet):
@@ -51,7 +81,7 @@ class VendingMachineViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [IsPharmacistOnly()]
+            return [IsPharmacistOnly(), IsAdminUser()]
         return super().get_permissions()
 
 # Vending Slot ViewSet
@@ -63,7 +93,7 @@ class VendingSlotViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [IsPharmacistOnly()]
+            return [IsPharmacistOnly(), IsAdminUser()]
         return super().get_permissions()
 
 # Prescription ViewSet
@@ -75,8 +105,11 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [IsPharmacistOnly()]
+            return [IsDoctorOnly(), IsAdminUser()]
         return super().get_permissions()
+    
+    def perform_create(self, serializer):
+        serializer.save(doctor=self.request.user)
 
 # Prescription Medication ViewSet
 class PrescriptionMedicationViewSet(viewsets.ModelViewSet):
@@ -93,8 +126,9 @@ class PrescriptionMedicationViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
-            return [IsPharmacistOnly()]
+            return [IsDoctorOnly(), IsAdminUser()]
         return super().get_permissions()
+    
 
 
 class ESP32_API(APIView):
@@ -126,3 +160,8 @@ class ESP32_API(APIView):
         except requests.RequestException as e:
             print(f"An error occurred: {e}")
             return None
+        
+
+class TestViewSet(viewsets.ModelViewSet):
+    serializer_class = TestSerializer
+    queryset = Test.objects.all()
