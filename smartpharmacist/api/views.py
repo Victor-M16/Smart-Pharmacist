@@ -35,7 +35,6 @@ class MedicationViewSet(viewsets.ModelViewSet):
     serializer_class = MedicationSerializer
     permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
 
-
 # Vending Machine ViewSet
 class VendingMachineViewSet(viewsets.ModelViewSet):
     queryset = VendingMachine.objects.all()

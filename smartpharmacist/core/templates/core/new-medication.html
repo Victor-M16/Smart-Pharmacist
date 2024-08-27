@@ -1,72 +1,132 @@
 {% extends "core/pharm-base.html" %} {% block content %}
 <!-- new medication form -->
 <div>
-  <form >
-    <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">New medication</p>
-    <!-- enter medication id -->
-    <div class="mb-5">
-      <label
-        for="medication"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
-        >Enter medication ID</label
-      >
-      <input
-        type="text"
-        id="medication"
-        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-        required
-      />
-    </div>
+  <form id="medication-form">
+    <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">
+      New medication
+    </p>
     <!-- enter medication name -->
-    <div class="mb-5">
-      <label
-        for="medication_name"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
-        >Enter medication name</label
-      >
-      <input
-        type="text"
-        id="medication_name"
-        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-        required
-      />
-    </div>
-    <!-- enter medication package size -->
-    <div class="mb-5">
-      <label
-        for="package"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
-        >Enter package size</label
-      >
-      <input
-        type="number"
-        id="package"
-        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-        required
-      />
-    </div>
-
-    <!-- enter description -->
-    <div class="mb-3">
-      <label
-        for="description"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
-        >Enter description</label
-      >
-      <textarea
-        id="description"
-        rows="1"
-        class="block p-2.5 w-full text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-        placeholder="Leave description.."
-      ></textarea>
+    <div class="mb-5" id="medication-fields-container">
+      <div class="medication-field mb-5">
+        <label
+          for="medication_name"
+          class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+          >Enter medication name</label
+        >
+        <input
+          type="text"
+          id="medication_name"
+          name="medication"
+          class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+          required
+        />
+      </div>
+      <!-- enter description -->
+      <div class="mb-3">
+        <label
+          for="description"
+          class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+          >Enter description</label
+        >
+        <textarea
+          id="description"
+          name="description"
+          rows="1"
+          class="block p-2.5 w-full text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+          placeholder="Leave description.."
+        ></textarea>
+      </div>
     </div>
 
-    <button
-      type="button"
-      class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"
-    >
-      Submit
-    </button>
+    <!-- Button to add more medications -->
+    <div class="flex items-center gap-2 my-4">
+      <button
+        type="button"
+        id="add-medication-button"
+        class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:text-zinc-900 dark:bg-zinc-100 dark:hover:bg-zinc-400 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"
+      >
+        Add Medication
+      </button>
+
+      <button
+        type="button"
+        id="submit-button"
+        class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"
+      >
+        Submit
+      </button>
+    </div>
   </form>
 </div>
+
+<!-- To create a new medication -->
+<script>
+  document
+    .getElementById("medication-form")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      const formData = new FormData(document.getElementById("medication-form"));
+
+      // Move the fetch call inside the function
+      fetch("/api/medications/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "{{ csrf_token }}",
+        },
+        body: JSON.stringify({
+          name: formData.get("medication"),
+          description: formData.get("description"),
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("medication created:", data);
+        })
+        .catch((error) => {
+          console.error("Error creating medication:", error);
+        });
+    });
+</script>
+
+<!-- Add more medication button -->
+<script>
+  document
+    .getElementById("add-medication-button")
+    .addEventListener("click", function () {
+      const container = document.getElementById("medication-fields-container");
+      const newField = document.createElement("div");
+      newField.className = "medication-field mb-5";
+      newField.innerHTML = `
+      <label
+          for="medication_name"
+          class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+          >Enter medication name</label
+        >
+        <input
+          type="text"
+          id="medication_name"
+          name="medication"
+          class="bg-zinc-50 mb-5 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+          required
+        />
+      </div>
+      <!-- enter description -->
+      <div class="mb-3">
+        <label
+          for="description"
+          class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+          >Enter description</label
+        >
+        <textarea
+          id="description"
+          name="description"
+          rows="1"
+          class="block p-2.5 w-full text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+          placeholder="Leave description.."
+        ></textarea>
+    `;
+      container.appendChild(newField);
+    });
+</script>
 {% endblock content%}

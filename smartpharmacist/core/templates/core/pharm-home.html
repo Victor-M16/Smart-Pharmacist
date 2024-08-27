@@ -1,6 +1,64 @@
 {% extends "core/pharm-base.html"%} {% block content%}
 <div>
-  <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">Your Inventory</p>
-  <p class="mb-3 text-zinc-900 dark:text-zinc-200">[list of currently available inventory will populate here]</p>
+  <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">
+    Your Inventory
+  </p>
+  <p class="mb-3 text-zinc-900 dark:text-zinc-200">
+    List of currently available inventory will populate here
+  </p>
+
+  <!-- inventory table -->
+
+  <div class="relative overflow-x-auto mb-5">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400"
+    >
+      <thead class="text-xs text-zinc-900 uppercase dark:text-zinc-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">Name</th>
+          <th scope="col" class="px-6 py-3">Description</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <!-- Dynamically generated from database -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- create medication button -->
+  <button
+    type="button"
+    class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"
+  >
+    <a href="{% url 'new-medication' %}">Create Medication</a>
+  </button>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("api/medications")
+      .then((response) => response.json())
+      .then((data) => {
+        const tableBody = document.getElementById("table-body");
+        data.forEach((medication) => {
+          const row = ` 
+          <tr class="bg-zinc-50 dark:bg-zinc-800">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50"
+          >
+            ${medication.id}
+          </th>
+          <td class="px-6 py-4">${medication.name}</td>
+          <td class="px-6 py-4">${medication.description}</td>
+        </tr>
+          
+          `;
+          tableBody.innerHTML += row;
+        });
+      })
+      .catch((error) => console.error("Error fetching medications: ", error));
+  });
+</script>
 {% endblock content %}
