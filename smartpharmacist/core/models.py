@@ -69,7 +69,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255, blank=True)
     account_type = models.CharField(max_length=150, null=True, choices=ACCOUNT_TYPE_CHOICES)
     specialty = models.CharField(max_length=100, null=True, blank=True, choices=SPECIALTY_CHOICES)
-    # email = models.EmailField(_('email address'), unique=True, blank=True)
     email = models.EmailField(_('email address'), null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
     national_id = models.CharField(max_length=20, null=True, blank=True, unique=True)
