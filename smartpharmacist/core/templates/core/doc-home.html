@@ -6,7 +6,7 @@
     Recent Prescriptions
   </p>
   <p class="mb-3 text-zinc-900 dark:text-zinc-200">
-    All assigned prescriptions appear here.
+    All prescriptions you have assigned appear here.
   </p>
   <!-- prescriptions table -->
 
@@ -57,36 +57,39 @@
     </table>
   </div>
 </div>
+  <!-- script to populate prescriptions table -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // collect prescriptions, doctors and patients from api
+      Promise.all([
+        fetch("api/prescriptions").then(response => response.json()),
+        fetch("api/doctors").then(response => response.json()),
+        fetch("api/patients").then(response => response.json())
+      ])
+      .then(([prescriptions, doctors, patients]) => {
+        // attach doctor ID to corresponding doctor name 
+        const doctorsMap = new Map(doctors.map(d => [d.id, d.username]));
+        const patientsMap = new Map(patients.map(p => [p.id, p.username]));
 
-<!-- script to populate prescriptions table -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    fetch("api/prescriptions")
-      .then((response) => response.json())
-      .then((data) => {
         const tableBody = document.getElementById("table-body");
-        data.forEach((prescription) => {
+        prescriptions.forEach((prescription) => {
           const row = ` 
           <tr class="bg-zinc-50 dark:bg-zinc-800">
-          <th
-            scope="row"
-            class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50"
-          >
-            ${prescription.id}
-          </th>
-          <td class="px-6 py-4">${prescription.patient}</td>
-          <td class="px-6 py-4">${prescription.doctor}</td>
-          <td class="px-6 py-4">${prescription.code}</td>
-          <td class="px-6 py-4">${prescription.sickness}</td>
-        </tr>
-          
+            <th scope="row" class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50">
+              ${prescription.id}
+            </th>
+            <td class="px-6 py-4">${patientsMap.get(prescription.patient) || prescription.patient}</td>
+            <td class="px-6 py-4">${doctorsMap.get(prescription.doctor) || prescription.doctor}</td>
+            <td class="px-6 py-4">${prescription.code}</td>
+            <td class="px-6 py-4">${prescription.sickness}</td>
+          </tr>
           `;
           tableBody.innerHTML += row;
         });
       })
-      .catch((error) => console.error("Error fetching medications: ", error));
-  });
-</script>
+      .catch((error) => console.error("Error fetching data: ", error));
+    });
+  </script>
 
 
 <!-- script to populate prescription details table -->
