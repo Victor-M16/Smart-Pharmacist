@@ -1,83 +1,49 @@
-{% extends "core/base.html" %} {% block content %}
+{% extends "core/base.html" %}
+
+{% block content %}
 <!-- new patient form -->
 <div>
-  <form>
-    <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">
-      New patient
-    </p>
+  <form id="patient-form">
+    <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">New patient</p>
+    
     <div class="mb-5">
-      <label
-        for="user_id"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
-        >Enter patient user_id</label
-      >
+      <label for="first_name" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">First Name</label>
       <input
         type="text"
-        id="user_id"
-        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-        required
-      />
-    </div>
-    <div class="mb-5">
-      <label
-        for="dob"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
-        >Enter patient date of birth</label
-      >
-      <!-- date picker -->
-
-      <input
-        type="date"
-        id="dob"
-        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-        required
-      />
-    </div>
-    <div class="mb-5">
-      <label
-        for="gender"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
-        >Select a gender</label
-      >
-      <select
-        id="gender"
-        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-      >
-        <option>--gender--</option>
-        <option>Female</option>
-        <option>Male</option>
-        <option>Other</option>
-        <option>Prefer not to say</option>
-      </select>
-    </div>
-    <div class="mb-5">
-      <label
-        for="contact_info"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
-        >Enter patient contact information</label
-      >
-      <input
-        type="text"
-        id="contact_info"
+        id="first_name"
+        name="first_name"
+        placeholder="Patient First Name"
         class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
         required
       />
     </div>
+    
     <div class="mb-5">
-      <label
-        for="address"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
-        >Enter patient address</label
-      >
+      <label for="last_name" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Last Name</label>
       <input
         type="text"
-        id="address"
+        id="last_name"
+        name="last_name"
+        placeholder="Patient Last Name"
         class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
         required
       />
     </div>
-
+    
+    <div class="mb-5">
+      <label for="phone" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Phone Number</label>
+      <input
+        type="text"
+        id="phone"
+        name="phone"
+        placeholder="+265..."
+        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+        required
+      />
+    </div>
+      
     <button
+      id="patientSubmitButton"
       type="button"
       class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"
     >
@@ -85,4 +51,37 @@
     </button>
   </form>
 </div>
-{% endblock content%}
+
+<!-- Patient form logic -->
+<script>
+  document.getElementById("patientSubmitButton").addEventListener("click", function () {
+    const formData = new FormData(document.getElementById("patient-form"));
+    console.log({
+      first_name: formData.get("first_name"),
+      last_name: formData.get("last_name"),
+      phone: formData.get("phone"),
+      username: `${formData.get("first_name")}${formData.get("last_name")}`
+    });
+    fetch("/api/patients/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": "{{ csrf_token }}",
+      },
+      body: JSON.stringify({
+        first_name: formData.get("first_name"),
+        last_name: formData.get("last_name"),
+        phone: formData.get("phone"),
+        username: `${formData.get("first_name")}${formData.get("last_name")}`
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Patient created:', data);
+    })
+    .catch((error) => {
+      console.error('Error creating patient:', error);
+    });
+  });
+</script>
+{% endblock content %}

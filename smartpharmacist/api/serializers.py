@@ -11,6 +11,11 @@ class UserSerializer(serializers.ModelSerializer):
             'id_data', 'created_at', 'updated_at'
         ]
 
+class PatientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'first_name', 'last_name', 'phone','created_at', 'updated_at']
+
 class MedicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medication
