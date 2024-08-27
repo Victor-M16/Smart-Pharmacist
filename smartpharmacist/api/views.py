@@ -3,7 +3,7 @@ import requests, random
 from core.models import *
 from django.http import JsonResponse
 from rest_framework.views import APIView
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.permissions import AllowAny
 
 from .custom_permissions import *
