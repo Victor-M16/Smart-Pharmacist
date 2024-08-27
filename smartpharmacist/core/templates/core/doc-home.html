@@ -6,78 +6,120 @@
     Recent Prescriptions
   </p>
   <p class="mb-3 text-zinc-900 dark:text-zinc-200">
-    All assigned prescriptions appear here.
+    All prescriptions you have assigned appear here.
   </p>
-  <table class="table-auto w-full">
-    <thead>
-      <tr>
-        <th
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          Prescription ID
-        </th>
-        <th
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          Patient ID
-        </th>
-        <th
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          Doctor ID
-        </th>
-        <th
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          Prescription code
-        </th>
-        <th
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          Diagnosis
-        </th>
-        <th
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          Date created
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          0001
-        </td>
-        <td
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          0000001
-        </td>
-        <td
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          001
-        </td>
-        <td
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          123456
-        </td>
-        <td
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          Malaria
-        </td>
-        <td
-          class="text-zinc-900 dark:text-zinc-300 border-y-2 border-collapse border-zinc-400 p-3"
-        >
-          16-7-2024
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <!-- prescriptions table -->
 
+  <div class="relative overflow-x-auto mb-5">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400"
+    >
+      <thead class="text-xs text-zinc-900 uppercase dark:text-zinc-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">Patient</th>
+          <th scope="col" class="px-6 py-3">Doctor</th>
+          <th scope="col" class="px-6 py-3">Code</th>
+          <th scope="col" class="px-6 py-3">sickness</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <!-- Dynamically generated from database -->
+      </tbody>
+    </table>
+  </div>
+
+
+  <p class="text-xl font-bold py-3 text-zinc-900 dark:text-zinc-50">
+    Prescription Details
+  </p>
+  <p class="mb-3 text-zinc-900 dark:text-zinc-200">
+    Extra information about assigned prescriptions appear here.
+  </p>
+
+  <!-- prescription details table -->
+
+  <div class="relative overflow-x-auto mb-5">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400"
+    >
+      <thead class="text-xs text-zinc-900 uppercase dark:text-zinc-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">Prescription</th>
+          <th scope="col" class="px-6 py-3">Medication</th>
+          <th scope="col" class="px-6 py-3">Instructions</th>
+        </tr>
+      </thead>
+      <tbody id="table-body-details">
+        <!-- Dynamically generated from database -->
+      </tbody>
+    </table>
+  </div>
+</div>
+  <!-- script to populate prescriptions table -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // collect prescriptions, doctors and patients from api
+      Promise.all([
+        fetch("api/prescriptions").then(response => response.json()),
+        fetch("api/doctors").then(response => response.json()),
+        fetch("api/patients").then(response => response.json())
+      ])
+      .then(([prescriptions, doctors, patients]) => {
+        // attach doctor ID to corresponding doctor name 
+        const doctorsMap = new Map(doctors.map(d => [d.id, d.username]));
+        const patientsMap = new Map(patients.map(p => [p.id, p.username]));
+
+        const tableBody = document.getElementById("table-body");
+        prescriptions.forEach((prescription) => {
+          const row = ` 
+          <tr class="bg-zinc-50 dark:bg-zinc-800">
+            <th scope="row" class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50">
+              ${prescription.id}
+            </th>
+            <td class="px-6 py-4">${patientsMap.get(prescription.patient) || prescription.patient}</td>
+            <td class="px-6 py-4">${doctorsMap.get(prescription.doctor) || prescription.doctor}</td>
+            <td class="px-6 py-4">${prescription.code}</td>
+            <td class="px-6 py-4">${prescription.sickness}</td>
+          </tr>
+          `;
+          tableBody.innerHTML += row;
+        });
+      })
+      .catch((error) => console.error("Error fetching data: ", error));
+    });
+  </script>
+
+
+<!-- script to populate prescription details table -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    Promise.all([
+      fetch("api/prescription-medications").then(response => response.json()),
+      fetch("api/medications").then(response => response.json()),
+      fetch("api/prescriptions").then(response => response.json())
+    ])
+    .then(([prescriptionMedications, medications, prescriptions]) => {
+      const medicationsMap = new Map(medications.map(m => [m.id, m.name]));
+      const prescriptionsMap = new Map(prescriptions.map(p => [p.id, p.code]));
+
+      const tableBody = document.getElementById("table-body-details");
+      prescriptionMedications.forEach((prescriptionMed) => {
+        const row = ` 
+        <tr class="bg-zinc-50 dark:bg-zinc-800">
+          <th scope="row" class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50">
+            ${prescriptionMed.id}
+          </th>
+          <td class="px-6 py-4">${prescriptionsMap.get(prescriptionMed.prescription) || prescriptionMed.prescription}</td>
+          <td class="px-6 py-4">${medicationsMap.get(prescriptionMed.medication) || prescriptionMed.medication}</td>
+          <td class="px-6 py-4">${prescriptionMed.instructions}</td>
+        </tr>
+        `;
+        tableBody.innerHTML += row;
+      });
+    })
+    .catch((error) => console.error("Error fetching data: ", error));
+  });
+</script>
 {% endblock content%}
