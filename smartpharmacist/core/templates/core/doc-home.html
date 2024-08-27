@@ -28,6 +28,34 @@
       </tbody>
     </table>
   </div>
+
+
+  <p class="text-xl font-bold py-3 text-zinc-900 dark:text-zinc-50">
+    Prescription Details
+  </p>
+  <p class="mb-3 text-zinc-900 dark:text-zinc-200">
+    Extra information about assigned prescriptions appear here.
+  </p>
+
+  <!-- prescription details table -->
+
+  <div class="relative overflow-x-auto mb-5">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400"
+    >
+      <thead class="text-xs text-zinc-900 uppercase dark:text-zinc-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">Prescription</th>
+          <th scope="col" class="px-6 py-3">Medication</th>
+          <th scope="col" class="px-6 py-3">Instructions</th>
+        </tr>
+      </thead>
+      <tbody id="table-body-details">
+        <!-- Dynamically generated from database -->
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!-- script to populate prescriptions table -->
@@ -50,6 +78,36 @@
           <td class="px-6 py-4">${prescription.doctor}</td>
           <td class="px-6 py-4">${prescription.code}</td>
           <td class="px-6 py-4">${prescription.sickness}</td>
+        </tr>
+          
+          `;
+          tableBody.innerHTML += row;
+        });
+      })
+      .catch((error) => console.error("Error fetching medications: ", error));
+  });
+</script>
+
+
+<!-- script to populate prescription details table -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("api/prescription-medications")
+      .then((response) => response.json())
+      .then((data) => {
+        const tableBody = document.getElementById("table-body-details");
+        data.forEach((prescription) => {
+          const row = ` 
+          <tr class="bg-zinc-50 dark:bg-zinc-800">
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50"
+          >
+            ${prescription.id}
+          </th>
+          <td class="px-6 py-4">${prescription.prescription}</td>
+          <td class="px-6 py-4">${prescription.medication}</td>
+          <td class="px-6 py-4">${prescription.instructions}</td>
         </tr>
           
           `;
