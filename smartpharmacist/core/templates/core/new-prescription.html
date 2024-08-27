@@ -98,72 +98,95 @@
 
 <!-- To create a new prescription -->
 <script>
-  document
-    .getElementById("submit-button")
-    .addEventListener("click", function () {
-      const userId = "{{ user_id }}";
-      const formData = new FormData(
-        document.getElementById("prescription-form")
-      );
+  document.getElementById("submit-button").addEventListener("click", function () {
+    const userId = "{{ user_id }}";
+    const formData = new FormData(document.getElementById("prescription-form"));
+    let prescriptionId = null;
 
-      // First, create the prescription
-      fetch("/api/prescriptions/", {
+    // First, create the prescription
+    fetch("/api/prescriptions/", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": "{{ csrf_token }}",
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}",
         },
         body: JSON.stringify({
-          patient: formData.get("patient-id"),
-          doctor: userId,
-          sickness: formData.get("sickness"),
+            patient: formData.get("patient-id"),
+            doctor: userId,
+            sickness: formData.get("sickness"),
         }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Prescription created:", data);
-          const prescriptionId = data.id; // Assuming the response contains the new prescription ID
-          // Proceed to create the prescription medications
-          createPrescriptionMedications(prescriptionId);
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Failed to create prescription");
+        }
+        return response.json();
+    })
+    .then((prescriptionData) => {
+        console.log("Prescription created:", prescriptionData);
+        prescriptionId = prescriptionData.id;
 
-          // success message
-          const success = document.getElementById("success-message");
-          success.classList.remove("hidden");
-        })
-        .catch((error) => {
-          console.error("Error creating prescription:", error);
+        // Proceed to create the prescription medications
+        return createPrescriptionMedications(prescriptionId);
+    })
+    .then(() => {
+        // After all medications are added, call the API to send the SMS
+        return fetch(`/api/prescriptions/${prescriptionId}/send_sms/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
         });
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Failed to send SMS");
+        }
+        console.log("SMS sent successfully");
+        const success = document.getElementById("success-message");
+        success.classList.remove("hidden");
+    })
+    .catch((error) => {
+        console.error("Error:", error);
     });
+});
 
-  function createPrescriptionMedications(prescriptionId) {
+function createPrescriptionMedications(prescriptionId) {
     const medicationFields = document.querySelectorAll(".medication-field");
-    medicationFields.forEach((field) => {
-      const medication = field.querySelector('select[name="medication"]').value;
-      const instructions = field.querySelector(
-        'textarea[name="instructions"]'
-      ).value;
+    const medicationPromises = [];
 
-      fetch("/api/prescription-medications/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": "{{ csrf_token }}",
-        },
-        body: JSON.stringify({
-          prescription: prescriptionId,
-          medication: medication,
-          instructions: instructions,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("Medication added:", data);
+    medicationFields.forEach((field) => {
+        const medication = field.querySelector('select[name="medication"]').value;
+        const instructions = field.querySelector('textarea[name="instructions"]').value;
+
+        const medicationPromise = fetch("/api/prescription-medications/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: JSON.stringify({
+                prescription: prescriptionId,
+                medication: medication,
+                instructions: instructions,
+            }),
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Failed to add medication");
+            }
+            return response.json();
         })
         .catch((error) => {
-          console.error("Error adding medication:", error);
+            console.error("Error adding medication:", error);
         });
+
+        medicationPromises.push(medicationPromise);
     });
-  }
+
+    return Promise.all(medicationPromises);
+}
+
 </script>
 
 <!-- Populate dropdowns -->
