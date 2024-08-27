@@ -51,7 +51,7 @@ class VendingSlotViewSet(viewsets.ModelViewSet):
 class PrescriptionViewSet(viewsets.ModelViewSet):
     queryset = Prescription.objects.all()
     serializer_class = PrescriptionSerializer
-    permission_classes = [IsPharmacistOnly]
+    permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
 
 
 #prescriptionmedication views
