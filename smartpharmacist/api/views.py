@@ -18,8 +18,11 @@ class UserViewSet(viewsets.ModelViewSet):
     
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = User.objects.filter(account_type="Patient")
-    serializer_class = UserSerializer
+    serializer_class = PatientSerializer
     permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(account_type="Patient", is_patient=True)
 
 class DoctorViewSet(viewsets.ModelViewSet):
     queryset = User.objects.filter(account_type="Doctor")
@@ -31,9 +34,7 @@ class MedicationViewSet(viewsets.ModelViewSet):
     queryset = Medication.objects.all()
     serializer_class = MedicationSerializer
     permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
-    
-    def perform_create(self, serializer):
-        serializer.save(doctor=self.request.user)
+
 
 # Vending Machine ViewSet
 class VendingMachineViewSet(viewsets.ModelViewSet):
@@ -52,7 +53,6 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
     queryset = Prescription.objects.all()
     serializer_class = PrescriptionSerializer
     permission_classes = [IsPharmacistOnly]
-
 
 
 #prescriptionmedication views
