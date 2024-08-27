@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     {% if title %}
@@ -10,115 +9,133 @@
     {% else %}
     <title>Smart Pharmacist</title>
     {% endif %}
-    {% tailwind_css %}
+
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    {% comment %} <link href="{% static 'src/styles.css' %}" rel="stylesheet" /> {% endcomment %}
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include Select2 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    {% tailwind_css %}
   </head>
   {% block body %}
 
-  <body class="flex flex-col min-h-screen">
+  <body
+    class="flex flex-col min-h-screen max-w-5xl mx-auto p-6 sm:p-5 md:p-4 dark:bg-zinc-700"
+  >
     <!-- header section -->
 
-    <nav class="bg-white border-zinc-200 dark:bg-zinc-900">
-      <div
-        class="max-w-screen-xl flex flex-wrap items-center justify-around mx-auto p-4"
-      >
+    <nav
+      class="bg-white border-zinc-200 flex flex-wrap items-center justify-between dark:bg-zinc-700"
+    >
+      <div>
         <a
           href="{% url 'home' %}"
-          class="self-center text-[32px] font-extrabold whitespace-nowrap hover:text-zinc-700 dark:text-white"
+          class="self-center text-lg sm:text-[32px] font-extrabold whitespace-nowrap hover:text-zinc-700 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
         >
           Smart Pharmacist
         </a>
-        <button
-          data-collapse-toggle="navbar-default"
-          type="button"
-          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-zinc-500 rounded-lg md:hidden hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-200 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600"
-          aria-controls="navbar-default"
-          aria-expanded="false"
-        >
-          <span class="sr-only">Open main menu</span>
-          <svg
-            class="w-5 h-5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 17 14"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 1h15M1 7h15M1 13h15"
-            />
-          </svg>
-        </button>
-        <div class="w-full md:block md:w-auto" id="navbar-default">
-          <ul
-            class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-zinc-100 rounded-lg bg-zinc-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-zinc-800 md:dark:bg-zinc-900 dark:border-zinc-700"
-          >
-            <li>
-              <a
-                href="{% url 'home' %}"
-                class="block py-2 px-3 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-zinc-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a
-                href="{% url 'doc-prescription'%}"
-                class="block py-2 px-3 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-zinc-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >Prescriptions</a
-              >
-            </li>
-            <li>
-              <a
-                href="#"
-                class="block py-2 px-3 text-zinc-900 rounded hover:bg-zinc-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-zinc-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >user</a
-              >
-            </li>
-          </ul>
-        </div>
       </div>
-    </nav>
 
-    <!-- body -->
-    <div
-      class="flex flex-1 min-h-full mt-16 mx-20 md:mx-auto gap-16 justify-evenly flex-wrap"
-    >
-      <!-- quick navigation links -->
-      <div class="h-full flex-initial">
-        <p class="text-xl font-bold py-3">Quick actions</p>
-        <ul>
-          <li>
+      <div class="hidden md:block">
+        <ul class="flex items-center gap-3">
+          <li class="my-2">
             <a
-              href="{% url 'new-prescription' %}"
-              class="hover:text-zinc-600 transition"
-              >Create New Prescription</a
+              href="{% url 'home' %}"
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >Home</a
             >
           </li>
-          <li>
+          <li class="my-2">
+            <a
+              href="{% url 'doc-prescription' %}"
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >Prescriptions</a
+            >
+          </li>
+          <li class="my-2">
+            <a
+              href="{% url 'new-prescription' %}"
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >New Prescription</a
+            >
+          </li>
+          <li class="my-2">
             <a
               href="{% url 'new-patient' %}"
-              class="hover:text-zinc-600 transition"
-              >Create New Patient</a
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >New Patient</a
             >
           </li>
         </ul>
       </div>
+
+      <div class="hidden md:block">
+        <form id="logoutForm" method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button
+            type="submit"
+            class="text-base sm:text-lg font-semibold text-zinc-800 hover:text-zinc-900 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+          >
+            Logout
+          </button>
+        </form>
+      </div>
+
+      <!-- mobile link menu -->
+      <div class="md:hidden">
+        <select
+          name="link-menu"
+          id="link-menu"
+          class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg font-semibold focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-zinc-100 dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+        >
+          <option value="" disabled selected>Menu</option>
+          <option value="{% url 'home' %}">Home</option>
+          <option value="{% url 'doc-prescription' %}">Prescriptions</option>
+          <option value="{% url 'new-prescription' %}">New Prescription</option>
+          <option value="{% url 'new-patient' %}">New Patient</option>
+          <option value="{% url 'logout' %}">Logout</option>
+        </select>
+      </div>
+    </nav>
+
+    <!-- body -->
+    <div class="flex flex-1 flex-col">
+      <!-- quick navigation links -->
+
       <!-- main content area -->
       {% block content %} {% endblock content %}
     </div>
     <!-- footer -->
     <div
-      class="flex items-center justify-center h-14 text-zinc-400 font-semibold"
+      class="flex items-center justify-center h-14 text-zinc-400 dark:text-zinc-300 font-semibold"
     >
       Smart Pharmacist 2024
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+
+    <!-- Include Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- script to make the select navigation links work -->
+    <script>
+      document.getElementById('link-menu').addEventListener('change', function(){
+        if (this.value !== '') {
+          if (this.value === "{% url 'logout' %}") {
+            document.getElementById('logoutForm').submit();
+          } else {
+            window.location.href = this.value;
+          }
+        }
+      });
+    </script>
   </body>
 
   {% endblock body %}

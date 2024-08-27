@@ -1,34 +1,33 @@
 from rest_framework import permissions
+from rest_framework.response import Response
 
-class IsAccountType(permissions.BasePermission):
-    account_type = None
+class IsPatientOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        # Debugging line
+        print("Checking patient user permission")
+        return request.user and request.user.is_patient
+
+class IsDoctorOnly(permissions.BasePermission):
 
     def has_permission(self, request, view):
-        return (
-            request.user.is_authenticated and 
-            request.user.account_type == self.account_type
-        )
-
-class IsPatientOnly(IsAccountType):
-    account_type = 'Patient'
-
-class IsDoctorOnly(IsAccountType):
-    account_type = 'Doctor'
-
-class IsPharmacistOnly(IsAccountType):
-    account_type = 'Pharmacist'
-
-
+        # Debugging line
+        print("Checking doctor user permission")
+        return request.user and request.user.is_doctor
+    
+class IsPharmacistOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        # Debugging line
+        print("Checking pharmacist user permission")
+        return request.user and request.user.is_pharmacist
 
 class IsOwnerOrAdmin(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        # Allow read-only access for any authenticated user
         if request.method in permissions.SAFE_METHODS:
             return True
-        # Allow update and delete if user is admin or the object owner
         return request.user.is_staff or obj == request.user
 
 class IsAdminUser(permissions.BasePermission):
     def has_permission(self, request, view):
-        # Only allow access if user is an admin
+        # Debugging line
+        print("Checking admin user permission")
         return request.user and request.user.is_staff

@@ -36,6 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('Doctor', 'Doctor'),
         ('Patient', 'Patient'),
         ('Pharmacist', 'Pharmacist'),
+        ('Admin', 'Admin'),
     )
 
     SPECIALTY_CHOICES = (
@@ -105,8 +106,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Medication(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    description = models.TextField()
-    package_size = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -117,10 +117,9 @@ class Prescription(models.Model):
     id = models.AutoField(primary_key=True)
     patient = models.ForeignKey(User, on_delete=models.CASCADE,related_name = "Patient")
     doctor = models.ForeignKey(User, on_delete=models.CASCADE, related_name = "Doctor")
-    code = models.CharField(max_length=4, unique=True)
-    instructions = models.TextField(max_length=200, null=True, blank=True)
-    sickness = models.CharField(max_length=100)
-    is_dispensed = models.BooleanField(default=False)
+    code = models.CharField(max_length=4, unique=True, null=True, blank=True) #auto-generated
+    sickness = models.CharField(max_length=100) 
+    is_dispensed = models.BooleanField(default=False) #flag 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -132,9 +131,7 @@ class PrescriptionMedication(models.Model):
     id = models.AutoField(primary_key=True)
     prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
     medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
-    dosage = models.CharField(max_length=100)
-    frequency = models.CharField(max_length=100)
-    duration = models.IntegerField()
+    instructions = models.TextField(max_length=200, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -184,3 +181,8 @@ class Inventory(models.Model):
 
 
 
+class Test(models.Model):
+    field1 = models.CharField(max_length=255)
+    field2 = models.IntegerField()
+
+    

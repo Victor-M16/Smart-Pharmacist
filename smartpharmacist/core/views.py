@@ -12,34 +12,35 @@ from .forms import *
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from .forms import CustomAuthenticationForm
+from .models import *
 
 
-
-@login_required
-def create_user(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        
-
+class CustomRegisterView(View):
+    def get(self, *args, **kwargs):
+        form = CustomUserCreationForm()
+        context = {
+            'form': form,
+            'title': 'register',
+        }
+        return render(self.request, 'auth/register.html', context)
+    
+    def post(self, *args, **kwargs):
+        form = CustomUserCreationForm(self.request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f"Account created for {username} !")
-            
-            
+            messages.success(self.request, f"Account created for {username} !")    
             return redirect('login')
 
         else:
-            messages.warning(request, "Registration failed. Please correct the errors below.")
+            messages.warning(self.request, "Registration failed. Please correct the errors below.")
             
         context = {
             'form': form,
             'title': 'register',
         }
-        return render(request, 'auth/register.html', context)
+        return render(self.request, 'auth/register.html', context)
     
-
-
 
 class CustomLoginView(LoginView):
     form_class = CustomAuthenticationForm
@@ -59,15 +60,17 @@ class CustomLoginView(LoginView):
 class HomeView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         form = CustomUserCreationForm()
-        user = request.user
+        user = self.request.user
         context = {'title': 'home', 'form': form}
 
         if user.account_type == 'Doctor':
             return render(request, 'core/doc-home.html', context)
         elif user.account_type == 'Patient':
             return render(request, 'core/pat-home.html', context)
-        else:
+        elif user.account_type == 'Pharmacist':
             return render(request, 'core/pharm-home.html', context)
+        else:
+            return render(request, 'core/doc-home.html', context)
     
 
 #CRUD for Users
@@ -129,7 +132,12 @@ def create_patient(request):
     return render(request, "core/new-patient.html", {'title': 'new patient'})
 
 def create_prescription(request):
-    return render(request, "core/new-prescription.html", {'title': 'new prescription'})
+    context = {'title': 'new prescription',
+               'user_id': request.user.id}
+    
+    if request.method == 'POST':
+        return redirect('home')
+    return render(request, "core/new-prescription.html", context)
 
 
 def create_medication(request):

@@ -7,21 +7,27 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'username', 'first_name', 'last_name', 'account_type', 'specialty', 
-            'email', 'phone', 'start_date', 'national_id', 'dob', 'gender', 
-            'id_data', 'created_at', 'updated_at', 'is_patient', 'is_doctor', 'is_pharmacist'
+            'email', 'phone','national_id', 'dob', 'gender', 
+            'id_data', 'created_at', 'updated_at'
         ]
 
 class MedicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medication
-        fields = ('id', 'name','description','package_size','created_at','updated_at')
+        fields = '__all__'
 
 class PrescriptionSerializer(serializers.ModelSerializer):
+    # patient = UserSerializer()
+    # doctor = UserSerializer()
+
     class Meta:
         model = Prescription
         fields = '__all__'
 
 class PrescriptionMedicationSerializer(serializers.ModelSerializer):
+    # prescription = PrescriptionSerializer()
+    # medication = MedicationSerializer()
+
     class Meta:
         model = PrescriptionMedication
         fields = '__all__'
@@ -47,3 +53,9 @@ class VendingSlotSerializer(serializers.ModelSerializer):
     class Meta:
         model = VendingSlot
         fields = ('id', 'vending_machine', 'medication', 'slot_number', 'created_at', 'updated_at')
+
+
+class TestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Test
+        fields = '__all__'

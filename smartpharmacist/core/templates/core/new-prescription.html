@@ -1,78 +1,263 @@
 {% extends "core/base.html" %} {% block content %}
-<!-- new patient form -->
-<div class="flex-1 min-w-fit">
-  <form class="max-w-sm mx-auto">
-    <p class="text-xl font-bold py-3">New prescription</p>
+<!-- new prescription form -->
+<div>
+  <form id="prescription-form">
+    <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">
+      New prescription
+    </p>
+
     <!-- enter patient id -->
     <div class="mb-5">
       <label
-        for="patient-id"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
-        >Enter patient ID</label
-      >
-      <input
-        type="patient-id"
-        id="patient-id"
-        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-        required
-      />
-    </div>
-    <!-- enter doctor ID -->
-    <div class="mb-5">
-      <label
-        for="doctor-id"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
-        >Enter doctor ID</label
-      >
-      <input
-        type="doctor-id"
-        id="doctor-id"
-        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-        required
-      />
-    </div>
-    <!-- dosage selection -->
-    <div class="mb-5">
-      <label
-        for="dosage-select"
-        class="text-sm leading-6 text-zinc-900"
-        for="dosage-select"
-        >Select a dosage</label
+        for="patient-menu"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+        >Patient</label
       >
       <div class="mb-3">
         <select
-          class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-          name="dosages"
-          id="dosage-menu"
+          id="patient-menu"
+          name="patient-id"
+          class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
         >
-          <option value="">--choose a dosage</option>
-          <option value="panado">Panado 20T</option>
-          <option value="aspirin">Aspirin 20T</option>
+          <option value="">--choose a patient</option>
+          <!-- Dynamically generated from database -->
         </select>
       </div>
     </div>
 
-    <!-- enter description -->
-    <div class="mb-3">
+    <!-- enter sickness -->
+    <div class="mb-5">
       <label
-        for="message"
-        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
-        >Enter description</label
+        for="sickness"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+        >Enter sickness</label
       >
-      <textarea
-        id="message"
-        rows="10"
-        class="block p-2.5 w-full md:w-80 text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
-        placeholder="Leave a description..."
-      ></textarea>
+      <input
+        type="text"
+        id="sickness"
+        name="sickness"
+        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+        required
+      />
     </div>
+
+    <!-- Dynamic medication and instructions fields -->
+    <div id="medication-fields-container" class="mb-5">
+      <label
+        for="medication-menu"
+        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+        >Medications and Instructions</label
+      >
+      <div class="medication-field mb-5">
+        <select
+          id="medication-menu"
+          name="medication"
+          class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+        >
+          <option value="">--choose a medication</option>
+          <!-- Dynamically generated from database -->
+        </select>
+        <textarea
+          name="instructions"
+          rows="4"
+          class="mt-6 block p-2.5 w-full text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+          placeholder="Leave instructions..."
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Button to add more medications -->
+    <div class="flex items-center gap-2">
+      <button
+      type="button"
+      id="add-medication-button"
+      class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:text-zinc-900 dark:bg-zinc-100 dark:hover:bg-zinc-400 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"
+    >
+      Add Medication
+    </button>
 
     <button
       type="button"
-      class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:focus:ring-zinc-700 dark:border-zinc-700"
+      id="submit-button"
+      class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"
     >
       Submit
     </button>
+
+    </div> 
+    
   </form>
 </div>
-{% endblock content%}
+
+<!-- To create a new prescription -->
+<script>
+  document
+    .getElementById("submit-button")
+    .addEventListener("click", function () {
+      const userId = "{{ user_id }}";
+      const formData = new FormData(
+        document.getElementById("prescription-form")
+      );
+
+      // First, create the prescription
+      fetch("/api/prescriptions/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "{{ csrf_token }}",
+        },
+        body: JSON.stringify({
+          patient: formData.get("patient-id"),
+          doctor: userId,
+          sickness: formData.get("sickness"),
+        }),
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Prescription created:', data);
+      const prescriptionId = data.id; // Assuming the response contains the new prescription ID
+      // Proceed to create the prescription medications
+      createPrescriptionMedications(prescriptionId);
+    })
+    .catch((error) => {
+      console.error('Error creating prescription:', error);
+    });
+
+  function createPrescriptionMedications(prescriptionId) {
+    const medicationFields = document.querySelectorAll(".medication-field");
+    medicationFields.forEach((field) => {
+      const medication = field.querySelector('select[name="medication"]').value;
+      const instructions = field.querySelector(
+        'textarea[name="instructions"]'
+      ).value;
+
+      fetch("/api/prescription-medications/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "{{ csrf_token }}",
+        },
+        body: JSON.stringify({
+          prescription: prescriptionId,
+          medication: medication,
+          instructions: instructions,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Medication added:", data);
+        })
+        .catch((error) => {
+          console.error("Error adding medication:", error);
+        });
+    });
+  }
+</script>
+
+<!-- Populate dropdowns -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const medicationMenu = $("#medication-menu");
+    const patientMenu = $("#patient-menu");
+
+    // Initialize Select2
+    medicationMenu.select2({
+      placeholder: "--choose a medication",
+      allowClear: true,
+    });
+
+    // Initialize Select2
+    patientMenu.select2({
+      placeholder: "--choose a patient",
+      allowClear: true,
+    });
+
+    // Fetch medications from the API and populate the dropdown
+    fetchMedications("#medication-menu");
+
+    // Fetch patients from the API and populate the dropdown
+    fetch("/api/patients/", {
+      method: "GET",
+      credentials: "include",
+    }) // Replace with your actual API endpoint
+      .then((response) => response.json())
+      .then((data) => {
+        // Clear existing options
+        patientMenu.empty();
+
+        // Populate with new options
+        patientMenu.append(new Option("--choose a patient", ""));
+        data.forEach((patient) => {
+          const fullName = `${patient.first_name} ${patient.last_name}`;
+          const option = new Option(fullName, patient.id, false, false);
+          patientMenu.append(option);
+        });
+
+        // Refresh the Select2 UI
+        patientMenu.trigger("change");
+      })
+      .catch((error) => {
+        console.error("Error fetching patients:", error);
+      });
+  });
+
+  function fetchMedications(selector) {
+    fetch("/api/medications/") // Replace with your actual API endpoint
+      .then((response) => response.json())
+      .then((data) => {
+        // Clear existing options
+        const medicationMenu = $(selector);
+        medicationMenu.empty();
+
+        // Populate with new options
+        medicationMenu.append(new Option("--choose a medication", ""));
+        data.forEach((medication) => {
+          const option = new Option(
+            medication.name,
+            medication.id,
+            false,
+            false
+          );
+          medicationMenu.append(option);
+        });
+
+        // Refresh the Select2 UI
+        medicationMenu.trigger("change");
+      })
+      .catch((error) => {
+        console.error("Error fetching medications:", error);
+      });
+  }
+</script>
+
+<!-- Add button -->
+<script>
+  document
+    .getElementById("add-medication-button")
+    .addEventListener("click", function () {
+      const container = document.getElementById("medication-fields-container");
+      const fieldId = `medication-menu-${container.children.length + 1}`;
+      const newField = document.createElement("div");
+      newField.className = "medication-field mb-5";
+      newField.innerHTML = `
+      <select id= "${fieldId}" name="medication" class=" bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
+          <option value="">--choose a medication</option>
+          <!-- Dynamically generated from database -->
+        </select>
+        <textarea name="instructions" rows="4" class="mt-6 block p-2.5 w-full text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-zinc-500 focus:border-zinc-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500" placeholder="Leave instructions..."></textarea>
+    `;
+      container.appendChild(newField);
+
+      // Initialize Select2 for new elements
+      $(`#${fieldId}`).select2({
+        placeholder: "--choose a medication",
+        allowClear: true,
+      });
+
+      // Populate the new select with medication options
+      fetchMedications(`#${fieldId}`);
+    });
+</script>
+
+{% endblock content %}

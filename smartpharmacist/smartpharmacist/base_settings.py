@@ -82,6 +82,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -168,9 +169,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-
-
-
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 # LOGOUT_URL =  'logout'
@@ -205,3 +203,9 @@ LOGGING = {
         },
     },
 }
+
+
+#for authenticating API requests
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS
