@@ -95,29 +95,31 @@
 <!-- script to populate prescription details table -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    fetch("api/prescription-medications")
-      .then((response) => response.json())
-      .then((data) => {
-        const tableBody = document.getElementById("table-body-details");
-        data.forEach((prescription) => {
-          const row = ` 
-          <tr class="bg-zinc-50 dark:bg-zinc-800">
-          <th
-            scope="row"
-            class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50"
-          >
-            ${prescription.id}
+    Promise.all([
+      fetch("api/prescription-medications").then(response => response.json()),
+      fetch("api/medications").then(response => response.json()),
+      fetch("api/prescriptions").then(response => response.json())
+    ])
+    .then(([prescriptionMedications, medications, prescriptions]) => {
+      const medicationsMap = new Map(medications.map(m => [m.id, m.name]));
+      const prescriptionsMap = new Map(prescriptions.map(p => [p.id, p.code]));
+
+      const tableBody = document.getElementById("table-body-details");
+      prescriptionMedications.forEach((prescriptionMed) => {
+        const row = ` 
+        <tr class="bg-zinc-50 dark:bg-zinc-800">
+          <th scope="row" class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50">
+            ${prescriptionMed.id}
           </th>
-          <td class="px-6 py-4">${prescription.prescription}</td>
-          <td class="px-6 py-4">${prescription.medication}</td>
-          <td class="px-6 py-4">${prescription.instructions}</td>
+          <td class="px-6 py-4">${prescriptionsMap.get(prescriptionMed.prescription) || prescriptionMed.prescription}</td>
+          <td class="px-6 py-4">${medicationsMap.get(prescriptionMed.medication) || prescriptionMed.medication}</td>
+          <td class="px-6 py-4">${prescriptionMed.instructions}</td>
         </tr>
-          
-          `;
-          tableBody.innerHTML += row;
-        });
-      })
-      .catch((error) => console.error("Error fetching medications: ", error));
+        `;
+        tableBody.innerHTML += row;
+      });
+    })
+    .catch((error) => console.error("Error fetching data: ", error));
   });
 </script>
 {% endblock content%}
