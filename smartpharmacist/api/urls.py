@@ -20,3 +20,4 @@ urlpatterns = [
     path('', include(router.urls)),
     path('ESP32/', ESP32_API.as_view()),
 ]
+

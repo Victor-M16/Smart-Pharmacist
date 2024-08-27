@@ -3,7 +3,7 @@ import requests, random
 from core.models import *
 from django.http import JsonResponse
 from rest_framework.views import APIView
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.permissions import AllowAny
 
 from .custom_permissions import *
@@ -18,8 +18,11 @@ class UserViewSet(viewsets.ModelViewSet):
     
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = User.objects.filter(account_type="Patient")
-    serializer_class = UserSerializer
+    serializer_class = PatientSerializer
     permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(account_type="Patient", is_patient=True)
 
 class DoctorViewSet(viewsets.ModelViewSet):
     queryset = User.objects.filter(account_type="Doctor")
@@ -31,9 +34,7 @@ class MedicationViewSet(viewsets.ModelViewSet):
     queryset = Medication.objects.all()
     serializer_class = MedicationSerializer
     permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
-    
-    def perform_create(self, serializer):
-        serializer.save(doctor=self.request.user)
+
 
 # Vending Machine ViewSet
 class VendingMachineViewSet(viewsets.ModelViewSet):
@@ -51,6 +52,11 @@ class VendingSlotViewSet(viewsets.ModelViewSet):
 class PrescriptionViewSet(viewsets.ModelViewSet):
     queryset = Prescription.objects.all()
     serializer_class = PrescriptionSerializer
+    permission_classes = [IsPharmacistOnly]
+
+
+#prescriptionmedication views
+class PrescriptionMedicationListView(generics.ListAPIView):
     permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
 
     def perform_create(self, serializer):
@@ -77,8 +83,10 @@ class PrescriptionMedicationViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = PrescriptionMedication.objects.all()
         prescription_id = self.request.query_params.get('prescription')
+        
         if prescription_id:
             queryset = queryset.filter(prescription_id=prescription_id)
+        
         return queryset
 
 

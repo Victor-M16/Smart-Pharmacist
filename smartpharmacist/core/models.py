@@ -1,5 +1,7 @@
-from django.contrib.auth.models import (AbstractBaseUser, AbstractUser,
-                                        BaseUserManager, PermissionsMixin)
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -62,12 +64,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=255, unique=True)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, unique=True, blank=True)
+    first_name = models.CharField(max_length=255, blank=True)
+    last_name = models.CharField(max_length=255, blank=True)
     account_type = models.CharField(max_length=150, null=True, choices=ACCOUNT_TYPE_CHOICES)
     specialty = models.CharField(max_length=100, null=True, blank=True, choices=SPECIALTY_CHOICES)
-    email = models.EmailField(_('email address'), unique=True)
+    email = models.EmailField(_('email address'), null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
     national_id = models.CharField(max_length=20, null=True, blank=True, unique=True)
     dob = models.DateField(_('dob'), null=True, blank=True)
@@ -75,6 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     id_data = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
+
     is_patient = models.BooleanField(default=False)
     is_doctor = models.BooleanField(default=False)
     is_pharmacist = models.BooleanField(default=False)
@@ -124,6 +127,7 @@ class Prescription(models.Model):
     def __str__(self):
         return f"{self.code} for {self.patient}"
    
+
 class PrescriptionMedication(models.Model):
     id = models.AutoField(primary_key=True)
     prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
@@ -136,6 +140,7 @@ class PrescriptionMedication(models.Model):
     def __str__(self):
         return f"{self.medication} for {self.prescription.code}"
     
+
 class VendingMachine(models.Model):
     id = models.AutoField(primary_key=True)
     location = models.CharField(max_length=255)
@@ -147,6 +152,7 @@ class VendingMachine(models.Model):
     def __str__(self):
         return self.location
     
+
 class VendingSlot(models.Model):
     id = models.AutoField(primary_key=True)
     vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
@@ -158,6 +164,14 @@ class VendingSlot(models.Model):
     def __str__(self):
         return f"{self.vending_machine} - {self.slot_number} - {self.medication}"
 
+
+class Dispensation(models.Model):
+    id = models.AutoField(primary_key=True)
+    vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
+    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 class Inventory(models.Model):
     id = models.AutoField(primary_key=True)
     vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
@@ -166,14 +180,6 @@ class Inventory(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
-#deprecate
-class Dispensation(models.Model):
-    id = models.AutoField(primary_key=True)
-    vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
-    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Test(models.Model):
