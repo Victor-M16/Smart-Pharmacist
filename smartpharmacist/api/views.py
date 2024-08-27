@@ -32,8 +32,6 @@ class MedicationViewSet(viewsets.ModelViewSet):
     serializer_class = MedicationSerializer
     permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
     
-    def perform_create(self, serializer):
-        serializer.save(doctor=self.request.user)
 
 # Vending Machine ViewSet
 class VendingMachineViewSet(viewsets.ModelViewSet):
