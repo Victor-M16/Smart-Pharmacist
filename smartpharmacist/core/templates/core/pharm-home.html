@@ -21,25 +21,25 @@
         </tr>
       </thead>
       <tbody id="table-body">
-      <!-- Dynamically generated from database -->
+        <!-- Dynamically generated from database -->
       </tbody>
     </table>
   </div>
 
   <!-- create medication button -->
   <button
-      type="button"
-      class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"
-    >
-      <a href="{% url 'new-medication' %}">Create Medication</a>
-    </button>
+    type="button"
+    class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"
+  >
+    <a href="{% url 'new-medication' %}">Create Medication</a>
+  </button>
 </div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     fetch("api/medications")
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         const tableBody = document.getElementById("table-body");
         data.forEach((medication) => {
           const row = ` 
@@ -58,7 +58,7 @@
           tableBody.innerHTML += row;
         });
       })
-      .catch(error => console.error('Error fetching medications: ', error));
+      .catch((error) => console.error("Error fetching medications: ", error));
   });
 </script>
 {% endblock content %}
