@@ -48,7 +48,7 @@ Here you can specify any extra configuration specification to your environment, 
 python manage.py tailwind start
 ```
 
-9. Start the Django development server by running the following command in your terminal
+9. Start the Django development server by running the following command in your terminal:
 
 ```shell
 python manage.py runserver
