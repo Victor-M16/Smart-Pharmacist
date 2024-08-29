@@ -53,9 +53,12 @@ class VendingSlotViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
 
 class PrescriptionViewSet(viewsets.ModelViewSet):
-    queryset = Prescription.objects.all()
     serializer_class = PrescriptionSerializer
     permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Prescription.objects.filter(doctor=user.id)
 
     def perform_create(self, serializer):
         # Generate a unique 4-digit code
