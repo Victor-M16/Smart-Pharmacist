@@ -127,16 +127,11 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
 # Prescription Medication ViewSet
 class PrescriptionMedicationViewSet(viewsets.ModelViewSet):
     serializer_class = PrescriptionMedicationSerializer
-    # permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
+    permission_classes = [IsAdminUser | IsPharmacistOnly | IsDoctorOnly]
 
     def get_queryset(self):
-        queryset = PrescriptionMedication.objects.all()
-        prescription_id = self.request.query_params.get('prescription')
-        
-        if prescription_id:
-            queryset = queryset.filter(prescription_id=prescription_id)
-        
-        return queryset
+        user = self.request.user
+        return PrescriptionMedication.objects.filter(prescription__doctor=user.id)
 
 
 class ESP32_API(APIView):
