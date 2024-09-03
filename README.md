@@ -15,6 +15,12 @@ The software component is a built from the ground up hospital management system 
 5. [ArduinoIDE](https://www.arduino.cc/en/Guide)
 6. [Twilio](https://www.twilio.com/en-us)
 
+## Hardware 
+
+1. LCD
+2. ESP32
+3. 4X4 Matrix Keypad
+
 ## Setting Up The Project
 
 1. Fork and clone this repository
