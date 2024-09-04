@@ -58,7 +58,7 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return Prescription.objects.filter(doctor=user.id)
+        return Prescription.objects.filter(doctor=user.id).order_by('created_at')
 
     def perform_create(self, serializer):
         # Generate a unique 4-digit code
@@ -124,6 +124,14 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
                 return code
 
 
+class DispensationViewSet(viewsets.ModelViewSet):
+    queryset = Dispensation.objects.all()
+    serializer_class = DispensationSerializer
+    permission_classes = [IsAdminUser | IsPharmacistOnly]
+
+
+
+
 # Prescription Medication ViewSet
 class PrescriptionMedicationViewSet(viewsets.ModelViewSet):
     serializer_class = PrescriptionMedicationSerializer
@@ -131,10 +139,13 @@ class PrescriptionMedicationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return PrescriptionMedication.objects.filter(prescription__doctor=user.id)
+        return PrescriptionMedication.objects.filter(prescription__doctor=user.id).order_by('updated_at')
 
 
 class ESP32_API(APIView):
+    permission_classes = [IsAdminUser | IsPharmacistOnly]
+
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ESP32_IP = "192.168.8.124" 
@@ -147,7 +158,7 @@ class ESP32_API(APIView):
             else:
                 return JsonResponse({'message': 'Failed to get status from ESP32'}, status=500)
         else:
-            return JsonResponse({'error': 'Invalid request method'}, status=400)
+            pass
 
     def test_link(self):
         url = f"http://{self.ESP32_IP}:80/status"
@@ -164,6 +175,44 @@ class ESP32_API(APIView):
             print(f"An error occurred: {e}")
             return None
         
+
+    def post(self, request):
+        code = request.data.get('code')
+        if not code:
+            return JsonResponse({'error': 'No code provided'}, status=400)
+
+        try:
+            print(f"Received code: {code}")
+            # Fetch the prescription using the provided code
+            prescription = Prescription.objects.get(code=code, is_dispensed=False)
+
+            # Retrieve associated medications and their vending slots
+            medications = PrescriptionMedication.objects.filter(prescription=prescription)
+            slot_data = []
+
+            #Generate a list of slots for the ESP32 to rotate to
+            for med in medications:
+                slots = VendingSlot.objects.filter(medication=med.medication)
+                slot_data.extend([slot.slot_number for slot in slots])
+
+            # Create the JSON response
+            response_data = {
+                'prescription_code': prescription.code,
+                'vending_slots': slot_data
+            }
+
+            prescription.is_dispensed = True
+            prescription.save()
+
+
+            return JsonResponse(response_data, status=200)
+
+        except Prescription.DoesNotExist:
+            return JsonResponse({'error': 'Prescription not found or already dispensed'}, status=404)
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
 
 class TestViewSet(viewsets.ModelViewSet):
     serializer_class = TestSerializer

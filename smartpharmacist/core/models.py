@@ -148,6 +148,8 @@ class VendingMachine(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # ForeignKey to link with the user (vending machine)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="vending_machines", null=True, blank=True)
 
     def __str__(self):
         return self.location
@@ -179,7 +181,6 @@ class Inventory(models.Model):
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
 
 
 class Test(models.Model):

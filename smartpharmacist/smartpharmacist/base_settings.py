@@ -33,8 +33,8 @@ SECRET_KEY = 'django-insecure-j+s)=1u%wo2yj&p06vg!wtgu!hju=108(xpwd688=2k#ic_rr^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = []
 
 
 
@@ -59,7 +59,9 @@ INSTALLED_APPS = [
     'theme',
 
     #third party
+    'corsheaders',
     'rest_framework',
+    'rest_framework_simplejwt',
     'crispy_forms',
     'crispy_bootstrap5',
 ]
@@ -93,6 +95,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    #cors_middleware
+    'corsheaders.middleware.CorsMiddleware',
 
     #tailwind middleware
     "django_browser_reload.middleware.BrowserReloadMiddleware",
@@ -216,3 +221,18 @@ LOGGING = {
 SESSION_COOKIE_NAME = 'sessionid'
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS
+
+#to allow only ESP32 and local machine requests
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+    "http://your-esp32-ip-address",
+]
+
+
+#api authentication
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication', #for the vending machines
+        'rest_framework.authentication.SessionAuthentication',  # Keep this for frontend
+    ),
+}
