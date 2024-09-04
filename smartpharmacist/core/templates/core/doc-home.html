@@ -47,6 +47,7 @@
       <thead class="text-xs text-zinc-900 uppercase dark:text-zinc-400">
         <tr>
           <th scope="col" class="px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">Date created</th>
           <th scope="col" class="px-6 py-3">Prescription</th>
           <th scope="col" class="px-6 py-3">Medication</th>
           <th scope="col" class="px-6 py-3">Instructions</th>
@@ -73,7 +74,7 @@
         const patientsMap = new Map(patients.map(p => [p.id, p.username]));
 
         //sorting prescriptions by date and time created
-        prescriptions.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        prescriptions.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
         const tableBody = document.getElementById("table-body");
         prescriptions.forEach((prescription) => {
@@ -82,7 +83,7 @@
             <th scope="row" class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50">
               ${prescription.id}
             </th>
-            <td class="px-6 py-4">${prescription.created_at}</td>
+            <td class="px-6 py-4">${prescription.updated_at}</td>
             <td class="px-6 py-4">${patientsMap.get(prescription.patient) || prescription.patient}</td>
             <td class="px-6 py-4">${doctorsMap.get(prescription.doctor) || prescription.doctor}</td>
             <td class="px-6 py-4">${prescription.code}</td>
@@ -109,8 +110,8 @@
       const medicationsMap = new Map(medications.map(m => [m.id, m.name]));
       const prescriptionsMap = new Map(prescriptions.map(p => [p.id, p.code]));
 
-      // Sort prescriptionMedications by created_at in descending order
-      prescriptionMedications.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      // Sort prescriptionMedications by updated_at in descending order
+      prescriptionMedications.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
       const tableBody = document.getElementById("table-body-details");
       prescriptionMedications.forEach((prescriptionMed) => {
@@ -119,7 +120,7 @@
           <th scope="row" class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50">
             ${prescriptionMed.id}
           </th>
-          <td class="px-6 py-4">${prescriptionMed.created_at}</td>
+          <td class="px-6 py-4">${prescriptionMed.updated_at}</td>
           <td class="px-6 py-4">${prescriptionsMap.get(prescriptionMed.prescription) || prescriptionMed.prescription}</td>
           <td class="px-6 py-4">${medicationsMap.get(prescriptionMed.medication) || prescriptionMed.medication}</td>
           <td class="px-6 py-4">${prescriptionMed.instructions}</td>
