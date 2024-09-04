@@ -1,9 +1,0 @@
-I need a script to run on my pi4. It is a server script that bridges my django backend(on my laptop) to myesp32. What it does is, it waits to receive a code via keyboard, let's call it vending_code. 
-When it receives the vending code it first validates it to make sure it is a 4 character valid code 
-(you can suggest whether this is okay). 
-After validating the code it hits the backend API to extract the prescriptions. From the prescriptions, it cross references for a prescription.code that 
-matches the vending_code the user input earlier. If a match is found, it selects that as the prescription to vend. It then hits the API for prescription_medicattions, and 
-collects all the prescription_medications that have a prescription_id that matches the selected prescription. Then, it hits the vending_slots API to get vending_slots with a
- medication_id field that macthes any of the prescription_medication.medication_id fields. The objective is to have a queryset of vending_slots all containing prescribed medications. Thereafter, 
-it decodes the queryset for the vending_slot.slot_numbers, and stores them in a json array that looks like this  {"positions": [0, 2, 4]} then it takes the created json object and POST requests 
-it to the ESP32's "/rotate" enpoint. Here are my Ip addresses. {192.168.8.124 ESP32} {192.168.8.168 Victor's laptop }
