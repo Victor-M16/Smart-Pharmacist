@@ -2,7 +2,7 @@
 
 This project repository holds architecture and website source code for the Smart Pharmacist final year engineering project being implemented at [Malawi University Of Business And Applied Sciences](https://www.mubas.ac.mw/) by Victor Mjimapemba, Khumbolawo Mussa and Grace Chiwaya.
 
-The project consists of a hardware and software element. The hardware element is an electronics project that is a rudimentary prototype of a carousel vending machine meant to dispense prescription medication. Further documentation for these componenents can be found in the `firmware` and `circuit-diagrams` folders.
+The project consists of a hardware and software element. The hardware element is an electronics project that is a rudimentary prototype of a carousel vending machine meant to dispense prescription medication. Further documentation for these componenents can be found in the `firmware` and `concepts` folders.
 
 The software component is a built from the ground up hospital management system meant to work in tandem with the prototype.
 
@@ -20,6 +20,8 @@ The software component is a built from the ground up hospital management system 
 1. LCD
 2. ESP32
 3. 4X4 Matrix Keypad
+4. NEMA 17 Motors
+5. L298N Motor Drivers
 
 ## Setting Up The Project
 
