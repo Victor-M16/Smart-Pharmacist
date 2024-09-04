@@ -4,7 +4,7 @@ This project repository holds architecture and website source code for the Smart
 
 The project consists of a hardware and software element. The hardware element is an electronics project that is a rudimentary prototype of a carousel vending machine meant to dispense prescription medication. Further documentation for these componenents can be found in the `firmware` and `concepts` folders.
 
-The software component is a built from the ground up hospital management system meant to work in tandem with the prototype.
+The software component is a built from the ground up hospital management system meant to work in tandem with the prototype. The main system is a django project named `smartpharmacist`
 
 ## Technologies 
 
