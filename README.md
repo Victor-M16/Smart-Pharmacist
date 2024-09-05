@@ -6,6 +6,17 @@ The project consists of a hardware and software element. The hardware element is
 
 The software component is a built from the ground up hospital management system meant to work in tandem with the prototype. The main system is a django project named `smartpharmacist`
 
+## Use Case Workflow
+1. The patient completes a consultation with the doctor, who enters the prescription details into the web system, such as the patient's name, sickness and prescribed medication and instructions to take the medications.
+2. The system automatically generates a unique 4-digit "prescription.code" which it assigns to the prescription the doctor just submitted.
+3. The system sends an SMS message to the patient, containing the prescription.code, the names of the prescribed medications and the associated instructions. If the patient has no phone or their phone is off, the code is also displayed on the doctor's screen so the patient can copy it down on a paper or their physical health passport. 
+4. The patient goes to the vennding machine prototype,which is in `ready-state`, and inputs the received "prescription.code" on the numeric keypad, using visual feedback from the 16x2 LCD module.
+5. The machine sends the received code to the backend server for processing as a POST request for security.
+6. The backend server checks the code against its prescriptions database and if the code exists and corresponds to a prescription that has not been dispensed yet, then it queries the database for the medications assigned to this prescription and the vending slots where these pre-packaged medications were stored. The server responds to to the vending machine after this processing with either an error message if the code was invalid or a list of vending slots in optimised order for the vending machine to rotate to if the code was valid.
+7. If the vending machine received a list of vending slots then it rotates in order of the received slots, allowing the patient to collect all their assigned medications.
+8. The vending machine updates the prescription in the database so that itself and other vending machines know that that prescription code is no longer valid and has been dispensed.
+9. The vending machine goes back into `ready-state`.
+
 ## Technologies 
 
 1. [Django](https://docs.djangoproject.com/en/5.1/)
