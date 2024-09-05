@@ -28,7 +28,7 @@ The software component is a built from the ground up hospital management system 
 
 ## Hardware 
 
-1. LCD
+1. 16x2 LCD module. Ours uses (0x27) addressing. You need to check this.
 2. ESP32
 3. 4X4 Matrix Keypad
 4. NEMA 17 Motors
