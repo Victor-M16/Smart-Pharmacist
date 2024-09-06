@@ -83,7 +83,7 @@
             <th scope="row" class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50">
               ${prescription.id}
             </th>
-            <td class="px-6 py-4">${prescription.updated_at}</td>
+            <td class="px-6 py-4">${prescription.formatted_updated_at}</td>
             <td class="px-6 py-4">${patientsMap.get(prescription.patient) || prescription.patient}</td>
             <td class="px-6 py-4">${doctorsMap.get(prescription.doctor) || prescription.doctor}</td>
             <td class="px-6 py-4">${prescription.code}</td>
@@ -120,7 +120,7 @@
           <th scope="row" class="px-6 py-4 font-medium text-zinc-900 whitespace-nowrap dark:text-zinc-50">
             ${prescriptionMed.id}
           </th>
-          <td class="px-6 py-4">${prescriptionMed.updated_at}</td>
+          <td class="px-6 py-4">${prescriptionMed.formatted_updated_at}</td>
           <td class="px-6 py-4">${prescriptionsMap.get(prescriptionMed.prescription) || prescriptionMed.prescription}</td>
           <td class="px-6 py-4">${medicationsMap.get(prescriptionMed.medication) || prescriptionMed.medication}</td>
           <td class="px-6 py-4">${prescriptionMed.instructions}</td>

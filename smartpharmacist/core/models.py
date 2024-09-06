@@ -126,6 +126,7 @@ class Prescription(models.Model):
 
     def __str__(self):
         return f"{self.code} for {self.patient}"
+    
    
 
 class PrescriptionMedication(models.Model):

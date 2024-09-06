@@ -22,20 +22,32 @@ class MedicationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PrescriptionSerializer(serializers.ModelSerializer):
-    # patient = UserSerializer()
-    # doctor = UserSerializer()
+    formatted_created_at = serializers.SerializerMethodField()
+    formatted_updated_at = serializers.SerializerMethodField()
 
     class Meta:
         model = Prescription
-        fields = '__all__'
+        fields = ['id', 'patient', 'doctor', 'code', 'sickness', 'is_dispensed', 'formatted_created_at', 'formatted_updated_at']
+
+    def get_formatted_created_at(self, obj):
+        return obj.created_at.strftime("%B %d, %Y, %I:%M %p")
+
+    def get_formatted_updated_at(self, obj):
+        return obj.updated_at.strftime("%B %d, %Y, %I:%M %p")
 
 class PrescriptionMedicationSerializer(serializers.ModelSerializer):
-    # prescription = PrescriptionSerializer()
-    # medication = MedicationSerializer()
+    formatted_created_at = serializers.SerializerMethodField()
+    formatted_updated_at = serializers.SerializerMethodField()
 
     class Meta:
         model = PrescriptionMedication
-        fields = '__all__'
+        fields = ['id', 'prescription', 'medication', 'instructions', 'formatted_created_at', 'formatted_updated_at']
+
+    def get_formatted_created_at(self, obj):
+        return obj.created_at.strftime("%B %d, %Y, %I:%M %p")
+
+    def get_formatted_updated_at(self, obj):
+        return obj.updated_at.strftime("%B %d, %Y, %I:%M %p")
 
 class VendingMachineSerializer(serializers.ModelSerializer):
     class Meta:
