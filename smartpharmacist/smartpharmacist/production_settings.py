@@ -1,7 +1,7 @@
 import os
 from .base_settings import *  # Import base settings
 
-DEBUG = False
+# DEBUG = False
 
 ALLOWED_HOSTS = ['smart-pharmacist-production.up.railway.app']
 
