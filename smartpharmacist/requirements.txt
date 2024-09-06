@@ -25,7 +25,7 @@ django-crispy-forms==2.3
 django-restframework==0.0.1
 django-tailwind==3.8.0
 djangorestframework==3.15.2
-djangorestframework_simplejwt==5.3.1
+djangorestframework-simplejwt==5.3.1
 fonttools==4.50.0
 frozenlist==1.4.1
 idna==3.6
@@ -58,4 +58,5 @@ twilio==9.2.4
 types-python-dateutil==2.9.0.20240316
 tzdata==2024.1
 urllib3==2.2.1
+whitenoise==6.7.0
 yarl==1.9.4
