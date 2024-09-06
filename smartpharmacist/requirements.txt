@@ -36,7 +36,7 @@ MarkupSafe==2.1.5
 matplotlib==3.8.3
 mdurl==0.1.2
 multidict==6.0.5
-mysqlclient==2.2.4
+# mysqlclient==2.2.4
 numpy==1.26.4
 packaging==24.0
 pillow==10.2.0
