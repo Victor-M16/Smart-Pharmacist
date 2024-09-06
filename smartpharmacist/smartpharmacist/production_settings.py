@@ -3,7 +3,7 @@ from .base_settings import *  # Import base settings
 
 # DEBUG = False
 
-ALLOWED_HOSTS = ['smart-pharmacist-production.up.railway.app']
+ALLOWED_HOSTS = ['*']
 
 # Use SQLite for now
 DATABASES = {
