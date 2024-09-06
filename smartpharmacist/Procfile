@@ -1,1 +1,1 @@
-web: gunicorn --timeout 90 smartpharmacist.wsgi 
+web: gunicorn --timeout 90 --log-level debug smartpharmacist.wsgi
