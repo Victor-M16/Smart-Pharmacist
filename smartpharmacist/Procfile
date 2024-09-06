@@ -1,3 +1,1 @@
-web: gunicorn smartpharmacist.wsgi --log-file -
-
-
+web: python manage.py tailwind build && python manage.py collectstatic --noinput && gunicorn --timeout 90 smartpharmacist.wsgi
