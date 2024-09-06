@@ -1,1 +1,2 @@
-web: gunicorn smartpharmacist.wsgi --log-file -
+web: python manage.py migrate && python manage.py collectstatic --noinput && gunicorn smartpharmacist.wsgi
+worker: python manage.py tailwind start
