@@ -10,3 +10,6 @@ DATABASES = {
         'PORT': '3306',     
     }
 }
+
+
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
