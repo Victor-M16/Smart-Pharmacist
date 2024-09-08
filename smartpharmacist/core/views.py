@@ -119,6 +119,9 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'users/user_confirm_delete.html'
     success_url = reverse_lazy('user_list')
 
+def index(request):
+    return render(request, "core/index.html", {'title': 'smartpharmacist'})
+
 def login(request):
     return render(request, "auth/login.html", {'title': 'login'})
 
@@ -142,5 +145,3 @@ def create_prescription(request):
 
 def create_medication(request):
     return render(request, "core/new-medication.html", {'title': 'new medication'})
-
-
