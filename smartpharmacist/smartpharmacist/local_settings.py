@@ -3,10 +3,10 @@ from .base_settings import *
 DATABASES = {
     "default":{
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'railway', 
+        'NAME': 'smartpharmacist', 
         'USER':'root',      
-        'PASSWORD': 'HTNKkrwmUcDSQFPyKERTkubRWPDXqCuB',  
-        'HOST': 'mysql.railway.internal',
+        'PASSWORD': 'mjima',  
+        'HOST': 'localhost',
         'PORT': '3306',     
     }
 }

@@ -229,7 +229,11 @@ SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS
 #to allow only ESP32 and local machine requests
 CORS_ALLOWED_ORIGINS = [
     "http://localhost",
+    'http://192.168.8.124',
+    'https://192.168.8.124',
 ]
+# Or during development
+# CORS_ALLOW_ALL_ORIGINS = True
 
 
 #api authentication
