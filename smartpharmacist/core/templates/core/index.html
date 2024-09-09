@@ -1,0 +1,171 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    {% if title %}
+      <title>Smart Pharmacist | {{ title }}</title>
+    {% else %}
+      <title>Smart Pharmacist</title>
+    {% endif %}
+
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
+    {% tailwind_css %}
+  </head>
+  {% block body %}
+    <body class="flex flex-col min-h-screen max-w-5xl mx-auto p-6 sm:p-5 md:p-4 dark:bg-zinc-700">
+      <!-- header section -->
+
+      <nav class="bg-white border-zinc-200 flex flex-wrap items-center justify-between dark:bg-zinc-700">
+        <div>
+          <a href="{% url 'home' %}" class="self-center text-lg sm:text-[32px] font-extrabold whitespace-nowrap hover:text-zinc-700 dark:text-zinc-50 dark:hover:text-zinc-400 transition">Smart Pharmacist</a>
+        </div>
+
+        <div class="hidden md:block">
+          <ul class="flex items-center gap-3">
+            <li class="my-2">
+              <a href="{% url 'index' %}" class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition">Home</a>
+            </li>
+            <li class="my-2">
+              <a href="{% url 'login' %}" class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition">Login</a>
+            </li>
+            <li class="my-2">
+              <a href="{% url 'register' %}" class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition">Create account</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- mobile link menu -->
+        <div class="md:hidden">
+          <select name="link-menu" id="link-menu" class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg font-semibold focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-zinc-100 dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
+            <option value="" disabled selected>Menu</option>
+            <option value="{% url 'index' %}">Home</option>
+            <option value="{% url 'login' %}">Login</option>
+            <option value="{% url 'register' %}">Create account</option>
+          </select>
+        </div>
+      </nav>
+
+        {% comment %}hero info section{% endcomment %}
+        <div class="flex flex-wrap my-12">
+          <div class="w-full lg:w-1/2">
+            <h1 class="font-black text-[30px] lg:text-[48px] dark:text-zinc-100">Welcome to the Smart Pharmacist project.</h1>
+            <p class="my-5 md:text-xl dark:text-zinc-300">
+              This website represents the information system component of the final year engineering project being implemented at
+              <a class="font-bold dark:hover:text-zinc-400 transition" href="https://www.mubas.ac.mw/">Malawi University of Business and Applied Sciences</a>
+              by Victor Mjimapemba, Khumbolawo Mussa and Grace Chiwaya.
+            </p>
+            <p class="my-5 md:text-xl dark:text-zinc-300">Ready to experience the project?</p>
+            <button class="bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"><a class="text-zinc-900 dark:text-zinc-200 font-bold" href="#">Register</a></button>
+          </div>
+          <div class="flex justify-center items-center mt-5 border-2 border-zinc-300 rounded-lg
+          w-full lg:w-1/2 h-[25rem]">
+            <p class="dark:text-zinc-100">This is placeholder text for logo images</p>
+          </div>
+        </div>
+
+      {% comment %}features section{% endcomment %}
+      <div class="flex flex-col my-8 p-10 justify-center items-center dark:bg-zinc-600">
+        <h1 class="mb-10 text-3xl font-black dark:text-zinc-200">Features</h1>
+        {% comment %}cards div{% endcomment %}
+        <div class="flex justify-center md:justify-between flex-wrap gap-8">
+          {% comment %}a singular card{% endcomment %}
+          <div class="flex flex-col justify-center items-center h-auto w-40">
+            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
+            <p class="p-2 text-sm dark:text-zinc-300">this is some subtext under an illustration or image</p>
+          </div>
+          <div class="flex flex-col justify-center items-center h-auto w-40">
+            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
+            <p class="p-2 text-sm dark:text-zinc-300">this is some subtext under an illustration or image</p>
+          </div>
+          <div class="flex flex-col justify-center items-center h-auto w-40">
+            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
+            <p class="p-2 text-sm dark:text-zinc-300">this is some subtext under an illustration or image</p>
+          </div>
+          <div class="flex flex-col justify-center items-center h-auto w-40">
+            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
+            <p class="p-2 text-sm dark:text-zinc-300">this is some subtext under an illustration or image</p>
+          </div>
+        </div>
+      </div>
+
+      {% comment %}technology stack section{% endcomment %}
+      <div class="flex flex-col my-8 p-10 justify-center items-center">
+        <h1 class="mb-10 text-3xl font-black dark:text-zinc-200">Technologies Used</h1>
+        <div class="max-w-[53rem] scroll-mt-28 text-center sm:mb-2">
+          <ul class="flex flex-wrap justify-center gap-3 text-lg dark:text-zinc-300">
+            <li class="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80">Django</li>
+            <li class="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80">Django REST Framework</li>
+            <li class="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80">HTML/CSS</li>
+            <li class="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80">JavaScript</li>
+            <li class="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80">TailwindCSS</li>
+            <li class="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80">SQlite</li>
+            <li class="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80">Arduino IDE</li>
+            <li class="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80">Twilio</li>
+            <li class="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80">Autodesk Fusion 360</li>
+          </ul>
+        </div>
+      </div>
+
+      {% comment %}contribute section{% endcomment %}
+      <div class="flex flex-col my-8 justify-center items-center">
+        <h1 class="mb-10 text-center text-3xl font-black dark:text-zinc-200">Contribute To The Project</h1>
+        <p class="mb-10 dark:text-zinc-300">Want to contribute to the project or inquire about our implementation and future plans? Connect with the developers below. The source code for the 
+          project is available on <a class="text-zinc-900 dark:text-zinc-200 font-bold dark:hover:text-zinc-400 transition" href="https://github.com/Victor-M16/smartpharmacist">Github</a>.
+        </p>
+        
+      </div>
+      {% comment %} contact info {% endcomment %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 border-2 border-zinc-400 rounded-lg p-4 dark:bg-zinc-50/10 mb-4">
+        <div>
+          <p class="text-xl font-bold dark:text-zinc-300">Victor Mjimapemba (Project Lead)</p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="vcmjimapemba@gmail.com">Email</a></p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="https://github.com/Victor-M16">Github account</a></p>
+        </div>
+        <div>
+          <p class="text-xl font-bold dark:text-zinc-300">Grace Chiwaya (Team Member)</p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="#">Email</a></p>
+        </div>
+        <div>
+          <p class="text-xl font-bold dark:text-zinc-300">Khumbolawo Mussa (Team Member)</p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="khumbo87@gmail.com">Email</a></p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="https://github.com/Khumbolawo">Github account</a></p>
+        </div>
+        <div>
+          <p class="text-xl font-bold dark:text-zinc-300">Ms Tadala Namaona (Project Supervisor)</p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="#">Email</a></p>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div class="flex items-center justify-center h-14 text-zinc-400 dark:text-zinc-300 font-semibold">Smart Pharmacist 2024</div>
+
+      <!-- Include Select2 JS -->
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+      <!-- script to make the select navigation links work -->
+      <script>
+        document.getElementById('link-menu').addEventListener('change', function () {
+          if (this.value !== '') {
+            if (this.value === "{% url 'logout' %}") {
+              document.getElementById('logoutForm').submit()
+            } else {
+              window.location.href = this.value
+            }
+          }
+        })
+      </script>
+    </body>
+  {% endblock %}
+</html>
