@@ -88,22 +88,26 @@
       <div class="flex flex-col my-8 p-10 justify-center items-center border-0 rounded-md dark:bg-zinc-50/10">
         <h1 class="mb-10 text-3xl font-black dark:text-zinc-200">Features</h1>
         {% comment %}cards div{% endcomment %}
-        <div class="flex justify-center items-baseline md:justify-between flex-wrap gap-8">
+        <div class="flex justify-center items-baseline md:justify-between flex-wrap gap-10">
           {% comment %}a singular card{% endcomment %}
           <div class="flex flex-col justify-center items-center h-auto w-40">
-            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
+            <img src="{% static 'images/sms-1.png' %}" alt="sms-logo" class="bg-zinc-100 h-auto w-full border rounded-lg" />
+
             <p class="p-2 text-sm dark:text-zinc-300">Real time SMS integration via SMS service Twilio</p>
           </div>
           <div class="flex flex-col justify-center items-center h-auto w-40">
-            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
+            <img src="{% static 'images/django.png' %}" alt="django-logo" class="h-auto w-full border-0 rounded-sm" />
+
             <p class="p-2 text-sm dark:text-zinc-300">API based access controls and authentication via Django REST Framework</p>
           </div>
           <div class="flex flex-col justify-center items-center h-auto w-40">
-            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
+            <img src="{% static 'images/lock.png' %}" alt="https" class="bg-zinc-100 h-auto w-full border rounded-lg" />
+
             <p class="p-2 text-sm dark:text-zinc-300">Deployed on a secure webserver with a valid SSL/TLS certificates</p>
           </div>
           <div class="flex flex-col justify-center items-center h-auto w-40">
-            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
+            <img src="{% static 'images/arduino.png' %}" alt="arduino" class="h-auto w-full" />
+
             <p class="p-2 text-sm dark:text-zinc-300">Hardware prototype built using readily available maker tools</p>
           </div>
         </div>
@@ -148,7 +152,10 @@
         <div>
           <p class="text-xl font-bold dark:text-zinc-300">Grace Chiwaya (Team Member)</p>
           <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition">
-            <a href="#">Email</a>
+            <a href="gracechiwaya3@gmail.com">Email</a>
+          </p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition">
+            <a href="https://github.com/GraceChiwaya">Github account</a>
           </p>
         </div>
         <div>
@@ -163,7 +170,7 @@
         <div>
           <p class="text-xl font-bold dark:text-zinc-300">Ms Tadala Namaona (Project Supervisor)</p>
           <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition">
-            <a href="#">Email</a>
+            <a href="tadalanamaona@mubas.ac.mw">Email</a>
           </p>
         </div>
       </div>
