@@ -31,11 +31,12 @@ INTERNAL_IPS = [
 ]
 
 # Other production-specific settings
-CSRF_TRUSTED_ORIGINS = ['https://smart-pharmacist-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://smart-pharmacist-production.up.railway.app', 'https://192.168.8.124:443',]
 
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Configure CORS for API
+CORS_ALLOW_ALL_ORIGINS = True
 # CORS_ALLOWED_ORIGINS = ['https://smart-pharmacist-production.up.railway.app']
 
 
