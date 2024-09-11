@@ -177,7 +177,7 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
                 f'Medications:\n{meds_list}\n'
                 f'Machine: {vending_machine.location}.'
             )
-            
+
             # self.update_inventory(vending_machine,prescribed_meds)
         else:
             # If no vending machine was found, indicate that medications are out of stock
@@ -285,7 +285,7 @@ class ESP32_API(APIView):
 
             # Generate a list of slots for the ESP32 to rotate to
             for med in medications:
-                slots = VendingSlot.objects.filter(medication=med.medication)
+                slots = VendingSlot.objects.filter(vending_machine=vending_machine, medication=med.medication)
                 slot_data.extend([slot.slot_number for slot in slots])
 
             # Sort the slots in an optimized order to minimize motor movement
