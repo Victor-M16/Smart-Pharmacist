@@ -13,11 +13,76 @@
     {% tailwind_css %}
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon-96x96.png' %}" />
   </head>
   {% block body %}
 
-  <body class="min-h-screen flex  dark:bg-zinc-700">
+  <body class="min-h-screen flex flex-col md:flex-row dark:bg-zinc-700">
+    <nav
+      class="bg-white border-zinc-200 p-5 flex flex-wrap items-center justify-between md:hidden dark:bg-zinc-700"
+    >
+      <div>
+        <a
+          href="{% url 'home' %}"
+          class="self-center text-lg sm:text-[32px] font-extrabold whitespace-nowrap hover:text-zinc-700 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+        >
+          Smart Pharmacist
+        </a>
+      </div>
+
+      <div class="hidden md:block">
+        <ul class="flex items-center gap-3">
+          <li class="my-2">
+            <a
+              href="{% url 'home' %}"
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >Home</a
+            >
+          </li>
+          <li class="my-2">
+            <a
+              href="{% url 'new-prescription' %}"
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >New Prescription</a
+            >
+          </li>
+          <li class="my-2">
+            <a
+              href="{% url 'new-patient' %}"
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >New Patient</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="hidden md:block">
+        <form id="logoutForm" method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button
+            type="submit"
+            class="text-base sm:text-lg font-semibold text-zinc-800 hover:text-zinc-900 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+          >
+            Logout
+          </button>
+        </form>
+      </div>
+
+      <!-- mobile link menu -->
+      <div class="md:hidden">
+        <select
+          name="link-menu"
+          id="link-menu"
+          class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg font-semibold focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-zinc-100 dark:focus:ring-zinc-500 dark:focus:border-zinc-500"
+        >
+          <option value="" disabled selected>Menu</option>
+          <option value="{% url 'home' %}">Home</option>
+          <option value="{% url 'register' %}">Register</option>
+          <option value="{% url 'login' %}">Logini</option>
+        </select>
+      </div>
+    </nav>
     <!-- main contaiiner -->
     <section class="flex flex-1 items-center justify-center p-5 sm:p-0">
       <!-- black background with logo -->

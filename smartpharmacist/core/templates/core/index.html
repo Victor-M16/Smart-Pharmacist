@@ -1,3 +1,4 @@
+{% load static %}
 {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html>
@@ -12,7 +13,8 @@
 
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon-96x96.png' %}" />
 
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -57,45 +59,56 @@
         </div>
       </nav>
 
-        {% comment %}hero info section{% endcomment %}
-        <div class="flex flex-wrap my-12">
-          <div class="w-full lg:w-1/2">
-            <h1 class="font-black text-[30px] lg:text-[48px] dark:text-zinc-100">Welcome to the Smart Pharmacist project.</h1>
-            <p class="my-5 md:text-xl dark:text-zinc-300">
-              This website represents the information system component of the final year engineering project being implemented at
-              <a class="font-bold dark:hover:text-zinc-400 transition" href="https://www.mubas.ac.mw/">Malawi University of Business and Applied Sciences</a>
-              by Victor Mjimapemba, Khumbolawo Mussa and Grace Chiwaya.
-            </p>
-            <p class="my-5 md:text-xl dark:text-zinc-300">Ready to experience the project?</p>
-            <button class="bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"><a class="text-zinc-900 dark:text-zinc-200 font-bold" href="#">Register</a></button>
-          </div>
-          <div class="flex justify-center items-center mt-5 border-2 border-zinc-300 rounded-lg
-          w-full lg:w-1/2 h-[25rem]">
-            <p class="dark:text-zinc-100">This is placeholder text for logo images</p>
-          </div>
+      {% comment %}hero info section{% endcomment %}
+      <div class="flex my-12">
+        <div class="w-full lg:w-1/2">
+          <h1 class="font-black text-[30px] lg:text-[48px] dark:text-zinc-100">Welcome to the Smart Pharmacist project.</h1>
+          <p class="my-5 md:text-xl dark:text-zinc-300">
+            This website represents the information system component of the final year engineering project being implemented at
+            <a class="font-bold dark:hover:text-zinc-400 transition" href="https://www.mubas.ac.mw/">Malawi University of Business and Applied Sciences</a>
+            by Victor Mjimapemba, Khumbolawo Mussa and Grace Chiwaya.
+          </p>
+          <p class="my-5 md:text-xl dark:text-zinc-300">Ready to experience the project?</p>
+          <button class="bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"><a class="text-zinc-900 dark:text-zinc-200 font-bold" href="#">Register</a></button>
         </div>
+        <div class="lg:flex justify-center items-center lg:w-1/2 mt-5 hidden">
+          <img src="{% static 'images/smart-pharmacist-logo.jpeg' %}" alt="smart-pharmacist-logo" class="border rounded-md w-auto h-[20rem]" />
+        </div>
+      </div>
+
+      {% comment %}stakeholders logos{% endcomment %}
+      <h1 class="mb-10 text-3xl font-black text-center dark:text-zinc-200">Relevant Stakeholders</h1>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 mb-10 gap-10 sm:gap-0 justify-items-center items-center">
+        <img src="{% static 'images/mubas-logo.png' %}" alt="mubas-logo" class="w-auto h-[120px] border rounded-md" />
+        <img src="{% static 'images/queens-logo.png' %}" alt="queens-logo" class="w-auto h-[120px] border rounded-md" />
+      </div>
 
       {% comment %}features section{% endcomment %}
-      <div class="flex flex-col my-8 p-10 justify-center items-center dark:bg-zinc-600">
+      <div class="flex flex-col my-8 p-10 justify-center items-center border-0 rounded-md dark:bg-zinc-50/10">
         <h1 class="mb-10 text-3xl font-black dark:text-zinc-200">Features</h1>
         {% comment %}cards div{% endcomment %}
-        <div class="flex justify-center md:justify-between flex-wrap gap-8">
+        <div class="flex justify-center items-baseline md:justify-between flex-wrap gap-10">
           {% comment %}a singular card{% endcomment %}
           <div class="flex flex-col justify-center items-center h-auto w-40">
-            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
-            <p class="p-2 text-sm dark:text-zinc-300">this is some subtext under an illustration or image</p>
+            <img src="{% static 'images/sms-1.png' %}" alt="sms-logo" class="bg-zinc-100 h-auto w-full border rounded-lg" />
+
+            <p class="p-2 text-sm dark:text-zinc-300">Real time SMS integration via SMS service Twilio</p>
           </div>
           <div class="flex flex-col justify-center items-center h-auto w-40">
-            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
-            <p class="p-2 text-sm dark:text-zinc-300">this is some subtext under an illustration or image</p>
+            <img src="{% static 'images/django.png' %}" alt="django-logo" class="h-auto w-full border-0 rounded-sm" />
+
+            <p class="p-2 text-sm dark:text-zinc-300">API based access controls and authentication via Django REST Framework</p>
           </div>
           <div class="flex flex-col justify-center items-center h-auto w-40">
-            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
-            <p class="p-2 text-sm dark:text-zinc-300">this is some subtext under an illustration or image</p>
+            <img src="{% static 'images/lock.png' %}" alt="https" class="bg-zinc-100 h-auto w-full border rounded-lg" />
+
+            <p class="p-2 text-sm dark:text-zinc-300">Deployed on a secure webserver with a valid SSL/TLS certificates</p>
           </div>
           <div class="flex flex-col justify-center items-center h-auto w-40">
-            <div class="h-[150px] w-[150px] border-2 rounded-md border-zinc-300"></div>
-            <p class="p-2 text-sm dark:text-zinc-300">this is some subtext under an illustration or image</p>
+            <img src="{% static 'images/arduino.png' %}" alt="arduino" class="h-auto w-full" />
+
+            <p class="p-2 text-sm dark:text-zinc-300">Hardware prototype built using readily available maker tools</p>
           </div>
         </div>
       </div>
@@ -121,30 +134,44 @@
       {% comment %}contribute section{% endcomment %}
       <div class="flex flex-col my-8 justify-center items-center">
         <h1 class="mb-10 text-center text-3xl font-black dark:text-zinc-200">Contribute To The Project</h1>
-        <p class="mb-10 dark:text-zinc-300">Want to contribute to the project or inquire about our implementation and future plans? Connect with the developers below. The source code for the 
-          project is available on <a class="text-zinc-900 dark:text-zinc-200 font-bold dark:hover:text-zinc-400 transition" href="https://github.com/Victor-M16/smartpharmacist">Github</a>.
+        <p class="mb-10 dark:text-zinc-300">
+          Want to contribute to the project or inquire about our implementation and future plans? Connect with the developers below. The source code for the project is available on <a class="text-zinc-900 dark:text-zinc-200 font-bold dark:hover:text-zinc-400 transition" href="https://github.com/Victor-M16/smartpharmacist">Github</a>.
         </p>
-        
       </div>
-      {% comment %} contact info {% endcomment %}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 border-2 border-zinc-400 rounded-lg p-4 dark:bg-zinc-50/10 mb-4">
+      {% comment %}contact info{% endcomment %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 border-0 rounded-lg p-4 dark:bg-zinc-50/10 mb-4">
         <div>
-          <p class="text-xl font-bold dark:text-zinc-300">Victor Mjimapemba (Project Lead)</p>
-          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="vcmjimapemba@gmail.com">Email</a></p>
-          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="https://github.com/Victor-M16">Github account</a></p>
+          <p class="text-xl font-bold dark:text-zinc-300">Victor Mjimapemba (Team Member)</p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition">
+            <a href="vcmjimapemba@gmail.com">Email</a>
+          </p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition">
+            <a href="https://github.com/Victor-M16">Github account</a>
+          </p>
         </div>
         <div>
           <p class="text-xl font-bold dark:text-zinc-300">Grace Chiwaya (Team Member)</p>
-          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="#">Email</a></p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition">
+            <a href="gracechiwaya3@gmail.com">Email</a>
+          </p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition">
+            <a href="https://github.com/GraceChiwaya">Github account</a>
+          </p>
         </div>
         <div>
           <p class="text-xl font-bold dark:text-zinc-300">Khumbolawo Mussa (Team Member)</p>
-          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="khumbo87@gmail.com">Email</a></p>
-          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="https://github.com/Khumbolawo">Github account</a></p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition">
+            <a href="khumbo87@gmail.com">Email</a>
+          </p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition">
+            <a href="https://github.com/Khumbolawo">Github account</a>
+          </p>
         </div>
         <div>
           <p class="text-xl font-bold dark:text-zinc-300">Ms Tadala Namaona (Project Supervisor)</p>
-          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition"><a href="#">Email</a></p>
+          <p class="dark:text-zinc-400 dark:hover:text-zinc-100 transition">
+            <a href="tadalanamaona@mubas.ac.mw">Email</a>
+          </p>
         </div>
       </div>
 
