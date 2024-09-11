@@ -1,3 +1,9 @@
+# secrets
+root_ca.crt
+hidden_credentials.txt
+currently_loaded.ino
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

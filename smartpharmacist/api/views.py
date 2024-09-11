@@ -228,7 +228,7 @@ class PrescriptionMedicationViewSet(viewsets.ModelViewSet):
 
 
 class ESP32_API(APIView):
-    # permission_classes = [IsAdminUser | IsPharmacistOnly]
+    permission_classes = [IsAdminUser | IsPharmacistOnly]
 
 
     def __init__(self, *args, **kwargs):
