@@ -103,7 +103,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         return reverse("user-detail", kwargs={"pk": self.pk})
 
 
-
 class Medication(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
@@ -175,6 +174,9 @@ class Dispensation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.prescription} by {self.vending_machine}"
+
 class Inventory(models.Model):
     id = models.AutoField(primary_key=True)
     vending_machine = models.ForeignKey(VendingMachine, on_delete=models.CASCADE)
@@ -182,6 +184,10 @@ class Inventory(models.Model):
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return f"{self.medication} in {self.vending_machine} = {self.quantity}"
 
 
 class Test(models.Model):
