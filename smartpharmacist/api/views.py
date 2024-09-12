@@ -21,6 +21,7 @@ from typing import Dict, Set
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     permission_classes = [IsAdminUser]
+    serializer_class = UserSerializer
     
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = User.objects.filter(account_type="Patient")
