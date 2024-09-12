@@ -1,0 +1,24 @@
+The favicon was causing an internal server error that was difficult to debug when DEBUG = False, which was causing the error. 
+`collectstatic` command was unable to find the favicon because it was located in the wrong directory while all the other images were in an app level static directory which was configured in the production_settings.py as '/static/'
+
+
+this logging setup allowed quick debugging, might be useful in the future:
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'django_error.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
