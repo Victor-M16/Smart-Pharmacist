@@ -1,0 +1,113 @@
+{% extends 'core/pharm-base.html' %} {% block content %}
+  <!-- restock form -->
+  <div>
+    <form id="restock-form">
+      <p class="text-xl text-zinc-900 font-bold py-3 dark:text-zinc-50">Restock slot</p>
+      <!-- select machine -->
+      <div class="mb-5">
+        <label for="machine-menu" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Machine</label>
+        <div class="mb-3">
+          <select id="machine-menu" name="machine-id" class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring--500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
+            <option value="">--choose a machine</option>
+            <!-- Dynamically generated from database -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Dynamic medication fields -->
+      <div id="medication-fields-container" class="mb-5">
+        <label for="medication-menu" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Medications</label>
+        <div class="medication-field mb-5">
+          <select id="medication-menu" name="medication" class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
+            <option value="">--choose a medication</option>
+            <!-- Dynamically generated from database -->
+          </select>
+        </div>
+      </div>
+
+      {% comment %}quantity{% endcomment %}
+      <div class="mb-5">
+        <label for="quantity" class="block mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-300">Quantity</label>
+        <input type="number" id="quantity" name="quantity" class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-zinc-500 dark:focus:border-zinc-500" required />
+      </div>
+
+      {% comment %}submit button{% endcomment %}
+
+      <button type="button" id="submit-button" class="text-white bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition">Submit</button>
+    </form>
+
+    <!-- success message -->
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative hidden" role="alert" id="success-message">
+      <span class="block sm:inline">Machine restocked created successfully!</span>
+    </div>
+  </div>
+
+  <!-- Populate dropdowns -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const machinesMenu = $('#machine-menu')
+      const medicationsMenu = $('#medication-menu')
+        
+      // Fetch machines from the API and populate the dropdown
+      fetchVendingMachines('#machine-menu')
+
+      // Fetch medications from the API and populate the dropdown
+      fetchMedications('#medication-menu')
+    })
+
+    {% comment %} collect machines {% endcomment %}
+    function fetchVendingMachines(selector) {
+        fetch('/api/vending-machines/')
+            .then((response) => response.json())
+            .then((data) => {
+                const machinesMenu = $(selector)
+                machinesMenu.empty()
+
+                machinesMenu.append(new Option('--choose a machine', ''))
+                data.forEach((machine) => {
+                    const option = new Option(machine.location, machine.id, false, false)
+                    machinesMenu.append(option)
+            })
+
+            // Initialize Select2 after populating options
+          machinesMenu.select2({
+            placeholder: '--choose a machine',
+            allowClear: true
+          })
+
+            machinesMenu.trigger('change')
+    })
+    .catch((error) => {
+        console.error('Error fetching machines:', error)})}
+    
+    {% comment %} collect medications {% endcomment %}
+    function fetchMedications(selector) {
+      fetch('/api/medications/') // Replace with your actual API endpoint
+        .then((response) => response.json())
+        .then((data) => {
+          // Clear existing options
+          const medicationMenu = $(selector)
+          medicationMenu.empty()
+    
+          // Populate with new options
+          medicationMenu.append(new Option('--choose a medication', ''))
+          data.forEach((medication) => {
+            const option = new Option(medication.name, medication.id, false, false)
+            medicationMenu.append(option)
+          })
+    
+          // Initialize Select2 after populating options
+          medicationMenu.select2({
+            placeholder: '--choose a medication',
+            allowClear: true
+          })
+    
+          // Refresh the Select2 UI
+          medicationMenu.trigger('change')
+        })
+        .catch((error) => {
+          console.error('Error fetching medications:', error)
+        })
+    }
+  </script>
+{% endblock %}
