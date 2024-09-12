@@ -35,10 +35,7 @@
 
         <div class="hidden md:block">
           <ul class="flex items-center gap-3">
-            <li class="my-2">
-              <a href="{% url 'index' %}" class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition">Home</a>
-            </li>
-            <li class="my-2">
+
               <a href="{% url 'login' %}" class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition">Login</a>
             </li>
             <li class="my-2">
@@ -51,7 +48,6 @@
         <div class="md:hidden">
           <select name="link-menu" id="link-menu" class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg font-semibold focus:ring-zinc-500 focus:border-zinc-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-zinc-100 dark:focus:ring-zinc-500 dark:focus:border-zinc-500">
             <option value="" disabled selected>Menu</option>
-            <option value="{% url 'index' %}">Home</option>
             <option value="{% url 'login' %}">Login</option>
             <option value="{% url 'register' %}">Create account</option>
           </select>
@@ -68,7 +64,7 @@
             by Victor Mjimapemba, Khumbolawo Mussa and Grace Chiwaya.
           </p>
           <p class="my-5 md:text-xl dark:text-zinc-300">Ready to experience the project?</p>
-          <button class="bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"><a class="text-zinc-900 dark:text-zinc-200 font-bold" href="#">Register</a></button>
+          <button class="bg-zinc-800 hover:bg-zinc-900 focus:outline-none focus:ring-4 focus:ring-zinc-300 rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-800 dark:hover:bg-zinc-900 dark:focus:ring-zinc-700 dark:border-zinc-700 transition"><a class="text-zinc-900 dark:text-zinc-200 font-bold" href="{% url 'register' %}">Register</a></button>
         </div>
         <div class="lg:flex justify-center items-center lg:w-1/2 mt-5 hidden">
           <img src="{% static 'images/smart-pharmacist-logo.jpeg' %}" alt="smart-pharmacist-logo" class="border rounded-md w-auto h-[20rem]" />
