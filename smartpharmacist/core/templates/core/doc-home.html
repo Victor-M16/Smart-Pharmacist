@@ -64,9 +64,9 @@
     document.addEventListener("DOMContentLoaded", function () {
       // collect prescriptions, doctors and patients from api
       Promise.all([
-        fetch("api/prescriptions").then(response => response.json()),
-        fetch("api/doctors").then(response => response.json()),
-        fetch("api/patients").then(response => response.json())
+        fetch("/api/prescriptions").then(response => response.json()),
+        fetch("/api/doctors").then(response => response.json()),
+        fetch("/api/patients").then(response => response.json())
       ])
       .then(([prescriptions, doctors, patients]) => {
         // attach doctor ID to corresponding doctor name 
@@ -102,9 +102,9 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     Promise.all([
-      fetch("api/prescription-medications").then(response => response.json()),
-      fetch("api/medications").then(response => response.json()),
-      fetch("api/prescriptions").then(response => response.json())
+      fetch("/api/prescription-medications").then(response => response.json()),
+      fetch("/api/medications").then(response => response.json()),
+      fetch("/api/prescriptions").then(response => response.json())
     ])
     .then(([prescriptionMedications, medications, prescriptions]) => {
       const medicationsMap = new Map(medications.map(m => [m.id, m.name]));
@@ -133,5 +133,3 @@
   });
 </script>
 {% endblock content%}
-
-

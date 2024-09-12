@@ -60,6 +60,13 @@
               >New Medication</a
             >
           </li>
+          <li class="my-2">
+            <a
+              href="{% url 'restock' %}"
+              class="text-zinc-900 font-semibold hover:text-zinc-600 dark:text-zinc-50 dark:hover:text-zinc-400 transition"
+              >Restock</a
+            >
+          </li>
         </ul>
       </div>
 
@@ -85,6 +92,7 @@
           <option value="" disabled selected>Menu</option>
           <option value="{% url 'home' %}">Home</option>
           <option value="{% url 'new-medication' %}">New Medication</option>
+          <option value="{% url 'restock' %}">Restock</option>
           <option value="{% url 'logout' %}">Logout</option>
         </select>
       </div>
