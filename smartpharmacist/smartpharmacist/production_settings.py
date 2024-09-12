@@ -1,7 +1,7 @@
 import os
 from .base_settings import *  # Import base settings
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
