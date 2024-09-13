@@ -1,15 +1,14 @@
 from .base_settings import *
 
 DATABASES = {
-    "default":{
-        'ENGINE': 'django.db.backends.mysql',
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'smartpharmacist', 
-        'USER':'root',      
+        'USER':'postgres',      
         'PASSWORD': 'mjima',  
         'HOST': 'localhost',
-        'PORT': '3306',     
+        'PORT': '5432',
     }
 }
-
 
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"

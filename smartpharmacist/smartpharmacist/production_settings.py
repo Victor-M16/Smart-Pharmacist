@@ -1,17 +1,18 @@
 import os
 from .base_settings import *  # Import base settings
+import dj_database_url
 
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-# Use SQLite for now
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(
+        default=os.getenv("DATABASE_URL")
+    )
 }
+
+
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
