@@ -6,12 +6,18 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL")
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.getenv("DATABASE_URL")
+#     )
+# }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Static files (CSS, JavaScript, Images)
@@ -39,3 +45,24 @@ CSRF_TRUSTED_ORIGINS = ['https://smart-pharmacist-production.up.railway.app', 'h
 CORS_ALLOW_ALL_ORIGINS = True
 
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'django_error.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
+
