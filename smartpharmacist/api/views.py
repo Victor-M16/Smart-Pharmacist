@@ -34,7 +34,8 @@ class PatientViewSet(viewsets.ModelViewSet):
 class DoctorViewSet(viewsets.ModelViewSet):
     queryset = User.objects.filter(account_type="Doctor")
     serializer_class = UserSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | IsDoctorOnly]
+
 
 # Medication ViewSet
 class MedicationViewSet(viewsets.ModelViewSet):
