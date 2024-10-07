@@ -87,6 +87,9 @@ INTERNAL_IPS = [
 # }
 
 MIDDLEWARE = [
+    #tailwind middleware
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
+
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -99,8 +102,7 @@ MIDDLEWARE = [
     #cors_middleware
     'corsheaders.middleware.CorsMiddleware',
 
-    #tailwind middleware
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    
 ]
 
 ROOT_URLCONF = 'smartpharmacist.urls'

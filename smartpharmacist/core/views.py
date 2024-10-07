@@ -145,3 +145,6 @@ def create_prescription(request):
 
 def create_medication(request):
     return render(request, "core/new-medication.html", {'title': 'new medication'})
+
+def restock(request):
+    return render(request, "core/pharm-restock.html", {'title': 'restock'})
