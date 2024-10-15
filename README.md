@@ -31,9 +31,12 @@ The software component is a built from the ground up hospital management system 
 
 1. 16x2 LCD module. Ours uses (0x27) addressing. You need to check this.
 2. ESP32
-3. 4X4 Matrix Keypad
-4. NEMA 17 Motors (17HS4023)
-5. L298N Motor Drivers
+3. Arduino Uno
+4. 4X4 Matrix Keypad
+5. NEMA 17 Motors (17HS4023)
+6. L298N Motor Drivers
+7. Buzzer
+8. Switch
 
 ## Setting Up The Project
 
