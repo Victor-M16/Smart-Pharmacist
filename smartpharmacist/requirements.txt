@@ -16,6 +16,7 @@ contourpy==1.2.0
 cookiecutter==2.6.0
 crispy-bootstrap5==2024.2
 cycler==0.12.1
+dj-database-url==2.2.0
 Django==5.0.3
 django-appconf==1.0.6
 django-browser-reload==1.13.0
@@ -41,7 +42,7 @@ multidict==6.0.5
 numpy==1.26.4
 packaging==24.0
 pillow==10.2.0
-# psycopg2==2.9.9
+psycopg2==2.9.9
 Pygments==2.18.0
 PyJWT==2.9.0
 PyMySQL==1.1.1

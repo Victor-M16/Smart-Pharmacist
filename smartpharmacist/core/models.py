@@ -147,6 +147,7 @@ class VendingMachine(models.Model):
     status = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    current_slot = models.IntegerField(null=True)
 
     # ForeignKey to link with the user (vending machine)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="vending_machines", null=True, blank=True)
@@ -193,5 +194,6 @@ class Inventory(models.Model):
 class Test(models.Model):
     field1 = models.CharField(max_length=255)
     field2 = models.IntegerField()
+
 
     

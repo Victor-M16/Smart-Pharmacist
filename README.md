@@ -25,6 +25,7 @@ The software component is a built from the ground up hospital management system 
 4. [Tailwind CSS](https://tailwindcss.com/)
 5. [ArduinoIDE](https://www.arduino.cc/en/Guide)
 6. [Twilio](https://www.twilio.com/en-us)
+7. [Postgres](https://www.postgresql.org/)
 
 ## Hardware 
 

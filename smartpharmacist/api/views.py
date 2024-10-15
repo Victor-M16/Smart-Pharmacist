@@ -34,7 +34,8 @@ class PatientViewSet(viewsets.ModelViewSet):
 class DoctorViewSet(viewsets.ModelViewSet):
     queryset = User.objects.filter(account_type="Doctor")
     serializer_class = UserSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser | IsDoctorOnly]
+
 
 # Medication ViewSet
 class MedicationViewSet(viewsets.ModelViewSet):
@@ -62,9 +63,9 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
         user = self.request.user
 
         if user.account_type == "Doctor":
-            return Prescription.objects.filter(doctor=user.id).order_by('created_at')
+            return Prescription.objects.filter(doctor=user.id).order_by('-created_at')
         else:
-            return Prescription.objects.all().order_by('created_at')
+            return Prescription.objects.all().order_by('-created_at')
         
     def perform_create(self, serializer):
         # Generate a unique 4-digit code
@@ -225,7 +226,7 @@ class PrescriptionMedicationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return PrescriptionMedication.objects.filter(prescription__doctor=user.id).order_by('updated_at')
+        return PrescriptionMedication.objects.filter(prescription__doctor=user.id).order_by('-updated_at')
 
 
 class ESP32_API(APIView):
