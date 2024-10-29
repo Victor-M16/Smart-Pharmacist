@@ -148,7 +148,7 @@ class PrescriptionViewSet(viewsets.ModelViewSet):
     def send_patient_sms(self, prescription):
         account_sid = settings.TWILIO_SID
         auth_token = settings.TWILIO_TOKEN
-        twilio_number = '+13183247275'
+        twilio_number = '+17075603515'
 
         client = Client(account_sid, auth_token)
 
